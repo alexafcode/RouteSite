@@ -1,0 +1,6 @@
+https://medium.freecodecamp.org/how-to-build-a-single-page-application-using-vue-js-vuex-vuetify-and-firebase-838b40721a07 
+https://www.youtube.com/watch?v=xodyM-xXrl4
+
+// npm install -g @vue/cli
+vue ui
+vue add vuetify
