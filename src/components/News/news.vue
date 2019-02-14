@@ -34,8 +34,8 @@
 
 <script>
 import axios from "axios";
-import Loading from "@/components/loading.vue";
-import NewsCategory from "@/components/NewsCategory.vue";
+import Loading from "@/views/loading.vue";
+import NewsCategory from './NewsCategory.vue';
 
 export default {
   name: "List",

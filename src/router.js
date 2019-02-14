@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home.vue'
 import List from '@/components/list.vue'
-import News from '@/components/news.vue'
+import News from './components/News/news.vue'
+
 
 Vue.use(Router)
 
