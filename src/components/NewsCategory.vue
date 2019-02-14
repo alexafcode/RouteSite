@@ -14,13 +14,22 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-btn fab dark small color="green">
-        <v-icon @click.stop="changeCategory">edit</v-icon>
+        <v-icon @click.stop="changeCategory(category.all)">360</v-icon>
       </v-btn>
       <v-btn fab dark small color="indigo">
-        <v-icon @click.stop="changeCategory">add</v-icon>
+        <v-icon @click.stop="changeCategory(category.sport)">directions_bike</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="brown">
+        <v-icon @click.stop="changeCategory(category.health)">favorite</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="blue">
+        <v-icon @click.stop="changeCategory(category.tech)">android</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="yellow">
+        <v-icon @click.stop="changeCategory(category.business)">perm_phone_msg</v-icon>
       </v-btn>
       <v-btn fab dark small color="red">
-        <v-icon @click.stop="changeCategory">add</v-icon>
+        <v-icon @click.stop="changeCategory(category.ent)">record_voice_over</v-icon>
       </v-btn>
     </v-speed-dial>
   </div>
@@ -37,15 +46,24 @@ export default {
     tabs: null,
     top: false,
     left: false,
-    transition: "slide-y-reverse-transition"
+    transition: "slide-y-reverse-transition",
+    category: {
+      all: "",
+      sport: "sports",
+      health: "health",
+      science: "science",
+      tech: "technology",
+      business: "business",
+      ent: "entertainment"
+    }
   }),
   methods: {
     // Link() {
     //   this.$parent.$options.methods.testData()
     // },
-    changeCategory() {
-      console.log("Категории")
-      this.$emit('change_category')
+    changeCategory(category) {
+      console.log(category);
+      this.$emit("change_category", category);
     }
   }
 
@@ -74,6 +92,11 @@ export default {
 .nav_category {
   .v-speed-dial {
     position: absolute;
+  }
+}
+@media screen and (max-width: 640px) {
+.v-speed-dial__list {
+  display: content;
   }
 }
 </style>

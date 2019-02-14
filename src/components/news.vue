@@ -3,10 +3,11 @@
     <div id="news_container">
       <news-category @change_category="getNews"></news-category>
       <loading v-show="loading"></loading>
-      <v-layout row v-for="(post, index) in news" :key="index">
-        <v-flex xs12 sm6 offset-sm3>
+      <v-container grid-list-lg>
+      <v-layout row wrap >
+        <v-flex xs12 sm6 offset-sm3 v-for="(post, index) in news" :key="index">
           <v-card>
-            <v-img :src="post.urlToImage" height="300px"></v-img>
+            <v-img :src="post.urlToImage" max-height="300px"></v-img>
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{ post.title }}</div>
@@ -26,6 +27,7 @@
           </v-card>
         </v-flex>
       </v-layout>
+      </v-container>
     </div>
   </div>
 </template>
@@ -51,13 +53,13 @@ export default {
     };
   },
   created() {
-    this.getNews();
+    this.getNews("");
   },
   methods: {
-    getNews() {
+    getNews(category) {
       this.news = [];
       this.loading = true;
-      let url = `https://newsapi.org/v2/top-headlines?country=ru&apiKey=`;
+      let url = `https://newsapi.org/v2/top-headlines?country=ru&category=${category}&apiKey=`;
       axios
         .get(`${url}${this.API_KEY}`)
         .then(response => {
