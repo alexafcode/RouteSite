@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-      <v-app id="inspire">
-        <!-- <news-category></news-category> -->
+      <div id="news_container">
+        <news-category></news-category>
         <v-layout row v-for="(post, index) in news" :key="index">
           <br>
           <v-flex xs12 sm6 offset-sm3>
@@ -28,7 +28,7 @@
             </v-card>
           </v-flex>
         </v-layout>
-      </v-app>
+      </div>
     </div>
 </template>
 
