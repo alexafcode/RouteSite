@@ -5,7 +5,7 @@
       :top="top"
       :left="left"
       :direction="direction"
-      :open-on-hover="hover"
+      :open-on-hover="true"
       :transition="transition"
       :fixed="true"
     >
@@ -42,7 +42,6 @@ export default {
     direction: "right",
     fab: false,
     fling: false,
-    hover: false,
     tabs: null,
     top: false,
     left: false,
@@ -88,15 +87,19 @@ export default {
   // }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 .nav_category {
   .v-speed-dial {
     position: absolute;
   }
 }
-@media screen and (max-width: 640px) {
-.v-speed-dial__list {
-  display: content;
+@media screen and (max-width: 560px) {
+  .nav_category {
+    .v-speed-dial {
+      .v-speed-dial__list {
+      display: table-header-group;
+      }
+    }
   }
 }
 </style>
