@@ -1,19 +1,18 @@
 <template>
-<div class="container">
-
-</div>
-
+    <span>
+        <image-grid></image-grid>
+    </span>
 </template>
 
 <script>
-  // import HelloWorld from '../components/HelloWorld'
+import imageGrid from "../components/Main/imageGrid.vue";
 
-  export default {
-    components: {
-    }
+export default {
+  components: {
+    imageGrid
   }
+};
 </script>
 <style lang="scss" scoped>
-
 </style>
 
