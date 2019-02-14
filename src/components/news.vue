@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <div id="news_container">
-      <news-category></news-category>
+      <news-category @change_category="getNews"></news-category>
       <loading v-show="loading"></loading>
       <v-layout row v-for="(post, index) in news" :key="index">
         <v-flex xs12 sm6 offset-sm3>
@@ -55,6 +55,8 @@ export default {
   },
   methods: {
     getNews() {
+      this.news = [];
+      this.loading = true;
       let url = `https://newsapi.org/v2/top-headlines?country=ru&apiKey=`;
       axios
         .get(`${url}${this.API_KEY}`)
@@ -66,7 +68,7 @@ export default {
         .catch(e => {
           this.errors.push(e);
         });
-    }
+    },
   }
 };
 </script>

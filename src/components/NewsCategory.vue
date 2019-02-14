@@ -14,13 +14,13 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-btn fab dark small color="green">
-        <v-icon>edit</v-icon>
+        <v-icon @click.stop="changeCategory">edit</v-icon>
       </v-btn>
       <v-btn fab dark small color="indigo">
-        <v-icon>add</v-icon>
+        <v-icon @click.stop="changeCategory">add</v-icon>
       </v-btn>
       <v-btn fab dark small color="red">
-        <v-icon>add</v-icon>
+        <v-icon @click.stop="changeCategory">add</v-icon>
       </v-btn>
     </v-speed-dial>
   </div>
@@ -38,7 +38,16 @@ export default {
     top: false,
     left: false,
     transition: "slide-y-reverse-transition"
-  })
+  }),
+  methods: {
+    // Link() {
+    //   this.$parent.$options.methods.testData()
+    // },
+    changeCategory() {
+      console.log("Категории")
+      this.$emit('change_category')
+    }
+  }
 
   // computed: {
   //   activeFab() {
