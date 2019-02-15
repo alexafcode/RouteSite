@@ -9,7 +9,7 @@
       <v-flex xs12>
         <div class="display-4 font-weight-black grey--text text-xs-center">Проект</div>
 <div class="text-xs-center">
-    <v-btn round color="brown darken-4" dark>Начать</v-btn>
+    <v-btn round large color="brown darken-4" dark><h2>Начать</h2></v-btn>
   </div>
       </v-flex>
     </v-layout>
