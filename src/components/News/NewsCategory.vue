@@ -57,34 +57,11 @@ export default {
     }
   }),
   methods: {
-    // Link() {
-    //   this.$parent.$options.methods.testData()
-    // },
     changeCategory(category) {
-      console.log(category);
+      // console.log(category);
       this.$emit("change_category", category);
     }
   }
-
-  // computed: {
-  //   activeFab() {
-
-  //   }
-  // },
-  // watch: {
-  //   top(val) {
-  //     this.bottom = !val;
-  //   },
-  //   right(val) {
-  //     this.left = !val;
-  //   },
-  //   bottom(val) {
-  //     this.top = !val;
-  //   },
-  //   left(val) {
-  //     this.right = !val;
-  //   }
-  // }
 };
 </script>
 <style lang="scss" >

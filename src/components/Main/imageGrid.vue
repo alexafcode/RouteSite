@@ -8,26 +8,33 @@
     >
       <v-flex xs12>
         <div class="display-4 font-weight-black grey--text text-xs-center">Проект</div>
-<div class="text-xs-center">
-    <v-btn round large color="brown darken-4" dark><h2>Начать</h2></v-btn>
-  </div>
+        <div class="text-xs-center">
+          <v-btn round large color="brown darken-4" dark>
+            <h2>Начать</h2>
+          </v-btn>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import loading from "@/views/loading.vue";
 export default {
   name: "imageGrid",
-  components: {
-    loading
-  },
+  components: {},
   data() {
     return {
       image: "https://picsum.photos/800/600?random"
+      // updInterval: null,
     };
-  }
+  },
+  // mounted() {
+  //   this.updInterval = setInterval( () => {
+  //     this.image = "";
+  //     this.getImage()
+  //   }, 5000);
+  // },
+  methods: {}
 };
 </script>
 <style lang="scss" scoped>

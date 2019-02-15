@@ -15,29 +15,7 @@
           >
             <v-icon>keyboard_arrow_up</v-icon>
           </v-btn>
-          <v-flex xs12 sm6 offset-sm3 v-for="(post, index) in news" :key="index">
-            <v-card>
-              <v-img :src="post.urlToImage" max-height="300px"></v-img>
-              <v-card-title primary-title>
-                <div>
-                  <div class="headline">{{ post.title }}</div>
-                  <!-- <span class="grey--text">1,000 miles of wonder</span> -->
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="purple" :href="post.url">К Новости</v-btn>
-                <v-spacer></v-spacer>
-                <v-btn icon @click="show = !show">
-                  <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </v-btn>
-              </v-card-actions>
-              <slot>
-                <v-slide-y-transition>
-                  <v-card-text v-show="show">{{ post.description }}</v-card-text>
-                </v-slide-y-transition>
-              </slot>
-            </v-card>
-          </v-flex>
+          <news-list :news="news"></news-list>
         </v-layout>
       </v-container>
     </div>
@@ -48,12 +26,14 @@
 import axios from "axios";
 import Loading from "@/views/loading.vue";
 import NewsCategory from "./NewsCategory.vue";
+import newsList from "./newsList.vue";
 
 export default {
   name: "List",
   components: {
     NewsCategory,
-    Loading
+    Loading,
+    newsList
   },
   data() {
     return {
@@ -79,7 +59,7 @@ export default {
       axios
         .get(`${url}${this.API_KEY}`)
         .then(response => {
-          console.log(response.data.articles);
+          // console.log(response.data.articles);
           this.news = response.data.articles;
           if (response) this.loading = false;
         })
@@ -118,7 +98,18 @@ export default {
  <style lang="scss" scoped>
 .button_top {
   left: 0;
+  bottom: 0;
   z-index: 9;
   position: fixed;
+  margin-bottom: 10%;
+}
+
+@media screen and (max-width: 560px) {
+  .button_top {
+    bottom: initial !important;
+    left: 0;
+    z-index: 9;
+    position: fixed;
+  }
 }
 </style>

@@ -5,3 +5,9 @@ https://tproger.ru/video/building-vuejs-app/
 // npm install -g @vue/cli
 vue ui
 vue add vuetify
+
+
+ToDo
+- open descriptions
+- List news
+- footer
