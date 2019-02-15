@@ -16,23 +16,30 @@
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
           </v-btn>
         </v-card-actions>
-        <slot>
+        <news-desc :desc="post.description"></news-desc>
+        <!-- <slot>
           <v-slide-y-transition>
             <v-card-text v-show="show">{{ post.description }}</v-card-text>
           </v-slide-y-transition>
-        </slot>
+        </slot>-->
       </v-card>
     </v-flex>
   </v-container>
 </template>
 
 <script>
+import newsDesc from "./newsDesc.vue";
+
 export default {
   name: "newsList",
   props: ["news"],
+  components: {
+    newsDesc,
+
+  },
   data() {
     return {
-      show: false,
+      show: false
     };
   },
   methods: {},
