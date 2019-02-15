@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="news_container">
-      <news-category @change_category="getNews" v-show="!scroll_show"></news-category>
+      <news-category @change_category="getNews" v-show="!category_show"></news-category>
       <loading v-show="loading"></loading>
       <v-container grid-list-lg>
         <v-layout row wrap>
@@ -62,7 +62,8 @@ export default {
       API_KEY: "",
       news: [],
       loading: true,
-      scroll_show: false
+      scroll_show: false,
+      category_show: false
     };
   },
   created() {
@@ -87,8 +88,10 @@ export default {
         });
     },
     scrollInitButton() {
-      console.log(window.pageYOffset);
-      window.pageYOffset != 0
+      window.pageYOffset <= 0
+        ? (this.category_show = false)
+        : (this.category_show = true);
+      window.pageYOffset > 350
         ? (this.scroll_show = true)
         : (this.scroll_show = false);
     },
