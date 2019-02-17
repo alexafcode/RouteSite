@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <v-flex xs12 sm6 offset-sm3 v-for="(post, index) in news" :key="index">
       <v-card>
         <v-img :src="post.urlToImage" max-height="300px"></v-img>
         <v-card-title primary-title>
@@ -16,23 +15,20 @@
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
           </v-btn>
         </v-card-actions>
-        <news-desc :desc="post.description"></news-desc>
-        <!-- <slot>
+        <slot>
           <v-slide-y-transition>
             <v-card-text v-show="show">{{ post.description }}</v-card-text>
           </v-slide-y-transition>
-        </slot>-->
+        </slot>
       </v-card>
-    </v-flex>
   </v-container>
 </template>
 
 <script>
-import newsDesc from "./newsDesc.vue";
 
 export default {
   name: "newsList",
-  props: ["news"],
+  props: ["post"],
   components: {
     newsDesc,
 

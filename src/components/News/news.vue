@@ -15,7 +15,9 @@
           >
             <v-icon>keyboard_arrow_up</v-icon>
           </v-btn>
-          <news-list :news="news"></news-list>
+          <v-flex xs12 sm6 offset-sm3 v-for="(post, index) in news" :key="index">
+          <news-list :post="post"></news-list>
+          </v-flex>
         </v-layout>
       </v-container>
     </div>
@@ -59,7 +61,7 @@ export default {
       axios
         .get(`${url}${this.API_KEY}`)
         .then(response => {
-          // console.log(response.data.articles);
+          console.log(response.data.articles);
           this.news = response.data.articles;
           if (response) this.loading = false;
         })
