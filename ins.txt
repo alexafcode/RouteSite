@@ -8,6 +8,7 @@ vue add vuetify
 
 
 ToDo
-- open descriptions
-- List news
-- footer
+- Do - open descriptions
+- Do - List news
+- footer (?)
+- news button scroll to component

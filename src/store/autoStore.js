@@ -9,9 +9,9 @@ export default {
 
   },
   mutations: {
-    ADD_AUTOS: (state, auto) => {
-      state.autos.push(auto)
-    },
+    // ADD_AUTOS: (state, auto) => {
+    //   state.autos.push(auto)
+    // },
     ADD_LS: (state, auto) => {
       state.autos.push(auto)
       localStorage.setItem('autos', JSON.stringify(state.autos))
