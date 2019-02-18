@@ -42,8 +42,13 @@ export default {
           icon: "android"
         },
         {
-          title: "Список",
+          title: "Создать",
           route: "/list",
+          icon: "done"
+        },
+                {
+          title: "Список",
+          route: "/autoCard",
           icon: "done"
         },
         {

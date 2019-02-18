@@ -1,18 +1,29 @@
 <template>
   <div>
-    <h1 @click.prevent="initState">List {{ autos[0].id}}</h1>
+    <!-- <h1 @click.prevent="initState">List {{ autos[0].id}}</h1>
     <h1 @click.prevent="addLS">{{ autos[0].name}}</h1>
     <h1>ID {{ getID }}</h1>
-    <span v-for="(auto, index) in autos" :key="index">{{ auto.name }}</span>
-
-    <v-container fluid>
+    <span v-for="(auto, index) in autos" :key="index">{{ auto.name }}</span> -->
+    <v-container style="background-color: #d8d4d4">
       <v-flex xs12 sm6 md3>
-        <v-text-field label="Name"></v-text-field>
+        <v-text-field label="Name" v-model="text"></v-text-field>
       </v-flex>
       <v-flex xs12 sm6 md3>
-        <v-textarea name="input" label="Descriptions" :value="desc" hint="Введите текст"></v-textarea>
+        <v-textarea
+          name="input"
+          label="Descriptions"
+          v-model="desc"
+          required
+          hint="Введите текст"
+        >{{ desc }}</v-textarea>
       </v-flex>
-      <v-flex xs2 sm2 class="text-xs-center text-sm-center text-md-center text-lg-center">
+      <v-flex
+        xs12
+        sm6
+        md3
+        required
+        class="text-xs-center text-sm-center text-md-center text-lg-center"
+      >
         <img :src="imageUrl" height="150" v-if="imageUrl">
         <v-text-field
           label="Select Image"
@@ -28,21 +39,20 @@
           @change="onFilePicked"
         >
       </v-flex>
-    </v-container>
-    <div class="text-xs-center">
-      <v-btn round color="brown darken-4" dark @click="saveToLS">
-        <h2>Сохранить</h2>
+      <v-btn fab dark color="indigo" v-model="validFields" :disabled="!valid" @click="saveToLS">
+        <v-icon dark>add</v-icon>
       </v-btn>
-    </div>
-    <v-flex xs6 sm4>
+    </v-container>
+
+    <!-- <v-flex xs6 sm4>
       <v-img
-        :src="autos[3].imageUrl"
-        :alt="autos[3].imageName"
+        :src="imageUrl"
+        :alt="imageName"
         aspect-ratio="1.7"
         max-height="300px"
         max-width="500px"
       ></v-img>
-    </v-flex>
+    </v-flex>-->
   </div>
 </template>
 
@@ -54,15 +64,13 @@ export default {
   components: {},
   data() {
     return {
-      // auto: { id: 3, name: "FORD"},
-      auto: { id: 4, name: "VW" },
-      id: 3,
-      //
       dialog: false,
       imageName: "",
       imageUrl: "",
       imageFile: "",
-      desc: ""
+      desc: "",
+      text: "",
+      valid: false
 
       //
     };
@@ -72,8 +80,14 @@ export default {
     ...mapGetters("autoStore", ["getById"]),
     getID() {
       return this.getById(this.id);
+    },
+    validFields() {
+      if (this.text != "" && this.desc != "") {
+        this.valid = true;
+      }
     }
   },
+  watch: {},
   methods: {
     ...mapMutations("autoStore", ["ADD_LS", "INIT_STATE"]),
     addLS() {
@@ -107,13 +121,15 @@ export default {
     },
     saveToLS() {
       let ls = {
-        id: 4,
-        name: "VW",
+        name: this.text,
+        descriptions: this.desc,
         imageName: this.imageName,
         imageFile: this.imageFile,
         imageUrl: this.imageUrl
       };
+      console.log(ls);
       this.ADD_LS(ls);
+      // ToDo router push
     }
   }
 };
