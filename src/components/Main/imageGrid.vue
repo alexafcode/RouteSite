@@ -25,7 +25,6 @@ export default {
   data() {
     return {
       image: "https://picsum.photos/800/600?random"
-      // updInterval: null,
     };
   },
   mounted() {
