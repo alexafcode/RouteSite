@@ -37,7 +37,7 @@ export default {
   methods: {
     ShortName(name) {
       if (name.length > 185) {
-        return name.substr(1, 185) + "...";
+        return name.substr(1, 270) + "...";
       } else
       return name;
     }

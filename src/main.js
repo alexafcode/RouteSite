@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import VueFire from 'vuefire'
 import firebase from 'firebase/app';
-import 'firebase/database';
+// import 'firebase/database';
 import 'firebase/firestore'
 import config from './firebase-config'
 
@@ -15,13 +15,15 @@ import config from './firebase-config'
 // Vue.prototype.$firebase = firebase.initializeApp(config);
 Vue.use(VueFire)
 
-const firebaseApp = firebase.initializeApp(config);
+
 // firebase.initializeApp({
 //   projectId: "routesite-vue",
 //   databaseURL: "https://routesite-vue.firebaseio.com"
 //  })
-const db = firebaseApp.firestore()
-const autoDb = db.collection('autoDb')
+const firebaseApp = firebase.initializeApp(config);
+const db = firebaseApp.firestore();
+const autoDb = db.collection('autoDb');
+
 // autoDb.get()
 // .then(querySnapshot => {
 //   querySnapshot.forEach(s => {
