@@ -1,12 +1,9 @@
+import autoDb from '../main.js'
 export default {
   namespaced: true,
   state: {
-    // autos: [
-    //   {  name: 'BMW'},
-    //   { id: 2, name: 'Mercedes'}
-    // ]
     autos: JSON.parse(localStorage.getItem('autos')) ? JSON.parse(localStorage.getItem('autos')) : []
-    // autos: JSON.parse(localStorage.getItem('autos'))
+    // autos: []
 
   },
   mutations: {
@@ -17,14 +14,55 @@ export default {
       state.autos.push(auto)
       localStorage.setItem('autos', JSON.stringify(state.autos))
     },
+    // INIT_STATE: (state) => {
+    //   if (localStorage.getItem('autos')) {
+    //     Object.assign(this.replaceState(state, JSON.parse(localStorage.getItem('autos'))))
+    //   }
+    // },
     INIT_STATE: (state) => {
-      if (localStorage.getItem('autos')) {
-        Object.assign(this.replaceState(state, JSON.parse(localStorage.getItem('autos'))))
-      }
+      autoDb
+      .get()
+      .then(querySnapshot => {
+        let autos = []
+        querySnapshot.forEach(s => {
+          const data = s.data()
+          let auto = {
+            id: s.id,
+            name: data.name,
+            descriptions: data.descriptions,
+            imageUrl: data.imageUrl
+          }
+          autos.push(auto)
+        })
+        this.replaceState(state, autos)
+        // this.autos = autos
+      })
+      .catch(error => console.log(error))
+    },
+    SET_AUTO(state, payload) {
+      state.autos = payload
     }
   },
   actions: {
-
+    LOAD_AUTO(commit) {
+      autoDb
+      .get()
+      .then(querySnapshot => {
+        let autos = []
+        querySnapshot.forEach(s => {
+          const data = s.data()
+          let auto = {
+            id: s.id,
+            name: data.name,
+            descriptions: data.descriptions,
+            imageUrl: data.imageUrl
+          }
+          autos.push(auto)
+        })
+        commit('SET_AUTO', autos)
+      })
+      .catch(error => console.log(error))
+    }
   },
   getters: {
     getById: state => (id) => {

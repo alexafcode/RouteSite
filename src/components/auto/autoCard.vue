@@ -5,7 +5,8 @@
         <v-container fluid>
           <v-layout row>
             <v-text-field label="Search" v-model="searchText"></v-text-field>
-            <v-btn fab dark color="brown darken-4" to="/list">
+            <!-- <v-btn fab dark color="brown darken-4" to="/list"> -->
+            <v-btn fab dark color="brown darken-4" @click="initState">
               <v-icon dark>add</v-icon>
             </v-btn>
           </v-layout>
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import cardauto from "./cardAuto.vue";
 
 export default {
@@ -30,11 +31,12 @@ export default {
   data() {
     return {
       searchText: null
+
       //
     };
   },
   computed: {
-    ...mapState("autoStore", ["autos"]),
+     ...mapState("autoStore", ["autos"]),
     filterAuto() {
       let autos = this.autos;
       if (this.searchText)
@@ -45,6 +47,18 @@ export default {
         );
       return autos;
     }
+  },
+
+  methods: {
+    test() {
+      console.log(this);
+      console.log(this.autos);
+    },
+        ...mapMutations("autoStore", ["ADD_LS", "INIT_STATE"]),
+    initState() {
+      this.INIT_STATE;
+      console.log(this.autos)
+    },
   }
 };
 </script>
