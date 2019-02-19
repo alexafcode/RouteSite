@@ -61,7 +61,7 @@ export default {
       axios
         .get(`${url}${this.API_KEY}`)
         .then(response => {
-          console.log(response.data.articles);
+          // console.log(response.data.articles);
           this.news = response.data.articles;
           if (response) this.loading = false;
         })

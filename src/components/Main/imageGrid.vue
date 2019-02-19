@@ -28,13 +28,18 @@ export default {
       // updInterval: null,
     };
   },
-  // mounted() {
-  //   this.updInterval = setInterval( () => {
-  //     this.image = "";
-  //     this.getImage()
-  //   }, 5000);
-  // },
-  methods: {}
+  mounted() {
+    // this.startUpdate()
+  },
+  methods: {
+    // startUpdate() {
+    //   this.image = ''
+    //   this.interval = window.setInterval(() => {
+    //     console.log("Interval")
+    //     this.image = "https://picsum.photos/800/600?random"
+    //   }, 10000)
+    // }
+  }
 };
 </script>
 <style lang="scss" scoped>

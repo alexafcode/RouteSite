@@ -2,11 +2,11 @@ export default {
   namespaced: true,
   state: {
     // autos: [
-    //   { id: 1, name: 'BMW'},
+    //   {  name: 'BMW'},
     //   { id: 2, name: 'Mercedes'}
     // ]
-    // autos: localStorage.getItem('autos') ? JSON.parse(localStorage.getItem('autos')) : []
-    autos: JSON.parse(localStorage.getItem('autos'))
+    autos: JSON.parse(localStorage.getItem('autos')) ? JSON.parse(localStorage.getItem('autos')) : []
+    // autos: JSON.parse(localStorage.getItem('autos'))
 
   },
   mutations: {
