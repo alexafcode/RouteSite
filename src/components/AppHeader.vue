@@ -41,11 +41,11 @@ export default {
           route: "/",
           icon: "android"
         },
-        {
-          title: "Создать",
-          route: "/list",
-          icon: "done"
-        },
+        // {
+        //   title: "Создать",
+        //   route: "/list",
+        //   icon: "done"
+        // },
                 {
           title: "Список",
           route: "/autoCard",

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-img :src="post.urlToImage" max-height="300px"></v-img>
+      <v-img :src="post.urlToImage ? post.urlToImage : ''" max-height="400px"></v-img>
       <v-card-title primary-title>
         <div>
           <div class="headline">{{ post.title }}</div>

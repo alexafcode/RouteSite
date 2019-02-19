@@ -15,8 +15,8 @@
           >
             <v-icon>keyboard_arrow_up</v-icon>
           </v-btn>
-          <v-flex xs12 sm6 offset-sm3 v-for="(post, index) in news" :key="index">
-          <news-list :post="post"></news-list>
+          <v-flex xs12 sm8 offset-sm2 v-for="(post, index) in news" :key="index">
+            <news-list :post="post"></news-list>
           </v-flex>
         </v-layout>
       </v-container>
