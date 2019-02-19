@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-flex xs12 sm8 offset-sm3>
+    <v-flex xs12 sm8 offset-sm2>
       <v-card>
         <v-img
           :src="auto.imageUrl ? auto.imageUrl : ''"

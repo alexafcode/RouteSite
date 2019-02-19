@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout>
-      <v-flex xs12 sm6 offset-sm4>
+      <v-flex xs12 sm6 offset-sm3>
         <v-container fluid>
           <v-layout row>
             <v-text-field label="Search" v-model="searchText"></v-text-field>
