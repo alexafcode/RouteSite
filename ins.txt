@@ -5,6 +5,11 @@ https://tproger.ru/video/building-vuejs-app/
 // npm install -g @vue/cli
 vue ui
 vue add vuetify
+___
+For build options - change
+node_modules\@vue\cli-service\lib\options.js
+"publicPath" change to  - publicPath: './'
+
 
 
 ToDo
