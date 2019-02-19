@@ -1,4 +1,5 @@
-https://medium.freecodecamp.org/how-to-build-a-single-page-application-using-vue-js-vuex-vuetify-and-firebase-838b40721a07 
+https://medium.freecodecamp.org/how-to-build-a-single-page-application-using-vue-js-vuex-vuetify-and-firebase-838b40721a07
+https://medium.freecodecamp.org/how-to-build-a-spa-using-vue-js-vuex-vuetify-and-firebase-adding-authentication-with-firebase-d9932d1e4365 
 https://www.youtube.com/watch?v=xodyM-xXrl4
 https://tproger.ru/video/building-vuejs-app/
 
