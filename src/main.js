@@ -8,6 +8,7 @@ import VueFire from 'vuefire'
 import firebase from 'firebase/app';
 // import 'firebase/database';
 import 'firebase/firestore'
+import 'firebase/storage'
 import config from './firebase-config'
 
 // Vue.config.productionTip = false
@@ -22,7 +23,9 @@ Vue.use(VueFire)
 //  })
 const firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.firestore();
+const storage = firebase.storage()
 const autoDb = db.collection('autoDb');
+
 
 // autoDb.get()
 // .then(querySnapshot => {
@@ -45,6 +48,8 @@ new Vue({
 }).$mount('#app')
 
 export default {
+  firebaseApp,
   db,
   autoDb,
+  storage
 }

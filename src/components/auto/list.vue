@@ -36,12 +36,14 @@
       <v-btn fab dark color="indigo" :disabled="!valid" @click="saveToLS">
         <v-icon dark>add</v-icon>
       </v-btn>
+      <v-btn color="indigo" @click="upload">Upload</v-btn>
     </v-container>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import firebase from 'firebase/app';
 
 export default {
   name: "List",
@@ -52,6 +54,7 @@ export default {
       imageName: "",
       imageUrl: "",
       imageFile: "",
+      blobImage: "",
       desc: "",
       text: "",
       valid: false
@@ -62,6 +65,7 @@ export default {
   computed: {
     ...mapState("autoStore", ["autos"]),
     ...mapGetters("autoStore", ["getById"]),
+    ...mapActions("autoStore", ['UPLOAD']),
     getID() {
       return this.getById(this.id);
     }
@@ -90,6 +94,7 @@ export default {
         fr.addEventListener("load", () => {
           this.imageUrl = fr.result;
           this.imageFile = files[0];
+          this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
         });
       } else {
         this.imageName = "";
@@ -112,6 +117,17 @@ export default {
       if (this.text != "" && this.desc != "") {
         this.valid = true;
       }
+    },
+    upload() {
+      let ls = {
+        name: this.text,
+        descriptions: this.desc,
+        imageName: this.imageName,
+        imageFile: this.imageFile,
+        imageUrl: this.imageUrl,
+        blobImage: this.blobImage
+      };
+      this.UPLOAD
     }
   }
 };

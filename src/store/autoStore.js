@@ -1,4 +1,9 @@
 import autoDb from '../main.js'
+import firebaseApp from '../main.js'
+import firebase from 'firebase/app';
+import 'firebase/storage'
+import db from '../main.js'
+import UPLOAD_MAIN from '../main.js'
 
 export default {
   namespaced: true,
@@ -26,7 +31,7 @@ export default {
     }
   },
   actions: {
-    async LOAD_AUTO( { commit }) {
+    async LOAD_AUTO({ commit }) {
       let tempDB = []
       await autoDb.autoDb.get()
         .then(querySnapshot => {
@@ -41,8 +46,30 @@ export default {
             tempDB.push(auto)
           })
         })
-        commit('SET_AUTO', tempDB)
-    }
+      commit('SET_AUTO', tempDB)
+    },
+    UPLOAD({ commit }, payload) {
+      console.log("payload", payload)
+      const name = payload.text
+      const descriptions = payload.desc
+      const imageName = payload.imageName
+      let imageUrl = "";
+      // const imageUrl = payload.imageUrl
+      const blobImage  = payload.blobImage
+      // var ref = firebase.database().ref("autoDb");
+      var storage = firebase.storage()
+      var storageRef = storage.ref();
+      var imagesRef = storageRef.child('AutoImage');
+      var spaceRef = imagesRef.child(imageName);
+      let refer = spaceRef.put(blobImage).then(function(snapshot){
+        spaceRef.getDownloadURL().then(function (url) {
+          imageUrl = url;
+          console.log("url", imageUrl)
+        })
+        console.log("Success")
+      })
+
+    },
   },
   getters: {
     getById: state => (id) => {
@@ -53,4 +80,3 @@ export default {
     }
   }
 }
-

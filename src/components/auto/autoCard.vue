@@ -22,7 +22,8 @@
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 import cardauto from "./cardAuto.vue";
-// import autoDb from '../'
+import firebase from 'firebase/app';
+
 
 export default {
   name: "autoCard",
@@ -60,7 +61,8 @@ export default {
     initState() {
       this.LOAD_AUTO
     },
-  }
+  },
+
 };
 </script>
 
