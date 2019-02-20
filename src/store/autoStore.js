@@ -47,6 +47,7 @@ export default {
       commit('SET_AUTO', tempDB)
     },
     // TODO easy code
+    // eslint-disable-next-line
     async UPLOAD({ commit }, payload) {
       let data = {
         name: payload.text,
