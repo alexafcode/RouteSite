@@ -119,14 +119,6 @@ export default {
       }
     },
     upload() {
-      let ls = {
-        name: this.text,
-        descriptions: this.desc,
-        imageName: this.imageName,
-        imageFile: this.imageFile,
-        imageUrl: this.imageUrl,
-        blobImage: this.blobImage
-      };
       this.UPLOAD
     }
   }

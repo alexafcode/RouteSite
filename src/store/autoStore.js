@@ -1,9 +1,7 @@
 import autoDb from '../main.js'
-import firebaseApp from '../main.js'
 import firebase from 'firebase/app';
 import 'firebase/storage'
-import db from '../main.js'
-import UPLOAD_MAIN from '../main.js'
+
 
 export default {
   namespaced: true,
@@ -49,26 +47,30 @@ export default {
       commit('SET_AUTO', tempDB)
     },
     UPLOAD({ commit }, payload) {
-      console.log("payload", payload)
-      const name = payload.text
-      const descriptions = payload.desc
+      let data = {
+        name: payload.text,
+        descriptions: payload.desc,
+        imageUrl: ""
+      }
       const imageName = payload.imageName
-      let imageUrl = "";
-      // const imageUrl = payload.imageUrl
-      const blobImage  = payload.blobImage
-      // var ref = firebase.database().ref("autoDb");
+      const blobImage = payload.blobImage
       var storage = firebase.storage()
       var storageRef = storage.ref();
       var imagesRef = storageRef.child('AutoImage');
       var spaceRef = imagesRef.child(imageName);
-      let refer = spaceRef.put(blobImage).then(function(snapshot){
-        spaceRef.getDownloadURL().then(function (url) {
-          imageUrl = url;
-          console.log("url", imageUrl)
+      spaceRef.put(blobImage).then(function() {
+        spaceRef.getDownloadURL().then(function(url) {
+          data.imageUrl = url;
+          firebase.firestore().collection('autoDb').doc(data.name).set(data).then(function() {
+            // eslint-disable-next-line
+            console.log("Document successfully written!");
+          })
+          // let autoRef = firebase.firestore().collection('autoDb').doc() // autogenerate doc ID
+          // autoRef.set(data).then(function() {
+          //   console.log("Document successfully written!");
+          // })
         })
-        console.log("Success")
       })
-
     },
   },
   getters: {

@@ -24,22 +24,7 @@ Vue.use(VueFire)
 const firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.firestore();
 const storage = firebase.storage()
-const autoDb = db.collection('autoDb');
-
-
-// autoDb.get()
-// .then(querySnapshot => {
-//   querySnapshot.forEach(s => {
-//     const data = s.data()
-//     let auto = {
-//       id: s.id,
-//       name: data.name,
-//       descriptions: data.descriptions,
-//       imageUrl: data.imageUrl2
-//     }
-//     console.log(auto)
-//   })
-// })
+const autoDb = db.collection('autoDb')
 
 new Vue({
   router,
