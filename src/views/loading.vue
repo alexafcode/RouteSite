@@ -27,7 +27,7 @@ export default {
   .circular {
     z-index: 99999;
     position: fixed;
-    margin-top: 25%;
+    margin-top: 15%;
   }
 }
 </style>

@@ -46,7 +46,8 @@ export default {
         })
       commit('SET_AUTO', tempDB)
     },
-    UPLOAD({ commit }, payload) {
+    // TODO easy code
+    async UPLOAD({ commit }, payload) {
       let data = {
         name: payload.text,
         descriptions: payload.desc,
@@ -58,19 +59,21 @@ export default {
       var storageRef = storage.ref();
       var imagesRef = storageRef.child('AutoImage');
       var spaceRef = imagesRef.child(imageName);
-      spaceRef.put(blobImage).then(function() {
-        spaceRef.getDownloadURL().then(function(url) {
+      await spaceRef.put(blobImage).then( async function() {
+        await spaceRef.getDownloadURL().then( async function(url) {
           data.imageUrl = url;
-          firebase.firestore().collection('autoDb').doc(data.name).set(data).then(function() {
+          await firebase.firestore().collection('autoDb').doc(data.name).set(data).then(function() {
             // eslint-disable-next-line
             console.log("Document successfully written!");
           })
-          // let autoRef = firebase.firestore().collection('autoDb').doc() // autogenerate doc ID
+          // autogenerate doc ID
+          // let autoRef = firebase.firestore().collection('autoDb').doc()
           // autoRef.set(data).then(function() {
           //   console.log("Document successfully written!");
           // })
         })
       })
+      return "Success"
     },
   },
   getters: {

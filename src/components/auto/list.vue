@@ -4,7 +4,11 @@
     <h1 @click.prevent="addLS">{{ autos[0].name}}</h1>
     <h1>ID {{ getID }}</h1>
     <span v-for="(auto, index) in autos" :key="index">{{ auto.name }}</span>-->
+          <v-flex xs12 sm8 offset-sm2>
+        <loading v-show="load"></loading>
+      </v-flex>
     <v-container style="background-color: #d8d4d4">
+
       <v-flex xs12 sm8 md6>
         <v-text-field label="Name" v-model="text" @change="validFields"></v-text-field>
       </v-flex>
@@ -33,7 +37,7 @@
           @change="onFilePicked"
         >
       </v-flex>
-      <v-btn fab dark color="indigo" :disabled="!valid" @click="saveToLS">
+      <v-btn fab dark color="indigo" :disabled="!valid" @click="upload">
         <v-icon dark>add</v-icon>
       </v-btn>
       <v-btn color="indigo" @click="upload">Upload</v-btn>
@@ -43,11 +47,14 @@
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
+import Loading from "@/views/loading.vue";
 
 export default {
   name: "List",
-  components: {},
+  components: {
+    Loading
+  },
   data() {
     return {
       dialog: false,
@@ -57,7 +64,8 @@ export default {
       blobImage: "",
       desc: "",
       text: "",
-      valid: false
+      valid: false,
+      load: false
 
       //
     };
@@ -119,11 +127,21 @@ export default {
       }
     },
     upload() {
-      this.UPLOAD
+      this.load = true;
+      this.UPLOAD.then((res) => {
+        console.log(res)
+        this.$router.push("autoCard")
+      }).catch((err) => {
+        console.log(err)
+      });
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style lang="scss">
+.loading {
+    margin-top: 10%;
+}
+</style>>
+
