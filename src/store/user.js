@@ -1,0 +1,57 @@
+// import autoDb from '../main.js'
+// import firebase from 'firebase';
+//import firebaseApp from '../main.js'
+import firebase from 'firebase/app';
+import '@firebase/auth';
+
+
+export default {
+  namespaced: true,
+  state: {
+    recipes: [],
+    apiUrl: '',
+    user: null,
+    isAuthenticated: false
+
+  },
+  mutations: {
+    // INIT_STATE: (state) => {
+    //   if (localStorage.getItem('autos')) {
+    //     Object.assign(this.replaceState(state, JSON.parse(localStorage.getItem('autos'))))
+    //   }
+    // },
+
+    setUser(state, payload) {
+      state.user = payload;
+    },
+    setIsAuthenticated(state, payload) {
+      state.isAuthenticated = payload;
+    }
+  },
+  actions: {
+    async USER_JOIN({ commit }, { email, password }) {
+      console.log("USER_JOIN")
+      console.log(email, password)
+      await firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then( user => {
+        commit('setUser', user);
+        commit('setIsAuthenticated', true);
+      })
+      .catch( error => {
+        console.log(error)
+        commit('setUser', null);
+        commit('setIsAuthenticated', false);
+      })
+      return "Success"
+    }
+  },
+  getters: {
+    user: state => {
+      return state.user
+    },
+    isAuthenticated(state) {
+      return state.user !== null && state.user !== undefined;
+  }
+  }
+}

@@ -4,6 +4,8 @@ import Home from '@/components/Home.vue'
 import List from './components/auto/list.vue'
 import autoCard from './components/auto/autoCard.vue'
 import News from './components/News/news.vue'
+import signin from './components/Main/SignIn.vue'
+
 
 
 Vue.use(Router)
@@ -30,6 +32,11 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: News
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: signin
     },
     // {
     //   path: '/about',

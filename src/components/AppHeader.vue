@@ -2,7 +2,7 @@
   <span>
     <v-navigation-drawer app v-model="drawer" class="brown lighten-2" dark disable-resize-watcher>
       <v-list>
-        <template v-for="(item, index) in items">
+        <template v-for="(item, index) in items_mobile">
           <v-list-tile :key="index" :to="item.route">
             <v-list-tile-content>{{item.title}}</v-list-tile-content>
           </v-list-tile>
@@ -23,12 +23,14 @@
         <v-icon v-html="item.icon"></v-icon>
         <v-btn flat class="hidden-sm-and-down" :to="item.route">{{item.title}}</v-btn>
       </div>-->
-      <!-- <v-btn color="brown lighten-3" class="hidden-sm-and-down">JOIN</v-btn> -->
+      <v-spacer class="hidden-sm-and-down"></v-spacer>
+      <v-btn color="brown lighten-3" v-show="!isAuthenticated" class="hidden-sm-and-down" to="/signin">JOIN</v-btn>
     </v-toolbar>
   </span>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "AppHeader",
   data() {
@@ -41,12 +43,29 @@ export default {
           route: "/",
           icon: "android"
         },
-        // {
-        //   title: "Создать",
-        //   route: "/list",
-        //   icon: "done"
-        // },
-                {
+        {
+          title: "Список",
+          route: "/autoCard",
+          icon: "done"
+        },
+        {
+          title: "Новости",
+          route: "/news",
+          icon: "done"
+        }
+      ],
+            items_mobile: [
+        {
+          title: "Home",
+          route: "/",
+          icon: "android"
+        },
+        {
+          title: "SignIn",
+          route: "/signin",
+          icon: "done"
+        },
+        {
           title: "Список",
           route: "/autoCard",
           icon: "done"
@@ -58,7 +77,10 @@ export default {
         }
       ]
     };
-  }
+  },
+  computed: {
+    ...mapState("user", ["isAuthenticated"]),
+    }
 };
 </script>
 
