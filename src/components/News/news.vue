@@ -7,6 +7,7 @@
         <v-layout row wrap>
           <v-btn
             icon
+            large
             class="button_top"
             color="brown darken-1"
             v-scroll="scrollInitButton"
