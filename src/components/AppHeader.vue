@@ -40,9 +40,24 @@
         color="brown lighten-1"
         v-show="isAuthenticated"
         class="hidden-sm-and-down"
-        @click="signOut"
+        @click="openDialog"
       >SignOut</v-btn>
     </v-toolbar>
+    <div>
+      <v-layout>
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-title class="headline">Are ure Sure</v-card-title>
+            <v-card-text>do you really want to go out?</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" flat="flat" @click="dialog = false">Cancel</v-btn>
+              <v-btn color="green darken-1" flat="flat" @click="signOut">signOut</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+    </div>
   </span>
 </template>
 
@@ -54,6 +69,7 @@ export default {
     return {
       appTitle: "Router",
       drawer: false,
+      dialog: false,
       items: [
         {
           title: "Home",
@@ -98,6 +114,10 @@ export default {
   methods: {
     signOut() {
       this.USER_SIGNOUT;
+      this.dialog = false;
+    },
+    openDialog() {
+      this.dialog = true;
     }
   },
   computed: {
@@ -122,7 +142,13 @@ export default {
               icon: "done"
             }
           ]
-        : [];
+        : [
+            {
+              title: "Список",
+              route: "/autoCard",
+              icon: "done"
+            }
+          ];
     },
     menuItemsMobile() {
       return this.isAuthenticated
@@ -141,7 +167,7 @@ export default {
               title: "Новости",
               route: "/news",
               icon: "done"
-            },
+            }
             // {
             //   title: "SignOut",
             //   route: "/signOut",
@@ -157,6 +183,11 @@ export default {
             {
               title: "SignUp",
               route: "/signup",
+              icon: "done"
+            },
+            {
+              title: "Список",
+              route: "/autoCard",
               icon: "done"
             }
           ];

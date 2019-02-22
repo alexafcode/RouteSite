@@ -19,5 +19,5 @@ ToDo
 - footer (?)
 - news button scroll to component
 - Load SignIn
-- Load SignOut
+- Load SignOut and mobile SignOut
 

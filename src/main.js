@@ -10,6 +10,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/storage'
 import config from './firebase-config'
+import '@firebase/auth';
 
 // Vue.config.productionTip = false
 
@@ -30,6 +31,11 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  created() {
+    firebase.auth().onAuthStateChanged( user => {
+      store.dispatch('user/STATE_CHANGED', user)
+    })
+  }
 }).$mount('#app')
 
 export default {

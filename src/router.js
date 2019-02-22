@@ -6,7 +6,8 @@ import autoCard from './components/auto/autoCard.vue'
 import News from './components/News/news.vue'
 import signin from './components/Main/SignIn.vue'
 import signup from './components/Main/SignUp.vue'
-
+// import { Store } from 'vuex';
+import store from './store'
 
 
 Vue.use(Router)
@@ -22,7 +23,8 @@ export default new Router({
     {
       path: '/list',
       name: 'list',
-      component: List
+      component: List,
+      beforeEnter: authGuard
     },
     {
       path: '/autoCard',
@@ -32,7 +34,8 @@ export default new Router({
     {
       path: '/news',
       name: 'news',
-      component: News
+      component: News,
+      beforeEnter: authGuard
     },
     {
       path: '/signin',
@@ -52,3 +55,11 @@ export default new Router({
     // }
   ]
 })
+// Не даёт зайти не зарегистрированному пользователю
+function authGuard(from, to, next) {
+  if (store.state.user){
+    next()
+  }
+  else
+    next('/signup')
+}

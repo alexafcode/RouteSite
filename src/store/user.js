@@ -26,11 +26,14 @@ export default {
     },
     setIsAuthenticated(state, payload) {
       state.isAuthenticated = payload;
+    },
+    unsetUser(state) {
+      state.user = null;
+      state.isAuthenticated = false
     }
   },
   actions: {
     async USER_JOIN({ commit }, { email, password }) {
-      console.log("USER_JOIN")
       console.log(email, password)
       await firebase
         .auth()
@@ -70,6 +73,14 @@ export default {
           commit('setUser', null);
           commit('setIsAuthenticated', false);
         });
+    },
+    STATE_CHANGED({ commit }, payload) {
+      if (payload) {
+        commit('setUser', payload);
+        commit('setIsAuthenticated', true);
+      } else {
+        commit('unsetUser')
+      }
     }
   },
   getters: {
