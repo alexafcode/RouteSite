@@ -2,7 +2,7 @@
   <span>
     <v-navigation-drawer app v-model="drawer" class="brown lighten-2" dark disable-resize-watcher>
       <v-list>
-        <template v-for="(item, index) in items_mobile">
+        <template v-for="(item, index) in menuItemsMobile">
           <v-list-tile :key="index" :to="item.route">
             <v-list-tile-content>{{item.title}}</v-list-tile-content>
           </v-list-tile>
@@ -14,7 +14,7 @@
       <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-spacer class="hidden-sm-and-up"></v-spacer>
       <v-toolbar-title>{{appTitle}}</v-toolbar-title>
-      <div v-for="(item, index) in items" :key="index">
+      <div v-for="(item, index) in menuItems" :key="index">
         <v-btn flat class="hidden-sm-and-down" :to="item.route">{{item.title}}</v-btn>
       </div>
       <!-- <v-btn flat class="hidden-sm-and-down">Menu</v-btn> -->
@@ -24,13 +24,30 @@
         <v-btn flat class="hidden-sm-and-down" :to="item.route">{{item.title}}</v-btn>
       </div>-->
       <v-spacer class="hidden-sm-and-down"></v-spacer>
-      <v-btn color="brown lighten-3" v-show="!isAuthenticated" class="hidden-sm-and-down" to="/signin">JOIN</v-btn>
+      <v-btn
+        color="brown lighten-1"
+        v-show="!isAuthenticated"
+        class="hidden-sm-and-down"
+        to="/signin"
+      >SignIn</v-btn>
+      <v-btn
+        color="brown lighten-1"
+        v-show="!isAuthenticated"
+        class="hidden-sm-and-down"
+        to="/signup"
+      >SignUp</v-btn>
+      <v-btn
+        color="brown lighten-1"
+        v-show="isAuthenticated"
+        class="hidden-sm-and-down"
+        @click="signOut"
+      >SignOut</v-btn>
     </v-toolbar>
   </span>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "AppHeader",
   data() {
@@ -54,7 +71,7 @@ export default {
           icon: "done"
         }
       ],
-            items_mobile: [
+      items_mobile: [
         {
           title: "Home",
           route: "/",
@@ -78,9 +95,73 @@ export default {
       ]
     };
   },
+  methods: {
+    signOut() {
+      this.USER_SIGNOUT;
+    }
+  },
   computed: {
     ...mapState("user", ["isAuthenticated"]),
+    ...mapActions("user", ["USER_SIGNOUT", "USER_SIGNUP"]),
+    menuItems() {
+      return this.isAuthenticated
+        ? [
+            {
+              title: "Home",
+              route: "/",
+              icon: "android"
+            },
+            {
+              title: "Список",
+              route: "/autoCard",
+              icon: "done"
+            },
+            {
+              title: "Новости",
+              route: "/news",
+              icon: "done"
+            }
+          ]
+        : [];
+    },
+    menuItemsMobile() {
+      return this.isAuthenticated
+        ? [
+            {
+              title: "Home",
+              route: "/",
+              icon: "android"
+            },
+            {
+              title: "Список",
+              route: "/autoCard",
+              icon: "done"
+            },
+            {
+              title: "Новости",
+              route: "/news",
+              icon: "done"
+            },
+            // {
+            //   title: "SignOut",
+            //   route: "/signOut",
+            //   icon: "done"
+            // }
+          ]
+        : [
+            {
+              title: "SignIn",
+              route: "/signin",
+              icon: "done"
+            },
+            {
+              title: "SignUp",
+              route: "/signup",
+              icon: "done"
+            }
+          ];
     }
+  }
 };
 </script>
 

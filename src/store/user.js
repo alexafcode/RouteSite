@@ -32,18 +32,44 @@ export default {
     async USER_JOIN({ commit }, { email, password }) {
       console.log("USER_JOIN")
       console.log(email, password)
-      await firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then( user => {
-        commit('setUser', user);
-        commit('setIsAuthenticated', true);
-      })
-      .catch( error => {
-        console.log(error)
-        commit('setUser', null);
-        commit('setIsAuthenticated', false);
-      })
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(user => {
+          commit('setUser', user);
+          commit('setIsAuthenticated', true);
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setUser', null);
+          commit('setIsAuthenticated', false);
+        })
       return "Success"
+    },
+    async USER_SIGNUP({ commit }, { email, password }) {
+      console.log(email, password)
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(user => {
+          commit('setUser', user);
+          commit('setIsAuthenticated', true);
+        })
+    },
+    USER_SIGNOUT({ commit }) {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          commit('setUser', null);
+          commit('setIsAuthenticated', false);
+          console.log("Success")
+        })
+        .catch((error) => {
+          console.log(error)
+          commit('setUser', null);
+          commit('setIsAuthenticated', false);
+        });
     }
   },
   getters: {
@@ -52,6 +78,6 @@ export default {
     },
     isAuthenticated(state) {
       return state.user !== null && state.user !== undefined;
-  }
+    }
   }
 }

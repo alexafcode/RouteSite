@@ -5,6 +5,7 @@ import List from './components/auto/list.vue'
 import autoCard from './components/auto/autoCard.vue'
 import News from './components/News/news.vue'
 import signin from './components/Main/SignIn.vue'
+import signup from './components/Main/SignUp.vue'
 
 
 
@@ -37,6 +38,11 @@ export default new Router({
       path: '/signin',
       name: 'signin',
       component: signin
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: signup
     },
     // {
     //   path: '/about',
