@@ -13,7 +13,9 @@
     <v-toolbar app color="brown darken-4" dark>
       <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-spacer class="hidden-sm-and-up"></v-spacer>
+      <router-link to="/">
       <v-toolbar-title>{{appTitle}}</v-toolbar-title>
+      </router-link>
       <div v-for="(item, index) in menuItems" :key="index">
         <v-btn flat class="hidden-sm-and-down" :to="item.route">{{item.title}}</v-btn>
       </div>

@@ -57,7 +57,7 @@ export default new Router({
 })
 // Не даёт зайти не зарегистрированному пользователю
 function authGuard(from, to, next) {
-  if (store.state.user){
+  if (store.state.user.isAuthenticated){
     next()
   }
   else
