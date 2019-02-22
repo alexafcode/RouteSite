@@ -76,12 +76,20 @@ export default {
       })
       return "Success"
     },
+    async DELETE ({coomit}, payload) {
+      await autoDb.autoDb.doc(payload.auto.id).delete().then(() => {
+        console.log("Document successfully deleted!");
+        return "Document successfully deleted!"
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    }
   },
   getters: {
     getById: state => (id) => {
       return state.autos.find(autos => autos.id === id)
     },
-    auto: state => {
+    autoState: state => {
       return state.autos
     }
   }

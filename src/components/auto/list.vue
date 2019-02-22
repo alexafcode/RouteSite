@@ -22,9 +22,7 @@
           >{{ desc }}</v-textarea>
         </v-flex>
         <v-flex xs12 sm8 md6 class="text-xs-center text-sm-center text-md-center text-lg-center">
-          <div v-for="(imageUrl, index) in imageUrls" :key="index">
             <img :src="imageUrl" height="150" v-if="imageUrl">
-          </div>
           <v-text-field
             label="Select Image"
             @click="pickFile"
@@ -64,10 +62,8 @@ export default {
       dialog: false,
       imageName: "",
       imageUrl: "",
-      imageUrls: [],
       imageFile: "",
       blobImage: "",
-      blobImages: [],
       desc: "",
       text: "",
       valid: false,
@@ -106,12 +102,9 @@ export default {
         const fr = new FileReader();
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
-          let arr = [];
           this.imageUrl = fr.result;
           this.imageFile = files[0];
-          this.arr.push(files[0]);
-          this.imageUrls.push(fr.result);
-          this.blobImages = new Blob([arr], { type: "image/jpeg" });
+          this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
 
           // this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
           // files.forEach(f => {
@@ -124,17 +117,17 @@ export default {
         this.imageUrl = "";
       }
     },
-    saveToLS() {
-      let ls = {
-        name: this.text,
-        descriptions: this.desc,
-        imageName: this.imageName,
-        imageFile: this.imageFile,
-        imageUrl: this.imageUrl
-      };
-      this.ADD_LS(ls);
-      this.$router.push("autoCard");
-    },
+    // saveToLS() {
+    //   let ls = {
+    //     name: this.text,
+    //     descriptions: this.desc,
+    //     imageName: this.imageName,
+    //     imageFile: this.imageFile,
+    //     imageUrl: this.imageUrl
+    //   };
+    //   this.ADD_LS(ls);
+    //   this.$router.push("autoCard");
+    // },
     validFields() {
       if (this.text != "" && this.desc != "") {
         this.valid = true;
@@ -149,10 +142,6 @@ export default {
         console.log(err);
       });
     },
-    testData() {
-      console.log(this.blobImage);
-      console.log(this.blobImages);
-    }
   }
 };
 </script>
