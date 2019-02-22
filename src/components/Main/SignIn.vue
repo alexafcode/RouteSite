@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-flex xs12 sm6 offset-sm3>
+      <loading v-show="load"></loading>
       <v-form ref="form" v-model="valid" lazy-validation>
         <!-- <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field> -->
         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
@@ -21,14 +22,18 @@
 </template>
 
 <script>
+import loading from '@/views/loading.vue'
 import { mapActions } from "vuex";
 
 export default {
   name: "signin",
-  components: {},
+  components: {
+    loading
+  },
   data() {
     return {
       valid: true,
+      load: false,
       // name: "",
       // nameRules: [
       //   v => !!v || "Name is required",
@@ -52,6 +57,7 @@ export default {
   },
   methods: {
     validate() {
+      this.load = true;
       if (this.$refs.form.validate()) {
         // this.snackbar = true;
         this.USER_JOIN.then( r => {
