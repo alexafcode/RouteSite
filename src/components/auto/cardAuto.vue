@@ -16,8 +16,8 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange" @click="openDialog">Delete</v-btn>
+          <v-btn flat color="orange">Open</v-btn>
+          <v-btn flat color="grey" @click="openDialog">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -61,15 +61,13 @@ export default {
       } else return name;
     },
     openDialog() {
-      console.log(this)
       this.dialog = true;
     },
     deleteAuto() {
-      console.log(this.auto.id);
+      this.$emit("updateState")
       this.DELETE.then(r => {
-        console.log(r);
+        this.$emit("updateState")
         this.dialog = false;
-        // ToDo update state or page
       });
     }
   }

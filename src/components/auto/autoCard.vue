@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-btn color="green darken-1" flat="flat" @click="initState">Update</v-btn>
     <v-layout>
       <v-flex xs12 sm6 offset-sm3>
         <v-container fluid>
@@ -14,7 +15,7 @@
       </v-flex>
     </v-layout>
     <div id="card_list" v-for="(auto, index) in filterAuto" :key="index">
-      <cardauto :auto="auto"></cardauto>
+      <cardauto :auto="auto"  @updateState="initState"></cardauto>
     </div>
   </v-container>
 </template>
@@ -57,7 +58,7 @@ export default {
   },
 
   methods: {
-        ...mapMutations("autoStore", ["ADD_LS", "INIT_STATE"]),
+        // ...mapMutations("autoStore", ["ADD_LS", "INIT_STATE"]),
     initState() {
       this.LOAD_AUTO
     },
