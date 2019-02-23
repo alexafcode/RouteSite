@@ -17,7 +17,7 @@
         </v-card-title>
         <v-card-actions>
           <v-btn flat color="orange">Open</v-btn>
-          <v-btn flat color="grey" @click="openDialog">Delete</v-btn>
+          <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "card_auto",
   props: ["auto"],
@@ -53,6 +53,8 @@ export default {
   },
   computed: {
     ...mapActions("autoStore", ["DELETE"]),
+    ...mapState("user", ["isAuthenticated"]),
+
   },
   methods: {
     ShortName(name) {
