@@ -72,45 +72,45 @@ export default {
       appTitle: "Router",
       drawer: false,
       dialog: false,
-      items: [
-        {
-          title: "Home",
-          route: "/",
-          icon: "android"
-        },
-        {
-          title: "Список",
-          route: "/autoCard",
-          icon: "done"
-        },
-        {
-          title: "Новости",
-          route: "/news",
-          icon: "done"
-        }
-      ],
-      items_mobile: [
-        {
-          title: "Home",
-          route: "/",
-          icon: "android"
-        },
-        {
-          title: "SignIn",
-          route: "/signin",
-          icon: "done"
-        },
-        {
-          title: "Список",
-          route: "/autoCard",
-          icon: "done"
-        },
-        {
-          title: "Новости",
-          route: "/news",
-          icon: "done"
-        }
-      ]
+      // items: [
+      //   {
+      //     title: "Home",
+      //     route: "/",
+      //     icon: "android"
+      //   },
+      //   {
+      //     title: "Список",
+      //     route: "/autoCard",
+      //     icon: "done"
+      //   },
+      //   {
+      //     title: "Новости",
+      //     route: "/news",
+      //     icon: "done"
+      //   }
+      // ],
+      // items_mobile: [
+      //   {
+      //     title: "Home",
+      //     route: "/",
+      //     icon: "android"
+      //   },
+      //   {
+      //     title: "SignIn",
+      //     route: "/signin",
+      //     icon: "done"
+      //   },
+      //   {
+      //     title: "Список",
+      //     route: "/autoCard",
+      //     icon: "done"
+      //   },
+      //   {
+      //     title: "Новости",
+      //     route: "/news",
+      //     icon: "done"
+      //   }
+      // ]
     };
   },
   methods: {
@@ -170,12 +170,13 @@ export default {
               title: "Новости",
               route: "/news",
               icon: "done"
+            },
+            {
+              title: "SignOut",
+              route: "/signOut",
+              icon: "done",
+              action: "signOut"
             }
-            // {
-            //   title: "SignOut",
-            //   route: "/signOut",
-            //   icon: "done"
-            // }
           ]
         : [
             {

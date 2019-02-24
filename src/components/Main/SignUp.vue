@@ -14,7 +14,7 @@
           v-model="password"
           :rules="passwordRules"
         ></v-text-field>
-         <v-text-field v-model="errorText" label="Error" color="red" v-show="errorMess"></v-text-field>
+        <v-alert :value="errorMess" color="error" icon="warning" outline>{{  errorText }}.</v-alert>
         <v-btn :disabled="!valid" color="success" @click="signUp">SIGNUP</v-btn>
         <v-btn color="error" @click="reset">Reset Form</v-btn>
       </v-form>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import loading from '@/views/loading.vue'
+import loading from "@/views/loading.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -55,32 +55,31 @@ export default {
     };
   },
   mounted() {},
-    computed: {
-    ...mapActions("user", ["USER_JOIN", "USER_SIGNUP"]),
+  computed: {
+    ...mapActions("user", ["USER_JOIN", "USER_SIGNUP"])
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
         // this.snackbar = true;
-        this.USER_JOIN.then( r => {
-          console.log(r)
+        this.USER_JOIN.then(r => {
+          console.log(r);
           this.$router.push("/");
-        })
+        });
       }
     },
     signUp() {
       this.load = true;
       if (this.$refs.form.validate()) {
-        this.USER_SIGNUP.then( r =>{
-          console.log(r)
+        this.USER_SIGNUP.then(r => {
+          console.log(r);
           this.$router.push("/");
-        })
-        .catch(error => {
-          console.log(error.message)
+        }).catch(error => {
+          console.log(error.message);
           this.errorText = error.message;
-          this.errorMess = true
+          this.errorMess = true;
           this.load = false;
-        })
+        });
       }
     },
     reset() {
