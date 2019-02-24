@@ -50,7 +50,6 @@ export default {
       return "Success"
     },
     async USER_SIGNUP({ commit }, { email, password }) {
-      console.log(email, password)
       await firebase
         .auth()
         .signInWithEmailAndPassword(email, password)

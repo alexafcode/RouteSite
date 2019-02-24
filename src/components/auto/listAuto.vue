@@ -18,6 +18,7 @@
         <v-card-actions>
           <v-btn flat color="orange">Open</v-btn>
           <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>
+          <!-- ToDO v-for -->
         </v-card-actions>
       </v-card>
     </v-flex>

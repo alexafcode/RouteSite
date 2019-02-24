@@ -14,6 +14,7 @@
           v-model="password"
           :rules="passwordRules"
         ></v-text-field>
+         <v-text-field v-model="errorText" label="Error" color="red" v-show="errorMess"></v-text-field>
         <v-btn :disabled="!valid" color="success" @click="signUp">SIGNUP</v-btn>
         <v-btn color="error" @click="reset">Reset Form</v-btn>
       </v-form>
@@ -34,6 +35,8 @@ export default {
     return {
       load: false,
       valid: true,
+      errorMess: false,
+      errorText: null,
       // name: "",
       // nameRules: [
       //   v => !!v || "Name is required",
@@ -71,6 +74,12 @@ export default {
         this.USER_SIGNUP.then( r =>{
           console.log(r)
           this.$router.push("/");
+        })
+        .catch(error => {
+          console.log(error.message)
+          this.errorText = error.message;
+          this.errorMess = true
+          this.load = false;
         })
       }
     },

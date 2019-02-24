@@ -117,6 +117,7 @@ export default {
     signOut() {
       this.USER_SIGNOUT;
       this.dialog = false;
+      this.$router.push("/");
     },
     openDialog() {
       this.dialog = true;
