@@ -6,6 +6,7 @@ import autoCard from './components/auto/autoCard.vue'
 import News from './components/News/news.vue'
 import signin from './components/Main/SignIn.vue'
 import signup from './components/Main/SignUp.vue'
+import currency from './components/currency/currency.vue'
 // import { Store } from 'vuex';
 import store from './store'
 
@@ -35,6 +36,12 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: News,
+      beforeEnter: authGuard
+    },
+    {
+      path: '/currency',
+      name: 'currency',
+      component: currency,
       beforeEnter: authGuard
     },
     {

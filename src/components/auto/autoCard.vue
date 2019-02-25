@@ -49,8 +49,8 @@ export default {
       if (this.searchText)
         autos = autos.filter(
           a =>
-            a.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
-            a.descriptions.toLowerCase().includes(this.searchText.toLowerCase())
+            a.name.toLowerCase().includes(this.searchText.toLowerCase())
+            // || a.descriptions.toLowerCase().includes(this.searchText.toLowerCase())
         );
       return autos;
     }

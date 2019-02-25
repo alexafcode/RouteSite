@@ -14,7 +14,7 @@
       <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-spacer class="hidden-sm-and-up"></v-spacer>
       <router-link to="/">
-      <v-toolbar-title>{{appTitle}}</v-toolbar-title>
+        <v-toolbar-title>{{appTitle}}</v-toolbar-title>
       </router-link>
       <div v-for="(item, index) in menuItems" :key="index">
         <v-btn flat class="hidden-sm-and-down" :to="item.route">{{item.title}}</v-btn>
@@ -71,7 +71,7 @@ export default {
     return {
       appTitle: "Router",
       drawer: false,
-      dialog: false,
+      dialog: false
       // items: [
       //   {
       //     title: "Home",
@@ -143,6 +143,11 @@ export default {
               title: "Новости",
               route: "/news",
               icon: "done"
+            },
+            {
+              title: "currency",
+              route: "/currency",
+              icon: "trending_up"
             }
           ]
         : [
@@ -170,6 +175,11 @@ export default {
               title: "Новости",
               route: "/news",
               icon: "done"
+            },
+            {
+              title: "currency",
+              route: "/currency",
+              icon: "trending_up"
             },
             {
               title: "SignOut",
