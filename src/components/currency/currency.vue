@@ -3,8 +3,15 @@
     <loading v-show="loading"></loading>
     <v-container fluid>
       <v-layout row>
-        <v-flex xs2>
-          <v-date-picker v-model="pickerDate" width="210" @change="getCurrency" :first-day-of-week="1" color="brown darken-4"></v-date-picker>
+        <v-btn fab small dark color="brown darken-4" @click="datapicker = !datapicker"></v-btn>
+        <v-flex xs2 class="app__datepicker" ref="datepicker" v-show="datapicker">
+          <v-date-picker
+            v-model="pickerDate"
+            width="210"
+            @change="getCurrency"
+            :first-day-of-week="1"
+            color="brown darken-4"
+          ></v-date-picker>
         </v-flex>
         <v-flex xs10>
           <div id="chart" ref="chartdiv"></div>
@@ -21,7 +28,7 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_moonrisekingdom from "@amcharts/amcharts4/themes/moonrisekingdom";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import { now } from "@amcharts/amcharts4/.internal/core/utils/Time";
+/// import { now } from "@amcharts/amcharts4/.internal/core/utils/Time";
 import moment from "moment";
 
 am4core.useTheme(am4themes_moonrisekingdom);
@@ -41,7 +48,7 @@ export default {
       currencyDate: [],
       loading: true,
       pickerDate: moment().format("YYYY-MM-DD"),
-      // endDate: moment().format("YYYY-MM-DD")
+      datapicker: false
     };
   },
   mounted() {
@@ -54,13 +61,12 @@ export default {
   watch: {},
   methods: {
     getCurrency() {
+      this.datapicker = false;
       let now = new Date();
       let endDate = moment(this.pickerDate).format("YYYY-MM-DD");
       let date = moment(endDate)
         .add(-8, "days")
         .format("YYYY-MM-DD");
-      // let endDate = moment().format("YYYY-MM-DD");
-
       let chart = am4core.create(this.$refs.chartdiv, am4charts.XYChart);
       chart.paddingRight = 20;
       this.loading = true;
@@ -73,14 +79,12 @@ export default {
           let data = response.data;
           if (response) this.loading = false;
           // ToDo easy
-          let arr = Object.entries(data);
-          let cur = arr[0][1];
-          let count = 0;
+          let array = Object.values(data);
+          let cur = array[0];
           let dataChart = [];
           for (let prop in cur) {
             dataChart.push({
               date: new Date(prop),
-              name: "name" + prop,
               value: cur[prop]
             });
           }
@@ -120,9 +124,14 @@ export default {
 }
 @media screen and (max-width: 980px) {
   #app {
+    .app__datepicker {
+      //display: none;
+      z-index: 9;
+    }
     #chart {
-      // transform: scale(0.5);
-      height: 20em;
+      // transform: scale(1.2);
+      height: 82vh;
+      width: 82vw;
     }
   }
 }
