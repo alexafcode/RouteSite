@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex xs12 sm6 offset-sm3 @keyup.enter="signUp">
       <loading v-show="load"></loading>
       <v-form ref="form" v-model="valid" lazy-validation>
         <!-- <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field> -->
@@ -15,7 +15,7 @@
           :rules="passwordRules"
         ></v-text-field>
         <v-alert :value="errorMess" color="error" icon="warning" outline>{{  errorText }}.</v-alert>
-        <v-btn :disabled="!valid" color="success" @click="signUp">SIGNUP</v-btn>
+        <v-btn :disabled="!valid" color="success" @click="signUp" >SIGNUP</v-btn>
         <v-btn color="error" @click="reset">Reset Form</v-btn>
       </v-form>
     </v-flex>
@@ -59,18 +59,18 @@ export default {
     ...mapActions("user", ["USER_JOIN", "USER_SIGNUP"])
   },
   methods: {
-    validate() {
-      if (this.$refs.form.validate()) {
-        // this.snackbar = true;
-        this.USER_JOIN.then(r => {
-          console.log(r);
-          this.$router.push("/");
-        });
-      }
-    },
+    // validate() {
+    //   if (this.$refs.form.validate()) {
+    //     // this.snackbar = true;
+    //     this.USER_JOIN.then(r => {
+    //       console.log(r);
+    //       this.$router.push("/");
+    //     });
+    //   }
+    // },
     signUp() {
-      this.load = true;
       if (this.$refs.form.validate()) {
+        this.load = true;
         this.USER_SIGNUP.then(r => {
           console.log(r);
           this.$router.push("/");
