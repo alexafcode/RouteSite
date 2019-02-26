@@ -1,10 +1,15 @@
 <template>
   <div id="app">
     <loading v-show="loading"></loading>
-    <v-container grid-list-lg>
-      <v-flex xs12 sm12 md12 offset-sm0>
-        <div id="chart" ref="chartdiv"></div>
-      </v-flex>
+    <v-container fluid>
+      <v-layout row>
+        <v-flex xs2>
+          <v-date-picker v-model="pickerDate" width="210" @change="getCurrency" :first-day-of-week="1" color="brown darken-4"></v-date-picker>
+        </v-flex>
+        <v-flex xs10>
+          <div id="chart" ref="chartdiv"></div>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -34,7 +39,9 @@ export default {
       apiKey: "",
       currency: [],
       currencyDate: [],
-      loading: true
+      loading: true,
+      pickerDate: moment().format("YYYY-MM-DD"),
+      // endDate: moment().format("YYYY-MM-DD")
     };
   },
   mounted() {
@@ -48,10 +55,12 @@ export default {
   methods: {
     getCurrency() {
       let now = new Date();
-      let date = moment()
+      let endDate = moment(this.pickerDate).format("YYYY-MM-DD");
+      let date = moment(endDate)
         .add(-8, "days")
         .format("YYYY-MM-DD");
-      let endDate = moment().format("YYYY-MM-DD");
+      // let endDate = moment().format("YYYY-MM-DD");
+
       let chart = am4core.create(this.$refs.chartdiv, am4charts.XYChart);
       chart.paddingRight = 20;
       this.loading = true;
