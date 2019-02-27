@@ -24,7 +24,7 @@ export default {
   components: {},
   data() {
     return {
-      image: "https://picsum.photos/800/600?random"
+      image: "https://picsum.photos/700/300?random"
     };
   },
   mounted() {
