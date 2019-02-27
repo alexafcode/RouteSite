@@ -12,16 +12,8 @@ import 'firebase/storage'
 import config from './firebase-config'
 import '@firebase/auth';
 
-// Vue.config.productionTip = false
-
-// Vue.prototype.$firebase = firebase.initializeApp(config);
 Vue.use(VueFire)
 
-
-// firebase.initializeApp({
-//   projectId: "routesite-vue",
-//   databaseURL: "https://routesite-vue.firebaseio.com"
-//  })
 const firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.firestore();
 const storage = firebase.storage()
@@ -31,10 +23,13 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  // created() {
+  //   firebase.auth().onAuthStateChanged( user => {
+  //     store.dispatch('user/STATE_CHANGED', user)
+  //   })
+  // }
   created() {
-    firebase.auth().onAuthStateChanged( user => {
-      store.dispatch('user/STATE_CHANGED', user)
-    })
+
   }
 }).$mount('#app')
 

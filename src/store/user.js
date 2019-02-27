@@ -5,22 +5,18 @@ import firebase from 'firebase/app';
 import '@firebase/auth';
 
 
+
 export default {
   namespaced: true,
   state: {
     recipes: [],
     apiUrl: '',
     user: null,
-    isAuthenticated: false
+    isAuthenticated: false,
+    authUnsub: null
 
   },
   mutations: {
-    // INIT_STATE: (state) => {
-    //   if (localStorage.getItem('autos')) {
-    //     Object.assign(this.replaceState(state, JSON.parse(localStorage.getItem('autos'))))
-    //   }
-    // },
-
     setUser(state, payload) {
       state.user = payload;
     },
@@ -30,10 +26,28 @@ export default {
     unsetUser(state) {
       state.user = null;
       state.isAuthenticated = false
+    },
+    setauthUnsub(state, payload) {
+      state.authUnsub = payload
     }
+
   },
   actions: {
+    INIT_STATE({ dispatch, commit, state }) {
+      /* eslint-disable */
+      return new Promise((resolve, reject) => {
+        if(state.authUnsub) {
+          state.authUnsub()
+        }
+        let unset = firebase.auth().onAuthStateChanged(user => {
+          dispatch('STATE_CHANGED', user)
+          resolve(user)
+        })
+        commit('setauthUnsub', unset)
+      })
+    },
     async USER_JOIN({ commit }, { email, password }) {
+      /* eslint-disable */
       console.log(email, password)
       await firebase
         .auth()

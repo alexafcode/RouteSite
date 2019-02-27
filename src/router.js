@@ -12,8 +12,8 @@ import store from './store'
 
 
 Vue.use(Router)
-
-export default new Router({
+//const router = new VueRouter({ routes: routes,  mode: 'history'} );
+const router = new Router({
   // mode: 'history',
   routes: [
     {
@@ -25,7 +25,9 @@ export default new Router({
       path: '/list',
       name: 'list',
       component: List,
-      beforeEnter: authGuard
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/autoCard',
@@ -36,13 +38,17 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: News,
-      beforeEnter: authGuard
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/currency',
       name: 'currency',
       component: currency,
-      beforeEnter: authGuard
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/signin',
@@ -63,10 +69,27 @@ export default new Router({
   ]
 })
 // Не даёт зайти не зарегистрированному пользователю
-function authGuard(from, to, next) {
-  if (store.state.user.isAuthenticated){
-    next()
-  }
-  else
-    next('/signup')
-}
+// function authGuard(from, to, next) {
+//   if (store.state.user.isAuthenticated){
+//     next()
+//   }
+//   else
+//     next('/signup')
+// }
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('user/INIT_STATE')
+    .then(user => {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (user) {
+          next();
+        } else {
+          next('/signup');
+        }
+      } else {
+        next();
+      }
+    })
+});
+
+export default router

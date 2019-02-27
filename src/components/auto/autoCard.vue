@@ -6,7 +6,6 @@
           <v-layout row>
             <v-text-field label="Search" v-model="searchText"></v-text-field>
             <v-btn fab dark color="brown darken-4" to="/list">
-            <!-- <v-btn fab dark color="brown darken-4" @click="initState"> -->
               <v-icon dark>add</v-icon>
             </v-btn>
           </v-layout>
@@ -33,8 +32,6 @@ export default {
   data() {
     return {
       searchText: null
-
-      //
     };
   },
   mounted() {
@@ -42,7 +39,6 @@ export default {
   },
   computed: {
      ...mapState("autoStore", ["autos"]),
-     // ...mapGetters("autoStore",['LOAD_AUTO']),
       ...mapActions("autoStore",['LOAD_AUTO']),
     filterAuto() {
       let autos = this.autos;
@@ -57,7 +53,6 @@ export default {
   },
 
   methods: {
-        // ...mapMutations("autoStore", ["ADD_LS", "INIT_STATE"]),
     initState() {
       this.LOAD_AUTO
     },
