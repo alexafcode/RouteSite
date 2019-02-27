@@ -11,7 +11,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app color="brown darken-4" dark>
-      <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer" aria-hidden="true"></v-toolbar-side-icon>
       <v-spacer class="hidden-sm-and-up"></v-spacer>
       <router-link to="/">
         <v-toolbar-title>{{appTitle}}</v-toolbar-title>
