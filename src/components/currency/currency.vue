@@ -3,7 +3,16 @@
     <loading v-show="loading"></loading>
     <v-container fluid>
       <v-layout row>
-        <v-btn fab small dark color="brown darken-4" @click="datapicker = !datapicker"></v-btn>
+        <v-btn
+          fab
+          small
+          dark
+          color="brown darken-4"
+          class="app__button"
+          @click="datapicker = !datapicker"
+        >
+          <v-icon>date_range</v-icon>
+        </v-btn>
         <v-flex xs2 class="app__datepicker" ref="datepicker" v-show="datapicker">
           <v-date-picker
             v-model="pickerDate"
@@ -13,7 +22,7 @@
             color="brown darken-4"
           ></v-date-picker>
         </v-flex>
-        <v-flex xs10>
+        <v-flex xs12>
           <div id="chart" ref="chartdiv"></div>
         </v-flex>
       </v-layout>
@@ -118,6 +127,14 @@ export default {
 
  <style lang="scss" scoped>
 #app {
+  .app__datepicker {
+    position: absolute;
+    z-index: 3;
+  }
+  .app__button {
+    position: absolute;
+    z-index: 2;
+  }
   #chart {
     height: 40em;
   }
@@ -125,13 +142,16 @@ export default {
 @media screen and (max-width: 980px) {
   #app {
     .app__datepicker {
-      //display: none;
-      z-index: 9;
+      z-index: 3;
+      position: absolute;
+    }
+    .app__button {
+      position: absolute;
+      z-index: 2;
     }
     #chart {
-      // transform: scale(1.2);
-      height: 82vh;
-      width: 82vw;
+      height: 85vh;
+      width: 85vw;
     }
   }
 }
