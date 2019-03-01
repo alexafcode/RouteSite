@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <loading v-show="loading"></loading>
+    <div class="text-xs-center">{{ textTitle }}</div>
     <v-container fluid>
       <v-layout row>
         <v-btn
@@ -57,7 +58,8 @@ export default {
       currencyDate: [],
       loading: true,
       pickerDate: moment().format("YYYY-MM-DD"),
-      datapicker: false
+      datapicker: false,
+      textTitle: "USD/RUB"
     };
   },
   mounted() {
