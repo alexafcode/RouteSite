@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <loading v-show="loading"></loading>
-    <div class="text-xs-center">{{ textTitle }}</div>
+    <!-- <div class="text-xs-center" :style="{'padding-top': '1%'}"><h3>{{ textTitle }}</h3></div> -->
     <v-container fluid>
       <v-layout row>
         <v-btn
@@ -14,11 +14,12 @@
         >
           <v-icon>date_range</v-icon>
         </v-btn>
+        <currency-change></currency-change>
         <v-flex xs2 class="app__datepicker" ref="datepicker" v-show="datapicker">
           <v-date-picker
             v-model="pickerDate"
             width="210"
-            @change="getCurrency"
+            @change="getCurrency(currentCur)"
             :first-day-of-week="1"
             color="brown darken-4"
           ></v-date-picker>
@@ -40,6 +41,7 @@ import am4themes_moonrisekingdom from "@amcharts/amcharts4/themes/moonrisekingdo
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 /// import { now } from "@amcharts/amcharts4/.internal/core/utils/Time";
 import moment from "moment";
+import currencyChange from "./currenceChange.vue";
 
 am4core.useTheme(am4themes_moonrisekingdom);
 am4core.useTheme(am4themes_animated);
@@ -47,7 +49,8 @@ am4core.useTheme(am4themes_animated);
 export default {
   name: "currency",
   components: {
-    Loading
+    Loading,
+    currencyChange
   },
   data() {
     return {
@@ -59,11 +62,12 @@ export default {
       loading: true,
       pickerDate: moment().format("YYYY-MM-DD"),
       datapicker: false,
-      textTitle: "USD/RUB"
+      currentCur: null
+      // currencyTitle: ["USD_RUB", "EUR_RUB"]
     };
   },
   mounted() {
-    this.getCurrency();
+    this.getCurrency("USD_RUB");
   },
   created() {
     //this.getCurrency();
@@ -71,7 +75,8 @@ export default {
   computed: {},
   watch: {},
   methods: {
-    getCurrency() {
+    getCurrency(cur) {
+      this.currentCur = cur;
       this.datapicker = false;
       let now = new Date();
       let endDate = moment(this.pickerDate).format("YYYY-MM-DD");
@@ -83,7 +88,8 @@ export default {
       this.loading = true;
       let url = `https://free.currencyconverterapi.com/api/v6/convert?apiKey=${
         this.apiKey
-      }&q=USD_RUB&compact=ultra&date=${date}&endDate=${endDate}`;
+      }&q=${cur}&compact=ultra&date=${date}&endDate=${endDate}`;
+      //}&q=USD_RUB&compact=ultra&date=${date}&endDate=${endDate}`;
       axios
         .get(url)
         .then(response => {
@@ -122,6 +128,9 @@ export default {
         .catch(e => {
           this.errors.push(e);
         });
+    },
+    test(item) {
+      console.log(item);
     }
   }
 };
@@ -134,6 +143,7 @@ export default {
     z-index: 3;
   }
   .app__button {
+    margin-top: 2.5%;
     position: absolute;
     z-index: 2;
   }
@@ -144,10 +154,11 @@ export default {
 @media screen and (max-width: 980px) {
   #app {
     .app__datepicker {
-      z-index: 3;
+      z-index: 2;
       position: absolute;
     }
     .app__button {
+      margin-left: 2.5%;
       position: absolute;
       z-index: 2;
     }
