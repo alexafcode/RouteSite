@@ -8,6 +8,13 @@
           </v-list-tile>
           <v-divider :key="`divider-${index}`"></v-divider>
         </template>
+        <div>__________________</div>
+        <v-list-tile v-show="isAuthenticated" @click="openDialog">
+          <v-list-tile-content>SignOut</v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-show="!isAuthenticated" @click="signInWithGoogle">
+          <v-list-tile-content>SignUp Google</v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app color="brown darken-4" dark>
@@ -146,13 +153,13 @@ export default {
               title: "currency",
               route: "/currency",
               icon: "trending_up"
-            },
-            {
-              title: "SignOut",
-              route: "/signOut",
-              icon: "done",
-              action: "signOut"
             }
+            // {
+            //   title: "SignOut",
+            //   route: "/signOut",
+            //   icon: "done",
+            //   action: "signOut"
+            // }
           ]
         : [
             {
