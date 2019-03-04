@@ -56,18 +56,9 @@ export default {
   },
   mounted() {},
   computed: {
-    ...mapActions("user", ["USER_JOIN", "USER_SIGNUP"])
+    ...mapActions("user", ["USER_SIGNUP"])
   },
   methods: {
-    // validate() {
-    //   if (this.$refs.form.validate()) {
-    //     // this.snackbar = true;
-    //     this.USER_JOIN.then(r => {
-    //       console.log(r);
-    //       this.$router.push("/");
-    //     });
-    //   }
-    // },
     signUp() {
       if (this.$refs.form.validate()) {
         this.load = true;

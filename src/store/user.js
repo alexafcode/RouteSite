@@ -94,6 +94,12 @@ export default {
       } else {
         commit('unsetUser')
       }
+    },
+    async USER_JOIN_WithGoogle() {
+      let provider = new firebase.auth.GoogleAuthProvider()
+      await firebase.auth().signInWithRedirect(provider).then((result) => {
+        return result.user
+      }).catch(error => console.log(error))
     }
   },
   getters: {

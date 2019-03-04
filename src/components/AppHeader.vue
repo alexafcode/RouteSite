@@ -34,6 +34,12 @@
       >SignUp</v-btn>
       <v-btn
         color="brown lighten-1"
+        v-show="!isAuthenticated"
+        class="hidden-sm-and-down"
+        @click="signInWithGoogle"
+      >signUp Google</v-btn>
+      <v-btn
+        color="brown lighten-1"
         v-show="isAuthenticated"
         class="hidden-sm-and-down"
         @click="openDialog"
@@ -74,13 +80,18 @@ export default {
       this.dialog = false;
       this.$router.push("/");
     },
+    signInWithGoogle() {
+      this.USER_JOIN_WithGoogle.then(r => {
+        this.$router.push("/");
+      });
+    },
     openDialog() {
       this.dialog = true;
     }
   },
   computed: {
     ...mapState("user", ["isAuthenticated"]),
-    ...mapActions("user", ["USER_SIGNOUT", "USER_SIGNUP"]),
+    ...mapActions("user", ["USER_SIGNOUT", "USER_JOIN_WithGoogle"]),
     menuItems() {
       return this.isAuthenticated
         ? [
