@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <loading v-show="loading"></loading>
-    <!-- <div class="text-xs-center" :style="{'padding-top': '1%'}"><h3>{{ textTitle }}</h3></div> -->
+    <!-- <div class="text-xs-center" :style="{'padding-top': '1%'}"><h3>{{ currentCur }}</h3></div> -->
+    <div class="text-xs-center"><h3>{{ currentCur }}</h3></div>
     <v-container fluid>
       <v-layout row>
         <v-btn
@@ -11,6 +12,7 @@
           color="brown darken-4"
           class="app__button"
           @click="datapicker = !datapicker"
+          v-click-outside
         >
           <v-icon>date_range</v-icon>
         </v-btn>
@@ -129,8 +131,23 @@ export default {
           this.errors.push(e);
         });
     },
-    test(item) {
-      console.log(item);
+    hideDiv() {
+      this.datapicker = false;
+    }
+  },
+  directives: {
+    ClickOutside: {
+      bind(el, binding, vnode) {
+        el.clickOutsideEvent = event => {
+          if (!(el == event.target || el.contains(event.target))) {
+            vnode.context.hideDiv();
+          }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unbind(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      }
     }
   }
 };
@@ -145,7 +162,7 @@ export default {
   .app__button {
     margin-top: 2.5%;
     position: absolute;
-    z-index: 2;
+    z-index: 1;
   }
   #chart {
     height: 40em;

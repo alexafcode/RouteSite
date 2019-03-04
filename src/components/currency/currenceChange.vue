@@ -47,6 +47,7 @@ export default {
     // padding-top: 3%;
     // padding-left: .5%;
     position: absolute;
+    z-index: 1;
   }
 }
 @media screen and (max-width: 560px) {
