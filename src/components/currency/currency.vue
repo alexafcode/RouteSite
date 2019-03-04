@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <currency-change></currency-change>
     <loading v-show="loading"></loading>
     <!-- <div class="text-xs-center" :style="{'padding-top': '1%'}"><h3>{{ currentCur }}</h3></div> -->
     <div class="text-xs-center"><h3>{{ currentCur }}</h3></div>
@@ -16,7 +17,6 @@
         >
           <v-icon>date_range</v-icon>
         </v-btn>
-        <currency-change></currency-change>
         <v-flex xs2 class="app__datepicker" ref="datepicker" v-show="datapicker">
           <v-date-picker
             v-model="pickerDate"
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+// ToDo separate on components
 import axios from "axios";
 import Loading from "@/views/loading.vue";
 import * as am4core from "@amcharts/amcharts4/core";
@@ -65,7 +66,6 @@ export default {
       pickerDate: moment().format("YYYY-MM-DD"),
       datapicker: false,
       currentCur: null
-      // currencyTitle: ["USD_RUB", "EUR_RUB"]
     };
   },
   mounted() {

@@ -14,7 +14,7 @@
         <v-icon>close</v-icon>
       </v-btn>
       <div v-for="(item, index) in currencyTitle" :key="index">
-        <v-btn dark small color="green" @click="changeCurrency(item)">{{ item }}</v-btn>
+        <v-btn dark small color="green darken-4" @click="changeCurrency(item)">{{ item }}</v-btn>
       </div>
     </v-speed-dial>
   </div>
@@ -47,7 +47,7 @@ export default {
     // padding-top: 3%;
     // padding-left: .5%;
     position: absolute;
-    z-index: 1;
+    z-index: 3;
   }
 }
 @media screen and (max-width: 560px) {
