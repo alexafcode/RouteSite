@@ -14,7 +14,7 @@ import store from './store'
 Vue.use(Router)
 //const router = new VueRouter({ routes: routes,  mode: 'history'} );
 const router = new Router({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     {
       path: '/',
