@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home.vue'
 import List from './components/auto/list.vue'
 import autoCard from './components/auto/autoCard.vue'
+import cardItem from './components/auto/cardItem.vue'
 import News from './components/News/news.vue'
 import signin from './components/Main/SignIn.vue'
 import signup from './components/Main/SignUp.vue'
@@ -33,6 +34,15 @@ const router = new Router({
       path: '/autoCard',
       name: 'autoCard',
       component: autoCard
+    },
+    {
+      path: '/cardItem/:id',
+      name: 'cardItem',
+      props: true,
+      component: cardItem,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/news',

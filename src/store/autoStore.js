@@ -11,19 +11,6 @@ export default {
 
   },
   mutations: {
-    // ADD_AUTOS: (state, auto) => {
-    //   state.autos.push(auto)
-    // },
-    // ADD_LS: (state, auto) => {
-    //   state.autos.push(auto)
-    //   localStorage.setItem('autos', JSON.stringify(state.autos))
-    // },
-    // INIT_STATE: (state) => {
-    //   if (localStorage.getItem('autos')) {
-    //     Object.assign(this.replaceState(state, JSON.parse(localStorage.getItem('autos'))))
-    //   }
-    // },
-
     SET_AUTO(state, payload) {
       state.autos = payload
     }
@@ -78,7 +65,7 @@ export default {
     },
     async DELETE ({coomit}, payload) {
       await autoDb.autoDb.doc(payload.auto.id).delete().then(() => {
-        console.log("Document successfully deleted!");
+        // console.log("Document successfully deleted!");
         return "Document successfully deleted!"
     }).catch(function(error) {
         console.error("Error removing document: ", error);

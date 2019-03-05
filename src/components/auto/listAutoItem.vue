@@ -12,18 +12,11 @@
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{ auto.name }}</h3>
-            <div>{{ ShortName(auto.descriptions) }}</div>
+            <div>{{ auto.descriptions }}</div>
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn
-            flat
-            color="orange"
-            v-show="isAuthenticated"
-            :to="{name: 'cardItem', params: {id: auto.id}}"
-          >Open</v-btn>
-          <!-- <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn> -->
-          <!-- ToDO v-for -->
+          <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -75,10 +68,9 @@ export default {
       this.dialog = true;
     },
     deleteAuto() {
-      this.$emit("updateState");
       this.DELETE.then(r => {
-        this.$emit("updateState");
         this.dialog = false;
+        this.$router.push("/autoCard");
       });
     }
   }
