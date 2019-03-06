@@ -59,8 +59,7 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         this.load = true;
-        this.USER_JOIN.then( r => {
-          console.log(r)
+        this.USER_JOIN.then( () => {
           this.$router.push("/");
         })
       }

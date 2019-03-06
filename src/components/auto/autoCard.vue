@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import listauto from "./listAuto.vue";
-import firebase from "firebase/app";
+// import firebase from "firebase/app";
 
 export default {
   name: "autoCard",

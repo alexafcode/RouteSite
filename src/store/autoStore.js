@@ -66,6 +66,7 @@ export default {
       })
       return "Success"
     },
+    // eslint-disable-next-line
     async DELETE ({coomit}, payload) {
       await autoDb.autoDb.doc(payload.auto.id).delete().then(() => {
         // console.log("Document successfully deleted!");

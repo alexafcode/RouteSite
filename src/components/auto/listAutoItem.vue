@@ -75,7 +75,7 @@ export default {
       this.dialog = true;
     },
     deleteAuto() {
-      this.DELETE.then(r => {
+      this.DELETE.then( () => {
         this.dialog = false;
         this.$router.push("/autoCard");
       });

@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     auth() {
-      console.log(this.isAuthenticated)
       return this.isAuthenticated
     }
   }

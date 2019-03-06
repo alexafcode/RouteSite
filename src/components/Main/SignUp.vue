@@ -62,11 +62,11 @@ export default {
     signUp() {
       if (this.$refs.form.validate()) {
         this.load = true;
-        this.USER_SIGNUP.then(r => {
-          console.log(r);
+        this.USER_SIGNUP.then(() => {
           this.$router.push("/");
         }).catch(error => {
-          console.log(error.message);
+          // eslint-disable-next-line
+          console.error(error.message);
           this.errorText = error.message;
           this.errorMess = true;
           this.load = false;

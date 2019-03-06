@@ -78,7 +78,6 @@ export default {
     getCurrency(cur) {
       this.currentCur = cur;
       this.datapicker = false;
-      let now = new Date();
       let endDate = moment(this.pickerDate).format("YYYY-MM-DD");
       let date = moment(endDate)
         .add(-8, "days")

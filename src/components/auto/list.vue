@@ -144,10 +144,11 @@ export default {
     },
     upload() {
       this.load = true;
-      this.UPLOAD.then(res => {
+      this.UPLOAD.then(() => {
         this.$router.push("autoCard");
       }).catch(err => {
-        console.log(err);
+        // eslint-disable-next-line
+        console.error(err);
       });
     }
   }

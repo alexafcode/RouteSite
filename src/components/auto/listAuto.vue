@@ -76,7 +76,7 @@ export default {
     },
     deleteAuto() {
       this.$emit("updateState");
-      this.DELETE.then(r => {
+      this.DELETE.then(() => {
         this.$emit("updateState");
         this.dialog = false;
       });

@@ -88,7 +88,7 @@ export default {
       this.$router.push("/");
     },
     signInWithGoogle() {
-      this.USER_JOIN_WithGoogle.then(r => {
+      this.USER_JOIN_WithGoogle.then(() => {
         this.$router.push("/");
       });
     },

@@ -35,7 +35,6 @@ export default {
   }),
   methods: {
     changeCurrency(item) {
-      console.log(item);
       this.$parent.getCurrency(item);
     }
   }
