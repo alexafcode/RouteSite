@@ -108,7 +108,7 @@ export default {
               icon: "android"
             },
             {
-              title: "Список",
+              title: "Авто",
               route: "/autoCard",
               icon: "done"
             },
@@ -140,7 +140,7 @@ export default {
               icon: "android"
             },
             {
-              title: "Список",
+              title: "Авто",
               route: "/autoCard",
               icon: "done"
             },
@@ -173,7 +173,7 @@ export default {
               icon: "done"
             },
             {
-              title: "Список",
+              title: "Авто",
               route: "/autoCard",
               icon: "done"
             }

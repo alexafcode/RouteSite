@@ -29,15 +29,14 @@
             v-model="imageName"
             prepend-icon="attach_file"
           ></v-text-field>
-          <div class="text-xs-center mt-5">
-            <v-rating
-              v-model="rating"
-              color="yellow darken-4"
-              background-color="grey darken-1"
-              half-increments
-              hover
-            ></v-rating>
-          </div>
+          <!-- <div class="text-xs-center mt-5"> -->
+          <v-rating
+            v-model="rating"
+            color="yellow darken-4"
+            background-color="grey darken-1"
+            half-increments
+            hover
+          ></v-rating>
           <input
             type="file"
             style="display: none"
@@ -157,10 +156,13 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  max-width: 55%;
-  // .loading {
-  //   margin-top: 10%;
-  // }
+  max-width: 65%;
+}
+@media screen and (max-width: 980px) {
+  .container {
+  max-width: 85%;
+}
+
 }
 </style>>
 
