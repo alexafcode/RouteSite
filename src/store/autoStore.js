@@ -27,7 +27,8 @@ export default {
               name: data.name,
               descriptions: data.descriptions,
               imageUrl: data.imageUrl,
-              rating: data.rating
+              rating: data.rating,
+              comment: data.comment
             }
             tempDB.push(auto)
           })
@@ -65,6 +66,18 @@ export default {
         })
       })
       return "Success"
+    },
+    async CHANGE({commit}, payload) {
+      console.log("payload", payload)
+      const change =  await firebase.firestore().collection('autoDb').doc(payload.auto.id)
+      console.log("change autoStore", change)
+      await change.update({
+        comment: payload.comments
+      }).then(() => {
+        console.log("Document successfully updated!")
+      }).catch(error => {
+        console.error("Error updating document: ", error);
+      })
     },
     // eslint-disable-next-line
     async DELETE ({coomit}, payload) {

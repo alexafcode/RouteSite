@@ -14,16 +14,25 @@
             <h3 class="headline mb-0">{{ auto.name }}</h3>
             <div>{{ auto.descriptions }}</div>
           </div>
-          <v-spacer></v-spacer>
-          <div class="d-flex">
-            <v-rating :value="auto.rating" color="amber" dense half-increments readonly size="14"></v-rating>
-            <div class="ml-2 grey--text text--darken-4">
-              <span>{{ auto.rating ? auto.rating : "NO" }}</span>
+          <v-layout column>
+            <div class="comment" v-for="item in auto.comment" :key="item">
+              <v-list-tile>
+                <li>{{ item }}</li>
+              </v-list-tile>
             </div>
-          </div>
+          </v-layout>
+          <!-- <v-spacer></v-spacer> -->
         </v-card-title>
+        <v-divider class="black"/>
+        <div class="text-xs-right">
+          <v-rating :value="auto.rating" color="amber" dense half-increments readonly size="14"></v-rating>
+          <div class="ml-2 grey--text text--darken-4">
+            <span>{{ auto.rating ? auto.rating : "NO" }}</span>
+          </div>
+        </div>
         <v-card-actions>
           <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>
+          <v-btn flat color="grey" @click="addComment" v-show="isAuthenticated">Comment</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -58,11 +67,12 @@ export default {
   components: {},
   data() {
     return {
-      dialog: false
+      dialog: false,
+      comments: ["LaLaLa", "LuLuLu", "LiLiLi"]
     };
   },
   computed: {
-    ...mapActions("autoStore", ["DELETE"]),
+    ...mapActions("autoStore", ["DELETE", "CHANGE"]),
     ...mapState("user", ["isAuthenticated"])
   },
   methods: {
@@ -75,10 +85,14 @@ export default {
       this.dialog = true;
     },
     deleteAuto() {
-      this.DELETE.then( () => {
+      this.DELETE.then(() => {
         this.dialog = false;
         this.$router.push("/autoCard");
       });
+    },
+    addComment() {
+      console.log(this.auto);
+      // this.CHANGE;
     }
   }
 };
