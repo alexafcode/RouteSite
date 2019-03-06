@@ -22,13 +22,22 @@
           >{{ desc }}</v-textarea>
         </v-flex>
         <v-flex xs12 sm8 md6 class="text-xs-center text-sm-center text-md-center text-lg-center">
-            <img :src="imageUrl" height="150" v-if="imageUrl">
+          <img :src="imageUrl" height="150" v-if="imageUrl">
           <v-text-field
             label="Select Image"
             @click="pickFile"
             v-model="imageName"
             prepend-icon="attach_file"
           ></v-text-field>
+          <div class="text-xs-center mt-5">
+            <v-rating
+              v-model="rating"
+              color="yellow darken-4"
+              background-color="grey darken-1"
+              half-increments
+              hover
+            ></v-rating>
+          </div>
           <input
             type="file"
             style="display: none"
@@ -67,7 +76,8 @@ export default {
       desc: "",
       text: "",
       valid: false,
-      load: false
+      load: false,
+      rating: 0
 
       //
     };
@@ -136,12 +146,11 @@ export default {
     upload() {
       this.load = true;
       this.UPLOAD.then(res => {
-        console.log(res);
         this.$router.push("autoCard");
       }).catch(err => {
         console.log(err);
       });
-    },
+    }
   }
 };
 </script>

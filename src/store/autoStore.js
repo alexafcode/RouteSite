@@ -26,7 +26,8 @@ export default {
               id: s.id,
               name: data.name,
               descriptions: data.descriptions,
-              imageUrl: data.imageUrl
+              imageUrl: data.imageUrl,
+              rating: data.rating
             }
             tempDB.push(auto)
           })
@@ -37,8 +38,10 @@ export default {
     // eslint-disable-next-line
     async UPLOAD({ commit }, payload) {
       let data = {
+        id: payload.text.replace(/\s/g,''),
         name: payload.text,
         descriptions: payload.desc,
+        rating: payload.rating,
         imageUrl: ""
       }
       const imageName = payload.imageName
@@ -50,7 +53,7 @@ export default {
       await spaceRef.put(blobImage).then( async function() {
         await spaceRef.getDownloadURL().then( async function(url) {
           data.imageUrl = url;
-          await firebase.firestore().collection('autoDb').doc(data.name).set(data).then(function() {
+          await firebase.firestore().collection('autoDb').doc(data.id).set(data).then(function() {
             // eslint-disable-next-line
             console.log("Document successfully written!");
           })
@@ -68,6 +71,7 @@ export default {
         // console.log("Document successfully deleted!");
         return "Document successfully deleted!"
     }).catch(function(error) {
+      /* eslint-disable */
         console.error("Error removing document: ", error);
     });
     }

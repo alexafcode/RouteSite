@@ -14,6 +14,13 @@
             <h3 class="headline mb-0">{{ auto.name }}</h3>
             <div>{{ auto.descriptions }}</div>
           </div>
+          <v-spacer></v-spacer>
+          <div class="d-flex">
+            <v-rating :value="auto.rating" color="amber" dense half-increments readonly size="14"></v-rating>
+            <div class="ml-2 grey--text text--darken-4">
+              <span>{{ auto.rating ? auto.rating : "NO" }}</span>
+            </div>
+          </div>
         </v-card-title>
         <v-card-actions>
           <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>

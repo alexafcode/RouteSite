@@ -125,7 +125,7 @@ export default {
           ]
         : [
             {
-              title: "Список",
+              title: "Авто",
               route: "/autoCard",
               icon: "done"
             }

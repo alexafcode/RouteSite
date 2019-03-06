@@ -47,8 +47,6 @@ export default {
       })
     },
     async USER_JOIN({ commit }, { email, password }) {
-      /* eslint-disable */
-      console.log(email, password)
       await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
