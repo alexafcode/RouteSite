@@ -16,7 +16,7 @@
           </div>
           <!-- ToDo Spacer -->
           <v-layout column>
-            <div class="comment" v-for="item in auto.comment" :key="item">
+            <div class="mt-2" v-for="item in auto.comment" :key="item">
               <v-list-tile>
                 <li>{{ item }}</li>
               </v-list-tile>

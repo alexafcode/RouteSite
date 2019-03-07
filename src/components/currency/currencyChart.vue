@@ -3,7 +3,9 @@
     <loading v-show="loading"></loading>
     <currency-change></currency-change>
     <!-- <div class="text-xs-center" :style="{'padding-top': '1%'}"><h3>{{ currentCur }}</h3></div> -->
-    <div class="text-xs-center"><h3>{{ currentCur }}</h3></div>
+    <div class="text-xs-center">
+      <h3>{{ currentCur }}</h3>
+    </div>
     <v-container fluid>
       <v-layout row>
         <v-btn
@@ -70,8 +72,7 @@ export default {
   mounted() {
     this.getCurrency("USD_RUB");
   },
-  created() {
-  },
+  created() {},
   computed: {},
   watch: {},
   methods: {
