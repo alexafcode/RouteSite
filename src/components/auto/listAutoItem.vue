@@ -14,25 +14,37 @@
             <h3 class="headline mb-0">{{ auto.name }}</h3>
             <div>{{ auto.descriptions }}</div>
           </div>
+          <!-- ToDo Spacer -->
           <v-layout column>
             <div class="comment" v-for="item in auto.comment" :key="item">
               <v-list-tile>
                 <li>{{ item }}</li>
               </v-list-tile>
             </div>
+            <v-layout row>
+              <v-flex xs10 md8>
+                <v-textarea
+                  name="input"
+                  label="Add Commentt"
+                  v-model="comment"
+                  hint="Введите текст"
+                >{{ comment }}</v-textarea>
+              </v-flex>
+              <v-btn fab small dark color="brown darken-4" @click="addComment">
+                <v-icon dark>add</v-icon>
+              </v-btn>
+            </v-layout>
           </v-layout>
           <!-- <v-spacer></v-spacer> -->
         </v-card-title>
         <v-divider class="black"/>
-        <div class="text-xs-right">
+        <v-card-actions>
+          <v-divider dark></v-divider>
           <v-rating :value="auto.rating" color="amber" dense half-increments readonly size="14"></v-rating>
-          <div class="ml-2 grey--text text--darken-4">
-            <span>{{ auto.rating ? auto.rating : "NO" }}</span>
-          </div>
-        </div>
+          <span class="grey--text text--darken-4">({{ auto.rating ? auto.rating : "NO" }})</span>
+        </v-card-actions>
         <v-card-actions>
           <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>
-          <v-btn flat color="grey" @click="addComment" v-show="isAuthenticated">Comment</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -68,7 +80,7 @@ export default {
   data() {
     return {
       dialog: false,
-      comments: ["LaLaLa", "LuLuLu", "LiLiLi"]
+      comment: ""
     };
   },
   computed: {
@@ -91,8 +103,12 @@ export default {
       });
     },
     addComment() {
-      console.log(this.auto);
-      // this.CHANGE;
+      if (this.auto.comment === undefined) {
+        this.auto.comment = [];
+      }
+      this.auto.comment.push(this.comment);
+      this.CHANGE;
+      this.comment = "";
     }
   }
 };

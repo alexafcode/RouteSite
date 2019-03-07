@@ -68,14 +68,14 @@ export default {
       return "Success"
     },
     async CHANGE({commit}, payload) {
-      console.log("payload", payload)
       const change =  await firebase.firestore().collection('autoDb').doc(payload.auto.id)
-      console.log("change autoStore", change)
       await change.update({
-        comment: payload.comments
+        comment: payload.auto.comment
       }).then(() => {
+        // eslint-disable-next-line
         console.log("Document successfully updated!")
       }).catch(error => {
+        // eslint-disable-next-line
         console.error("Error updating document: ", error);
       })
     },
