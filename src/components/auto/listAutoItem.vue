@@ -103,12 +103,14 @@ export default {
       });
     },
     addComment() {
-      if (this.auto.comment === undefined) {
-        this.auto.comment = [];
+      if (this.comment !== "") {
+        if (this.auto.comment === undefined) {
+          this.auto.comment = [];
+        }
+        this.auto.comment.push(this.comment);
+        this.CHANGE;
+        this.comment = "";
       }
-      this.auto.comment.push(this.comment);
-      this.CHANGE;
-      this.comment = "";
     }
   }
 };
