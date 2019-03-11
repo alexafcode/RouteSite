@@ -46,6 +46,7 @@ import am4themes_moonrisekingdom from "@amcharts/amcharts4/themes/moonrisekingdo
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import moment from "moment";
 import currencyChange from "./currenceChange.vue";
+import key from '../../store/keys.js'
 
 am4core.useTheme(am4themes_moonrisekingdom);
 am4core.useTheme(am4themes_animated);
@@ -60,7 +61,7 @@ export default {
     return {
       show: false,
       errors: [],
-      apiKey: "",
+      apiKey: key.currency,
       currency: [],
       currencyDate: [],
       loading: true,

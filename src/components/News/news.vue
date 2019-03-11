@@ -30,6 +30,7 @@ import axios from "axios";
 import Loading from "@/views/loading.vue";
 import NewsCategory from "./NewsCategory.vue";
 import newsList from "./newsList.vue";
+import key from '../../store/keys.js'
 
 export default {
   name: "List",
@@ -42,7 +43,7 @@ export default {
     return {
       show: false,
       errors: [],
-      API_KEY: "",
+      API_KEY: key.news,
       news: [],
       loading: true,
       scroll_show: false,

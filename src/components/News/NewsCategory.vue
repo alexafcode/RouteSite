@@ -10,7 +10,7 @@
       :fixed="true"
     >
       <v-btn slot="activator" v-model="fab" color="blue darken-2" dark fab>
-        <v-icon>account_circle</v-icon>
+        <v-icon>dashboard</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
       <v-btn fab dark small color="green">
