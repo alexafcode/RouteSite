@@ -46,11 +46,12 @@ export default {
         commit('setauthUnsub', unset)
       })
     },
-    async USER_JOIN({ commit }, { email, password }) {
+    async USER_JOIN({ commit }, { email, password, name }) {
       await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(user => {
+          user.user.displayName = name
           commit('setUser', user);
           commit('setIsAuthenticated', true);
         })
