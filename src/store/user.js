@@ -36,7 +36,7 @@ export default {
     INIT_STATE({ dispatch, commit, state }) {
       /* eslint-disable */
       return new Promise((resolve, reject) => {
-        if(state.authUnsub) {
+        if (state.authUnsub) {
           state.authUnsub()
         }
         let unset = firebase.auth().onAuthStateChanged(user => {
@@ -46,7 +46,7 @@ export default {
         commit('setauthUnsub', unset)
       })
     },
-    async USER_JOIN({ commit }, { email, password}) {
+    async USER_JOIN({ commit }, { email, password }) {
       await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -92,6 +92,28 @@ export default {
       await firebase.auth().signInWithRedirect(provider).then((result) => {
         return result.user
       }).catch(error => console.log(error))
+    },
+    GET_USER_DATA() {
+      let user = firebase.auth().currentUser;
+      let usr = {};
+      if (user != null) {
+        usr = {
+          name: user.displayName,
+          email: user.email,
+          photoUrl: user.photoURL,
+        }
+      }
+      return usr
+    },
+    UPDATE_USER_PROFILE({ commit }, payload) {
+      let user = firebase.auth().currentUser;
+      // user.sendEmailVerification()
+      user.updateProfile({
+        email: payload.email,
+        displayName: payload.name,
+        // photoURL: "https://example.com/jane-q-user/profile.jpg"
+      }).then(() => console.log("Update successful"))
+        .catch(error => console.error(error))
     }
   },
   getters: {

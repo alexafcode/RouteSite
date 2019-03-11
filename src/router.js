@@ -7,6 +7,7 @@ import cardItem from './components/auto/cardItem.vue'
 import News from './components/News/news.vue'
 import signin from './components/Main/SignIn.vue'
 import signup from './components/Main/SignUp.vue'
+import pc from './components/Main/PersonalCabinet.vue'
 import currency from './components/currency/currency.vue'
 // import { Store } from 'vuex';
 import store from './store'
@@ -69,6 +70,14 @@ const router = new Router({
       path: '/signup',
       name: 'signup',
       component: signup
+    },
+    {
+      path: '/pc',
+      name: 'pc',
+      component: pc,
+      meta: {
+        requiresAuth: true
+      }
     },
     // {
     //   path: '/about',

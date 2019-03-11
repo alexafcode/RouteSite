@@ -44,8 +44,9 @@
         v-show="!isAuthenticated"
         class="hidden-sm-and-down"
         @click="signInWithGoogle"
-      ><img src="../assets/Google_2015_logo.png" alt="Google"
-          style="vertical-align: middle"></v-btn>
+      >
+        <img src="../assets/Google_2015_logo.png" alt="Google" style="vertical-align: middle">
+      </v-btn>
       <v-btn
         color="brown lighten-1"
         v-show="isAuthenticated"
@@ -122,6 +123,11 @@ export default {
               title: "currency",
               route: "/currency",
               icon: "trending_up"
+            },
+            {
+              title: "ЛК",
+              route: "/pc",
+              icon: "trending_up"
             }
           ]
         : [
@@ -153,6 +159,11 @@ export default {
             {
               title: "currency",
               route: "/currency",
+              icon: "trending_up"
+            },
+            {
+              title: "ЛК",
+              route: "/pc",
               icon: "trending_up"
             }
             // {
