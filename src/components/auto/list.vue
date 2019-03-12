@@ -57,6 +57,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import helper from "../Helpers/Helper.js";
 // import firebase from 'firebase/app';
 // import Loading from "@/views/loading.vue";
 
@@ -101,7 +102,7 @@ export default {
     pickFile() {
       this.$refs.image.click();
     },
-    onFilePicked(e) {
+    async onFilePicked(e) {
       const files = e.target.files;
       if (files[0] !== undefined) {
         this.imageName = files[0].name;
@@ -112,14 +113,14 @@ export default {
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
           this.imageUrl = fr.result;
-          this.imageFile = files[0];
-          this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
-
+          // this.imageFile = files[0];
           // this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
-          // files.forEach(f => {
-          //   this.blobImage.push(f)
-          // })
         });
+        const config = {
+          file: files[0],
+          maxSize: 500
+        };
+        this.blobImage = await helper(config);
       } else {
         this.imageName = "";
         this.imageFile = "";
@@ -161,9 +162,8 @@ export default {
 }
 @media screen and (max-width: 980px) {
   .container {
-  max-width: 85%;
-}
-
+    max-width: 85%;
+  }
 }
 </style>>
 

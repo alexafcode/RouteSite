@@ -84,7 +84,7 @@ export default {
     };
   },
   computed: {
-    ...mapActions("autoStore", ["DELETE", "CHANGE"]),
+    ...mapActions("autoStore", ["DELETE", "ADD_COMMENT"]),
     ...mapState("user", ["isAuthenticated"])
   },
   methods: {
@@ -108,7 +108,7 @@ export default {
           this.auto.comment = [];
         }
         this.auto.comment.push(this.comment);
-        this.CHANGE;
+        this.ADD_COMMENT;
         this.comment = "";
       }
     }
