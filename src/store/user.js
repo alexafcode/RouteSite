@@ -107,6 +107,9 @@ export default {
     },
     UPDATE_USER_PROFILE({ commit }, payload) {
       let user = firebase.auth().currentUser;
+      if (payload.changePhoto) {
+        console.log("changePhoto")
+      }
       // user.sendEmailVerification()
       user.updateProfile({
         email: payload.email,
