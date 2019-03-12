@@ -47,10 +47,10 @@ export default {
       }
       const imageName = payload.imageName
       const blobImage = payload.blobImage
-      var storage = firebase.storage()
-      var storageRef = storage.ref();
-      var imagesRef = storageRef.child('AutoImage');
-      var spaceRef = imagesRef.child(imageName);
+      let storage = firebase.storage()
+      let storageRef = storage.ref();
+      let imagesRef = storageRef.child('AutoImage');
+      let spaceRef = imagesRef.child(imageName);
       await spaceRef.put(blobImage).then( async function() {
         await spaceRef.getDownloadURL().then( async function(url) {
           data.imageUrl = url;

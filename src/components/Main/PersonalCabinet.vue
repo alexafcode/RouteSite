@@ -1,17 +1,16 @@
 <template>
   <v-container>
+    <loading v-show="load"></loading>
     <v-layout row>
       <img :src="photoUrl ? photoUrl : defaultPhoto" height="150">
       <v-text-field
         label="Select Image"
         @click="pickFile"
-        v-model="photoUrl"
         prepend-icon="attach_file"
         v-show="!changeData"
       ></v-text-field>
       <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
       <v-flex xs12 sm6 offset-sm3>
-        <loading v-show="load"></loading>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-model="name" label="Display Name" :readonly="changeData"></v-text-field>
           <v-text-field v-model="email" :rules="emailRules" label="E-mail" readonly></v-text-field>
@@ -76,7 +75,11 @@ export default {
       this.changeData = false;
     },
     updateProfile() {
-      this.UPDATE_USER_PROFILE;
+      this.load = true;
+      this.UPDATE_USER_PROFILE.then(r => {
+        this.load = false;
+        this.$router.push("/");
+      });
     },
     pickFile() {
       this.$refs.image.click();

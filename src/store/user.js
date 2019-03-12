@@ -105,18 +105,27 @@ export default {
       }
       return usr
     },
-    UPDATE_USER_PROFILE({ commit }, payload) {
+    async UPDATE_USER_PROFILE({ commit }, payload) {
       let user = firebase.auth().currentUser;
+      let urlPath = "";
       if (payload.changePhoto) {
-        console.log("changePhoto")
+        let storage = firebase.storage()
+        let storageRef = storage.ref();
+        let imagesRef = storageRef.child('UserImage');
+        let spaceRef = imagesRef.child(payload.email);
+        await spaceRef.put(payload.blobImage)
+          .then(async function() {
+            await spaceRef.getDownloadURL().then((url => {
+              urlPath = url;
+            }))
+          })
       }
       // user.sendEmailVerification()
       user.updateProfile({
         email: payload.email,
         displayName: payload.name,
-        // photoURL: "https://example.com/jane-q-user/profile.jpg"
+        photoURL: urlPath
       }).then(() => console.log("Update successful"))
-        .catch(error => console.error(error))
     }
   },
   getters: {
