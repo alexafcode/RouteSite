@@ -100,6 +100,7 @@ export default {
         usr = {
           name: user.displayName,
           email: user.email,
+          phoneNumber: user.phoneNumber,
           photoUrl: user.photoURL,
         }
       }
@@ -107,7 +108,7 @@ export default {
     },
     async UPDATE_USER_PROFILE({ commit }, payload) {
       let user = firebase.auth().currentUser;
-      let urlPath = "";
+      let urlPath = null;
       if (payload.changePhoto) {
         let storage = firebase.storage()
         let storageRef = storage.ref();
@@ -124,7 +125,8 @@ export default {
       user.updateProfile({
         email: payload.email,
         displayName: payload.name,
-        photoURL: urlPath
+        photoURL: urlPath ? urlPath : user.photoURL,
+        // phoneNumber: payload.phoneNumber
       }).then(() => console.log("Update successful"))
     }
   },

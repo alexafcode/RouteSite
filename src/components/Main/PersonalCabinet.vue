@@ -14,9 +14,17 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-model="name" label="Display Name" :readonly="changeData"></v-text-field>
           <v-text-field v-model="email" :rules="emailRules" label="E-mail" readonly></v-text-field>
+          <!-- <v-text-field
+            v-model="phoneNumber"
+            return-masked-value
+            mask="#.###.##.##.###"
+            :readonly="changeData"
+            label="Phone Number"
+          ></v-text-field> -->
           <!-- <v-alert :value="errorMess" color="error" icon="warning" outline>{{ errorText }}.</v-alert> -->
           <v-btn color="success" v-show="changeData" @click="changeUserData">Изменить</v-btn>
           <v-btn color="success" v-show="!changeData" @click="updateProfile">Отправить</v-btn>
+          <v-btn color="success" v-show="!changeData" to="/">Отмена</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -54,7 +62,8 @@ export default {
       photoUrl: null,
       imageFile: null,
       blobImage: null,
-      changePhoto: false
+      changePhoto: false,
+      // phoneNumber: null
     };
   },
   mounted() {
@@ -69,6 +78,7 @@ export default {
         this.name = user.name;
         this.email = user.email;
         this.photoUrl = user.photoUrl;
+        // this.phoneNumber = user.phoneNumber;
       });
     },
     changeUserData() {
