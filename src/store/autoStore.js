@@ -67,6 +67,7 @@ export default {
       })
       return "Success"
     },
+    // eslint-disable-next-line
     async CHANGE({commit}, payload) {
       const change =  await firebase.firestore().collection('autoDb').doc(payload.auto.id)
       await change.update({

@@ -20,7 +20,7 @@
             mask="#.###.##.##.###"
             :readonly="changeData"
             label="Phone Number"
-          ></v-text-field> -->
+          ></v-text-field>-->
           <!-- <v-alert :value="errorMess" color="error" icon="warning" outline>{{ errorText }}.</v-alert> -->
           <v-btn color="success" v-show="changeData" @click="changeUserData">Изменить</v-btn>
           <v-btn color="success" v-show="!changeData" @click="updateProfile">Отправить</v-btn>
@@ -34,6 +34,7 @@
 <script>
 import loading from "@/views/loading.vue";
 import { mapActions } from "vuex";
+import helper from "../Helpers/Helper.js";
 
 export default {
   name: "signin",
@@ -62,7 +63,7 @@ export default {
       photoUrl: null,
       imageFile: null,
       blobImage: null,
-      changePhoto: false,
+      changePhoto: false
       // phoneNumber: null
     };
   },
@@ -86,7 +87,7 @@ export default {
     },
     updateProfile() {
       this.load = true;
-      this.UPDATE_USER_PROFILE.then(r => {
+      this.UPDATE_USER_PROFILE.then(() => {
         this.load = false;
         this.$router.push("/");
       });
@@ -94,7 +95,7 @@ export default {
     pickFile() {
       this.$refs.image.click();
     },
-    onFilePicked(e) {
+    async onFilePicked(e) {
       const files = e.target.files;
       if (files[0] !== undefined) {
         this.imageName = files[0].name;
@@ -105,10 +106,15 @@ export default {
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
           this.photoUrl = fr.result;
-          this.imageFile = files[0];
-          this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
+          // this.imageFile = files[0];
+          // this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
           this.changePhoto = true;
         });
+        const config = {
+          file: files[0],
+          maxSize: 150
+        };
+        this.blobImage = await helper(config);
       } else {
         this.imageName = "";
         this.imageFile = "";
