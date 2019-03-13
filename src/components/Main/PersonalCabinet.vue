@@ -8,10 +8,13 @@
         label="Select Image"
         @click="pickFile"
         prepend-icon="attach_file"
-        v-show="!changeData"
+        v-if="!changeData"
       ></v-text-field>
       <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
       <v-flex xs12 sm6 offset-sm3>
+        <div class="display-0  text-xs-center" v-if="!user.emailVerified">
+          <p>Для использования всех возможностей сайта, укажите Отображаемое имя и подтвердите ваш <b>email</b></p>
+        </div>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-model="name" label="Display Name" :readonly="changeData"></v-text-field>
           <v-text-field v-model="email" :rules="emailRules" label="E-mail" readonly></v-text-field>
@@ -24,7 +27,7 @@
           ></v-text-field>-->
           <!-- <v-alert :value="errorMess" color="error" icon="warning" outline>{{ errorText }}.</v-alert> -->
           <v-btn color="success" v-show="changeData" @click="changeUserData">Изменить</v-btn>
-          <v-btn color="success" v-show="!changeData" @click="updateProfile">Отправить</v-btn>
+          <v-btn color="success" v-if="!changeData" @click="updateProfile">Отправить</v-btn>
           <v-btn color="success" v-show="!changeData" to="/">Отмена</v-btn>
         </v-form>
       </v-flex>
@@ -34,7 +37,7 @@
 
 <script>
 import loading from "@/views/loading.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import helper from "../Helpers/Helper.js";
 
 export default {
@@ -73,6 +76,7 @@ export default {
   },
   computed: {
     ...mapActions("user", ["GET_USER_DATA", "UPDATE_USER_PROFILE"]),
+    ...mapState("user", ["user"]),
     getPhoto() {
       if (this.photoUrl) {
         return this.photoUrl;

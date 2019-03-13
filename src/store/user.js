@@ -121,7 +121,7 @@ export default {
             }))
           })
       }
-      // user.sendEmailVerification()
+      user.sendEmailVerification()
       user.updateProfile({
         email: payload.email,
         displayName: payload.name,

@@ -44,7 +44,9 @@
           <span class="grey--text text--darken-4">({{ auto.rating ? auto.rating : "NO" }})</span>
         </v-card-actions>
         <v-card-actions>
-          <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn>
+          <!-- <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn> -->
+          <!-- <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified != null && user.emailVerified != false">Delete</v-btn> -->
+          <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -85,7 +87,7 @@ export default {
   },
   computed: {
     ...mapActions("autoStore", ["DELETE", "ADD_COMMENT"]),
-    ...mapState("user", ["isAuthenticated"])
+    ...mapState("user", ["isAuthenticated", "user"])
   },
   methods: {
     ShortName(text) {
