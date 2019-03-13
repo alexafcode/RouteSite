@@ -51,6 +51,12 @@
         color="brown lighten-1"
         v-show="isAuthenticated"
         class="hidden-sm-and-down"
+        to="/pc"
+      >ЛК</v-btn>
+      <v-btn
+        color="brown lighten-1"
+        v-show="isAuthenticated"
+        class="hidden-sm-and-down"
         @click="openDialog"
       >SignOut</v-btn>
     </v-toolbar>
@@ -120,15 +126,10 @@ export default {
               icon: "done"
             },
             {
-              title: "currency",
+              title: "Валюта",
               route: "/currency",
               icon: "trending_up"
             },
-            {
-              title: "ЛК",
-              route: "/pc",
-              icon: "trending_up"
-            }
           ]
         : [
             {

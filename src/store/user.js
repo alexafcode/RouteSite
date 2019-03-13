@@ -126,7 +126,6 @@ export default {
         email: payload.email,
         displayName: payload.name,
         photoURL: urlPath ? urlPath : user.photoURL,
-        // phoneNumber: payload.phoneNumber
       }).then(() => console.log("Update successful"))
     }
   },

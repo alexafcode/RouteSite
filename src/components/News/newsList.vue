@@ -27,7 +27,13 @@
 <script>
 export default {
   name: "newsList",
-  props: ["post"],
+  // props: ["post"],
+  props: {
+    "post": {
+      type: Object,
+      required: true
+    }
+  },
   components: {},
   data() {
     return {

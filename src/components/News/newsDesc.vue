@@ -8,7 +8,13 @@
 
 export default {
   name: "newsDesc",
-  props: ["desc"],
+  // props: ["desc"],
+  props: {
+    "desc": {
+      type: String,
+      required: true
+    }
+  },
   components: {
   },
   data() {

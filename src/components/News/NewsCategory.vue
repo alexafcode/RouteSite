@@ -14,22 +14,22 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-btn fab dark small color="green">
-        <v-icon @click.stop="changeCategory(category.all)">360</v-icon>
+        <v-icon @click.stop.prevent="changeCategory(category.all)">360</v-icon>
       </v-btn>
       <v-btn fab dark small color="indigo">
-        <v-icon @click.stop="changeCategory(category.sport)">directions_bike</v-icon>
+        <v-icon @click.stop.prevent="changeCategory(category.sport)">directions_bike</v-icon>
       </v-btn>
       <v-btn fab dark small color="brown">
-        <v-icon @click.stop="changeCategory(category.health)">favorite</v-icon>
+        <v-icon @click.stop.prevent="changeCategory(category.health)">favorite</v-icon>
       </v-btn>
       <v-btn fab dark small color="blue">
-        <v-icon @click.stop="changeCategory(category.tech)">android</v-icon>
+        <v-icon @click.stop.prevent="changeCategory(category.tech)">android</v-icon>
       </v-btn>
       <v-btn fab dark small color="yellow">
-        <v-icon @click.stop="changeCategory(category.business)">perm_phone_msg</v-icon>
+        <v-icon @click.stop.prevent="changeCategory(category.business)">perm_phone_msg</v-icon>
       </v-btn>
       <v-btn fab dark small color="red">
-        <v-icon @click.stop="changeCategory(category.ent)">record_voice_over</v-icon>
+        <v-icon @click.stop.prevent="changeCategory(category.ent)">record_voice_over</v-icon>
       </v-btn>
     </v-speed-dial>
   </div>

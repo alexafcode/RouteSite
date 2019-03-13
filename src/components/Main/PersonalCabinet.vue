@@ -1,8 +1,9 @@
 <template>
   <v-container>
     <loading v-show="load"></loading>
-    <v-layout row>
-      <img :src="photoUrl ? photoUrl : defaultPhoto" height="150">
+    <v-layout row v-show="!load">
+      <!-- <img :src="photoUrl ? photoUrl : defaultPhoto" height="150"> -->
+      <img :src="getPhoto" height="150">
       <v-text-field
         label="Select Image"
         @click="pickFile"
@@ -71,16 +72,24 @@ export default {
     this.getUserData();
   },
   computed: {
-    ...mapActions("user", ["GET_USER_DATA", "UPDATE_USER_PROFILE"])
+    ...mapActions("user", ["GET_USER_DATA", "UPDATE_USER_PROFILE"]),
+    getPhoto() {
+      if (this.photoUrl) {
+        return this.photoUrl;
+      }
+      return this.defaultPhoto;
+    }
   },
   methods: {
     getUserData() {
+      this.load = true;
       this.GET_USER_DATA.then(user => {
         this.name = user.name;
         this.email = user.email;
         this.photoUrl = user.photoUrl;
         // this.phoneNumber = user.phoneNumber;
       });
+      this.load = false;
     },
     changeUserData() {
       this.changeData = false;
