@@ -3,7 +3,7 @@
     <v-flex xs12 sm8 offset-sm2>
       <v-card>
         <v-img
-          :src="auto.imageUrl ? auto.imageUrl : ''"
+          :src="srcImage"
           :alt="auto.imageName"
           max-height="400px"
           max-width="750px"
@@ -58,12 +58,34 @@ export default {
   components: {},
   data() {
     return {
-      dialog: false
+      dialog: false,
+      observer: null,
+      intersected: false
     };
   },
   computed: {
     ...mapActions("autoStore", ["DELETE"]),
-    ...mapState("user", ["isAuthenticated"])
+    ...mapState("user", ["isAuthenticated"]),
+    srcImage() {
+      if ("IntersectionObserver" in window) {
+        return this.intersected ? this.auto.imageUrl : "";
+      } else {
+        return this.auto.imageUrl;
+      }
+    }
+  },
+  mounted() {
+    this.observer = new IntersectionObserver(entries => {
+      const image = entries[0];
+      if (image.isIntersecting) {
+        this.intersected = true;
+        this.observer.disconnect();
+      }
+    });
+    this.observer.observe(this.$el);
+  },
+  destroyed() {
+    this.observer.disconnect();
   },
   methods: {
     ShortName(text) {

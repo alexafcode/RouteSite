@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-img :src="post.urlToImage ? post.urlToImage : ''" max-height="400px"></v-img>
+      <v-img :src="srcImage" max-height="400px"></v-img>
       <v-card-title primary-title>
         <div>
           <div class="headline">{{ post.title }}</div>
@@ -29,7 +29,7 @@ export default {
   name: "newsList",
   // props: ["post"],
   props: {
-    "post": {
+    post: {
       type: Object,
       required: true
     }
@@ -37,8 +37,32 @@ export default {
   components: {},
   data() {
     return {
-      show: false
+      show: false,
+      observer: null,
+      intersected: false
     };
+  },
+  computed: {
+    srcImage() {
+      if ("IntersectionObserver" in window) {
+        return this.intersected ? this.post.urlToImage : "";
+      } else {
+        return this.post.urlToImage;
+      }
+    }
+  },
+  mounted() {
+    this.observer = new IntersectionObserver(entries => {
+      const image = entries[0];
+      if (image.isIntersecting) {
+        this.intersected = true;
+        this.observer.disconnect();
+      }
+    });
+    this.observer.observe(this.$el);
+  },
+  destroyed() {
+    this.observer.disconnect();
   },
   methods: {},
   directives: {}

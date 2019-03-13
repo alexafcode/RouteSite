@@ -12,8 +12,10 @@
       ></v-text-field>
       <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
       <v-flex xs12 sm6 offset-sm3>
-        <div class="display-0  text-xs-center" v-if="!user.emailVerified">
-          <p>Для использования всех возможностей сайта, укажите Отображаемое имя и подтвердите ваш <b>email</b></p>
+        <div class="display-0 text-xs-center" v-if="!user.emailVerified">
+          <p>Для использования всех возможностей сайта, укажите Отображаемое имя и подтвердите ваш
+            <b>email</b>
+          </p>
         </div>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-model="name" label="Display Name" :readonly="changeData"></v-text-field>
