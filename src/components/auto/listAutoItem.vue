@@ -15,27 +15,7 @@
             <div>{{ auto.descriptions }}</div>
           </div>
           <!-- ToDo Spacer -->
-          <v-layout column>
-            <div class="mt-2" v-for="item in auto.comment" :key="item">
-              <v-list-tile>
-                <li>{{ item }}</li>
-              </v-list-tile>
-            </div>
-            <v-layout row>
-              <v-flex xs10 md8>
-                <v-textarea
-                  name="input"
-                  label="Add Commentt"
-                  v-model="comment"
-                  hint="Введите текст"
-                >{{ comment }}</v-textarea>
-              </v-flex>
-              <v-btn fab small dark color="brown darken-4" @click="addComment">
-                <v-icon dark>add</v-icon>
-              </v-btn>
-            </v-layout>
-          </v-layout>
-          <!-- <v-spacer></v-spacer> -->
+          <autoComment :comments="auto.comment" :id="auto.id"></autoComment>
         </v-card-title>
         <v-divider class="black"/>
         <v-card-actions>
@@ -46,6 +26,8 @@
         <v-card-actions>
           <!-- <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn> -->
           <!-- <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified != null && user.emailVerified != false">Delete</v-btn> -->
+          <v-btn flat color="orange" to="/autoCard">To List</v-btn>
+          <v-spacer></v-spacer>
           <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified">Delete</v-btn>
         </v-card-actions>
       </v-card>
@@ -70,15 +52,18 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import autoComment from "./listComments";
 export default {
-  name: "card_auto",
+  name: "list-auto",
   props: {
     auto: {
       type: Object,
       required: true
     }
   },
-  components: {},
+  components: {
+    autoComment
+  },
   data() {
     return {
       dialog: false,
@@ -103,16 +88,6 @@ export default {
         this.dialog = false;
         this.$router.push("/autoCard");
       });
-    },
-    addComment() {
-      if (this.comment !== "") {
-        if (this.auto.comment === undefined) {
-          this.auto.comment = [];
-        }
-        this.auto.comment.push(this.comment);
-        this.ADD_COMMENT;
-        this.comment = "";
-      }
     }
   }
 };
