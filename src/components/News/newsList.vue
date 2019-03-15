@@ -5,7 +5,6 @@
       <v-card-title primary-title>
         <div>
           <div class="headline">{{ post.title }}</div>
-          <!-- <span class="grey--text">1,000 miles of wonder</span> -->
         </div>
       </v-card-title>
       <v-card-actions>
@@ -15,11 +14,12 @@
           <v-icon>{{ show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
         </v-btn>
       </v-card-actions>
-      <slot>
+      <!-- <slot>
         <v-slide-y-transition>
           <v-card-text v-show="show">{{ post.description }}</v-card-text>
         </v-slide-y-transition>
-      </slot>
+      </slot>-->
+      <newsdescription :desc="post.description" v-if="show"></newsdescription>
     </v-card>
   </v-container>
 </template>
@@ -34,7 +34,9 @@ export default {
       required: true
     }
   },
-  components: {},
+  components: {
+    newsdescription: () => import("./newsDesc.vue")
+  },
   data() {
     return {
       show: false,

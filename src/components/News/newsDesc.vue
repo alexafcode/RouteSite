@@ -5,21 +5,17 @@
 </template>
 
 <script>
-
 export default {
   name: "newsDesc",
-  // props: ["desc"],
   props: {
-    "desc": {
+    desc: {
       type: String,
       required: true
     }
   },
-  components: {
-  },
+  components: {},
   data() {
-    return {
-    };
+    return {};
   }
 };
 </script>
