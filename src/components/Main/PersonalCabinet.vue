@@ -3,13 +3,15 @@
     <loading v-show="load"></loading>
     <v-layout row v-show="!load">
       <!-- <img :src="photoUrl ? photoUrl : defaultPhoto" height="150"> -->
-      <img :src="getPhoto" height="150">
+      <v-layout column>
+      <img :src="getPhoto" height="200">
       <v-text-field
         label="Select Image"
         @click="pickFile"
         prepend-icon="attach_file"
         v-if="!changeData"
       ></v-text-field>
+      </v-layout>
       <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
       <v-flex xs12 sm6 offset-sm3>
         <div class="display-0 text-xs-center" v-if="!user.emailVerified">
@@ -28,9 +30,9 @@
             label="Phone Number"
           ></v-text-field>-->
           <!-- <v-alert :value="errorMess" color="error" icon="warning" outline>{{ errorText }}.</v-alert> -->
-          <v-btn color="success" v-show="changeData" @click="changeUserData">Изменить</v-btn>
+          <v-btn color="yellow" v-show="changeData" @click="changeUserData">Изменить</v-btn>
           <v-btn color="success" v-if="!changeData" @click="updateProfile">Отправить</v-btn>
-          <v-btn color="success" v-show="!changeData" to="/">Отмена</v-btn>
+          <v-btn color="warning" v-show="!changeData" to="/">Отмена</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
