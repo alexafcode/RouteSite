@@ -4,7 +4,7 @@
       justify-center
       align-center
       class="home_container"
-      :style="{ 'background-image': 'url(' + image + ')' }"
+      :style="{ 'background-image': 'url(' + isMobile + ')' }"
     >
       <v-flex xs12>
         <!-- <div
@@ -32,23 +32,37 @@ export default {
   components: {},
   data() {
     return {
-      image: "https://picsum.photos/700/300?random"
+      // image: "https://picsum.photos/700/300?random"
     };
   },
-  mounted() {
-    // this.startUpdate()
-  },
+  mounted() {},
   computed: {
-    ...mapState("user", ["isAuthenticated"])
+    ...mapState("user", ["isAuthenticated"]),
+    isMobile() {
+      let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      let mql = window.matchMedia("(orientation: portrait)");
+      if (/android|iPad|iPhone|iPod/i.test(userAgent) && !window.MSStream) {
+        if (mql.matches) {
+          return "https://picsum.photos/200/320?random";
+        } else {
+          return "https://picsum.photos/400/200?random";
+        }
+      }
+      // return "https://picsum.photos/700/300?random";
+      return "https://picsum.photos/1000/500?random";
+    }
   },
   methods: {
-    // startUpdate() {
-    //   this.image = ''
-    //   this.interval = window.setInterval(() => {
-    //     console.log("Interval")
-    //     this.image = "https://picsum.photos/800/600?random"
-    //   }, 10000)
-    // }
+    listenerOrientation() {
+      let mql = window.matchMedia("(orientation: portrait)");
+      mql.addListener(m => {
+        if (m.matches) {
+          // console.log("Изменено на портретный");
+        } else {
+          // console.log("Изменено на горизонтальный режим");
+        }
+      });
+    }
   }
 };
 </script>
