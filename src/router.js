@@ -1,15 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home.vue'
-import List from './components/auto/list.vue'
-import autoCard from './components/auto/autoCard.vue'
-import cardItem from './components/auto/cardItem.vue'
-import News from './components/News/news.vue'
-import signin from './components/Main/SignIn.vue'
-import signup from './components/Main/SignUp.vue'
-import pc from './components/Main/PersonalCabinet.vue'
-import currency from './components/currency/currency.vue'
-// import { Store } from 'vuex';
 import store from './store'
 
 
@@ -21,12 +11,12 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: () => import(/* webpackChunkName: "home" */ '@/components/Home.vue'),
     },
     {
       path: '/list',
       name: 'list',
-      component: List,
+      component: () => import(/* webpackChunkName: "list" */ './components/auto/list.vue'),
       meta: {
         requiresAuth: true
       }
@@ -34,13 +24,13 @@ const router = new Router({
     {
       path: '/autoCard',
       name: 'autoCard',
-      component: autoCard
+      component: () => import(/* webpackChunkName: "autoCard" */ './components/auto/autoCard.vue'),
     },
     {
       path: '/cardItem/:id',
       name: 'cardItem',
       props: true,
-      component: cardItem,
+      component: () => import(/* webpackChunkName: "cardItem" */ './components/auto/cardItem.vue'),
       meta: {
         requiresAuth: true
       }
@@ -48,7 +38,7 @@ const router = new Router({
     {
       path: '/news',
       name: 'news',
-      component: News,
+      component: () => import(/* webpackChunkName: "news" */ './components/News/news.vue'),
       meta: {
         requiresAuth: true
       }
@@ -56,7 +46,7 @@ const router = new Router({
     {
       path: '/currency',
       name: 'currency',
-      component: currency,
+      component: () => import(/* webpackChunkName: "currency" */ './components/currency/currency.vue'),
       meta: {
         requiresAuth: true
       }
@@ -64,17 +54,17 @@ const router = new Router({
     {
       path: '/signin',
       name: 'signin',
-      component: signin
+      component: () => import(/* webpackChunkName: "signin" */ './components/Main/SignIn.vue'),
     },
     {
       path: '/signup',
       name: 'signup',
-      component: signup
+      component: () => import(/* webpackChunkName: "signup" */ './components/Main/SignUp.vue'),
     },
     {
       path: '/pc',
       name: 'pc',
-      component: pc,
+      component: () => import(/* webpackChunkName: "pc" */ './components/Main/PersonalCabinet.vue'),
       meta: {
         requiresAuth: true
       }
