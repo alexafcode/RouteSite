@@ -67,7 +67,7 @@ export default {
       ],
       changeData: true,
       defaultPhoto:
-        "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/user.png",
+        "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/128x128/plain/user.png",
       photoUrl: null,
       imageFile: null,
       blobImage: null,

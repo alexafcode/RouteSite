@@ -97,8 +97,7 @@ export default {
           let data = response.data;
           if (response) this.loading = false;
           // ToDo easy
-          let array = Object.values(data);
-          let cur = array[0];
+          let cur = Object.values(data)[0];
           let dataChart = [];
           for (let prop in cur) {
             dataChart.push({
