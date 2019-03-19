@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   name: "SaveCalendar",
   props: {
@@ -22,8 +23,13 @@ export default {
     }
   },
   data: () => ({
-    text: ""
+    text: "",
+    storage: null
   }),
+  computed: {
+    ...mapActions(["ADD_EVENT"]),
+    ...mapState("user", ["user"])
+  },
   methods: {
     SaveEventToCalendar() {
       let eventMessage = this.text;
@@ -36,6 +42,7 @@ export default {
         year: this.item.year,
         message: eventMessage
       };
+      this.storage = storage;
       this.SaveToLocalStorage(storage);
     },
     Cancel() {
@@ -43,6 +50,7 @@ export default {
       this.$emit("cancelAddEvent");
     },
     SaveToLocalStorage(data) {
+      this.ADD_EVENT
       let arr = [];
       if (localStorage.getItem("message") != null) {
         arr = JSON.parse(localStorage.getItem("message"));
