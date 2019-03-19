@@ -69,6 +69,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import(/* webpackChunkName: "calendar" */ './components/Calendar/Calendar.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
     // {
     //   path: '/about',
     //   name: 'about',
