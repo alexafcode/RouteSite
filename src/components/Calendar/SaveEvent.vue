@@ -50,13 +50,13 @@ export default {
       this.$emit("cancelAddEvent");
     },
     SaveToLocalStorage(data) {
-      this.ADD_EVENT
       let arr = [];
       if (localStorage.getItem("message") != null) {
         arr = JSON.parse(localStorage.getItem("message"));
       }
       arr.push(data);
       localStorage.setItem("message", JSON.stringify(arr));
+      this.ADD_EVENT
       this.$emit("fromStorageEvent");
     }
   }

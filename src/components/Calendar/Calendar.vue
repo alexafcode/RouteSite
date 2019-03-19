@@ -36,6 +36,7 @@ import searchEvent from "./SearchEvent.vue";
 import saveEvent from "./SaveEvent.vue";
 import names from "./constNames.js";
 import datapickerComponent from "./dataPicker.vue";
+import { mapState, mapActions } from "vuex";
 let today = new Date();
 export default {
   name: "app",
@@ -64,6 +65,7 @@ export default {
   },
   created() {
     // this.Create();
+    this.GET_EVENT
   },
   mounted() {
     // this.Create();
@@ -71,6 +73,9 @@ export default {
   beforeUpdate() {},
   watch: {},
   computed: {
+    ...mapActions(["GET_EVENT"]),
+    ...mapState("user", ["user"]),
+    ...mapState(["dataDb"]),
     NamePrevMonth() {
       if (this.month == 0) {
         return this.monthName[11].toUpperCase();
@@ -251,7 +256,8 @@ export default {
     },
     FromStorage() {
       this.eventAdd = false;
-      let array = JSON.parse(localStorage.getItem("message"));
+      let array = this.dataDb // JSON.parse(localStorage.getItem("message"));
+      console.log("dataDb", this.dataDb)
       if (array)
         this.days.forEach(el => {
           el.message = [];
