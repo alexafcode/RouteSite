@@ -73,9 +73,9 @@ export default {
   beforeUpdate() {},
   watch: {},
   computed: {
-    ...mapActions(["GET_EVENT"]),
+    ...mapActions("userDataDb", ["GET_EVENT"]),
     ...mapState("user", ["user"]),
-    ...mapState(["dataDb"]),
+    ...mapState("userDataDb", ["dataDb"]),
     NamePrevMonth() {
       if (this.month == 0) {
         return this.monthName[11].toUpperCase();
@@ -257,7 +257,6 @@ export default {
     FromStorage() {
       this.eventAdd = false;
       let array = this.dataDb // JSON.parse(localStorage.getItem("message"));
-      console.log("dataDb", this.dataDb)
       if (array)
         this.days.forEach(el => {
           el.message = [];

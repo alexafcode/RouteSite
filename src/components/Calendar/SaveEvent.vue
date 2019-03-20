@@ -27,7 +27,7 @@ export default {
     storage: null
   }),
   computed: {
-    ...mapActions(["ADD_EVENT"]),
+    ...mapActions("userDataDb", ["ADD_EVENT"]),
     ...mapState("user", ["user"])
   },
   methods: {
@@ -43,21 +43,23 @@ export default {
         message: eventMessage
       };
       this.storage = storage;
-      this.SaveToLocalStorage(storage);
+      this.ADD_EVENT
+      this.SaveToLocalStorage(storage); // ToDO Delete
+      // this.$emit("fromStorageEvent", data); // ToDo
     },
     Cancel() {
       this.text = "";
       this.$emit("cancelAddEvent");
     },
     SaveToLocalStorage(data) {
+      // ToDo Delete
       let arr = [];
       if (localStorage.getItem("message") != null) {
         arr = JSON.parse(localStorage.getItem("message"));
       }
       arr.push(data);
       localStorage.setItem("message", JSON.stringify(arr));
-      this.ADD_EVENT
-      this.$emit("fromStorageEvent");
+      this.$emit("fromStorageEvent", data);
     }
   }
 };

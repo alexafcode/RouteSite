@@ -1,20 +1,21 @@
 import firebase from 'firebase/app';
 
 export default {
+  namespaced: true,
   state: {
     dataDb: []
   },
   mutations: {
     SET_dataDb(state, payload) {
       state.dataDb = payload
-      console.log("state", state.dataDb)
     }
   },
   actions: {
-    async ADD_EVENT({ commit }, payload) {
+    async ADD_EVENT({ commit, dispatch }, payload) {
       await firebase.firestore().collection(payload.user.email).doc(payload.storage.id).set(payload.storage).then(function() {
         // eslint-disable-next-line
-        console.log("Document successfully written!");
+        console.log("Successfully written! - return Update Store");
+        dispatch("GET_EVENT", payload)
       })
       return "Success"
     },
