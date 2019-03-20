@@ -5,7 +5,7 @@
         <v-btn fab @click="monthPrev">{{ NamePrevMonth }}</v-btn>
         <v-btn fab @click="monthNext">{{ NameNextMonth }}</v-btn>
       </div>
-      <search-event :days="days"></search-event>
+      <search-event :days="days" @goToEventData="goToEventData"></search-event>
       <datapicker-component @changeData="changeData" :year="year" :month="month"></datapicker-component>
     </div>
     <save-event
@@ -270,6 +270,10 @@ export default {
     changeData(value) {
       this.year = moment(value).year();
       this.month = moment(value).month();
+    },
+    goToEventData(month, year) {
+      this.year = year
+      this.month = month
     }
   }
   // directives: {

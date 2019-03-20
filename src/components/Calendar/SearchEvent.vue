@@ -16,13 +16,16 @@
         v-for="(search, index) in search_result"
         :key="index"
       >
-        <li>{{ search }}</li>
+        <li>{{ search.day }}.{{ NameMonth(search.month) }}.{{ search.year }}</li>
+        <b @click="goToEventData(search.month, search.year)">{{ search.message }}</b>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import names from "./constNames";
 export default {
   name: "searchEvent",
   props: {
@@ -33,22 +36,32 @@ export default {
   data: () => ({
     text_search: "",
     search_panel: false,
-    search_result: []
+    search_result: [],
+    monthName: names.monthNameS
   }),
+  computed: {
+    ...mapState("userDataDb", ["dataDb"])
+  },
   methods: {
     searchEvent() {
       this.search_result = [];
       let filter = this.text_search.toUpperCase();
       let arr = [];
       if (localStorage.getItem("message") != null) {
-        arr = JSON.parse(localStorage.getItem("message"));
+        arr = this.dataDb; // JSON.parse(localStorage.getItem("message"));
       }
       if (this.text_search != "") {
         arr.forEach(el => {
-            if (el.message.toUpperCase().includes(filter)) {
-              this.search_result.push(el.message); // el.day + el.month + el.message
-              this.search_panel = true;
-            }
+          if (el.message.toUpperCase().includes(filter)) {
+            let dataEvent = {
+              message: el.message,
+              day: el.day,
+              month: el.month,
+              year: el.year
+            };
+            this.search_result.push(dataEvent); // el.day + el.month + el.message
+            this.search_panel = true;
+          }
         });
       }
     },
@@ -56,6 +69,13 @@ export default {
       this.search_panel = false;
       this.search_result = [];
       this.text_search = "";
+    },
+    NameMonth(month) {
+      return this.monthName[month].toUpperCase();
+    },
+    goToEventData(month, year) {
+      this.$emit("goToEventData", month, year);
+      this.search_panel = false;
     }
   },
   directives: {
@@ -88,6 +108,10 @@ export default {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     .search_result_list {
       text-align: start;
+      b {
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
   }
 }
