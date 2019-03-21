@@ -1,6 +1,6 @@
 <template>
   <v-layout column>
-    <div class="mt-2" v-for="item in commentLocal" :key="item">
+    <div class="mt-2" v-for="(item, index) in commentLocal" :key="index">
       <v-list-tile>
         <li>{{ item }}</li>
       </v-list-tile>

@@ -337,8 +337,11 @@ export default {
         width: 140px;
         margin-left: 15px;
         display: list-item;
+        white-space: nowrap;
+        overflow: hidden;
         &:hover {
           color: #ab7373;
+          white-space: pre-wrap;
         }
       }
     }
