@@ -15,6 +15,7 @@ export default {
     }
   },
   actions: {
+    // eslint-disable-next-line
     async ADD_EVENT({ commit, dispatch }, payload) {
       // await firebase.firestore().collection(payload.user.email).doc(payload.storage.id).collection("2").doc(payload.storage.id).set(payload.storage).then(function() {
       await firebase.firestore().collection(payload.user.email).doc(payload.storage.id).set(payload.storage).then(function() {
@@ -73,11 +74,14 @@ export default {
       })
     },
     async LOAD_ADD_FAVORITE_AUTO({ commit }, payload) {
+      let result = null;
       await firebase.firestore().collection("userData").doc(payload.user.email).get().then(querySnapshot => {
         if (querySnapshot.exists) {
           commit("SET_favoriteAuto", querySnapshot.data())
+          result = querySnapshot.data();
         }
       })
+      return result
     },
     RESET_FAVORITE_AUTO({ commit }) {
       commit("SET_favoriteAuto", null)

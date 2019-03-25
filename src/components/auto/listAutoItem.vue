@@ -28,7 +28,7 @@
           <!-- <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified != null && user.emailVerified != false">Delete</v-btn> -->
           <v-btn flat color="orange" to="/autoCard">To List</v-btn>
           <v-spacer></v-spacer>
-          <span>Favorite</span>
+          <span class="favorite_text">Favorite</span>
           <v-btn icon flat fab v-if="!favorite">
             <v-icon @click="addFavAuto">favorite_border</v-icon>
           </v-btn>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 import autoComment from "./listComments";
 export default {
   name: "list-auto",
@@ -86,10 +86,9 @@ export default {
       "LOAD_ADD_FAVORITE_AUTO"
     ]),
     ...mapState("user", ["isAuthenticated", "user"]),
-    ...mapState("userDataDb", ["favoriteAuto"])
+    ...mapState("userDataDb", ["favoriteAuto"]),
   },
   mounted() {
-    this.LOAD_ADD_FAVORITE_AUTO;
     this.isFavoriteAuto();
   },
   methods: {
@@ -112,16 +111,23 @@ export default {
       this.ADD_FAVORITE_AUTO;
     },
     isFavoriteAuto() {
-      if (this.favoriteAuto)
-        this.favoriteAuto.auto.forEach(auto => {
-          if (auto.name.includes(this.auto.name)) {
-            this.favorite = true;
-          }
-        });
+      this.LOAD_ADD_FAVORITE_AUTO.then(res => {
+        if (res)
+          res.auto.forEach(auto => {
+            if (auto.name.includes(this.auto.name)) {
+              this.favorite = true;
+            }
+          });
+      });
     }
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@media screen and (max-width: 600px) {
+  .favorite_text {
+    display: none;
+  }
+}
 </style>

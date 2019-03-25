@@ -317,9 +317,10 @@ export default {
     .day {
       width: 13%;
       height: 9vw;
-      overflow-x: auto;
       font-size: 18px;
       padding-left: 5px;
+      border-radius: 5%;
+      overflow-x: hidden;
       white-space: nowrap;
       word-wrap: break-word;
       text-overflow: ellipsis;
