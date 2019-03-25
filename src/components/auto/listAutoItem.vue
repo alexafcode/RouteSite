@@ -30,7 +30,7 @@
           <v-spacer></v-spacer>
           <span>Favorite</span>
           <v-btn icon flat fab v-if="!favorite" >
-            <v-icon @click="favorite = true">favorite_border</v-icon>
+            <v-icon @click="addFavAuto">favorite_border</v-icon>
           </v-btn>
           <v-btn color="teal" flat fab v-if="favorite">
             <v-icon>favorite</v-icon>
@@ -81,6 +81,7 @@ export default {
   },
   computed: {
     ...mapActions("autoStore", ["DELETE", "ADD_COMMENT"]),
+    ...mapActions("userDataDb", ["ADD_FAVORITE_AUTO"]),
     ...mapState("user", ["isAuthenticated", "user"])
   },
   methods: {
@@ -97,6 +98,10 @@ export default {
         this.dialog = false;
         this.$router.push("/autoCard");
       });
+    },
+    addFavAuto() {
+      this.favorite = true;
+      this.ADD_FAVORITE_AUTO
     }
   }
 };
