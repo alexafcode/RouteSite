@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 import autoComment from "./listComments";
 export default {
   name: "list-auto",
@@ -81,8 +81,13 @@ export default {
   },
   computed: {
     ...mapActions("autoStore", ["DELETE", "ADD_COMMENT"]),
-    ...mapActions("userDataDb", ["ADD_FAVORITE_AUTO"]),
-    ...mapState("user", ["isAuthenticated", "user"])
+    ...mapActions("userDataDb", ["ADD_FAVORITE_AUTO", "LOAD_ADD_FAVORITE_AUTO"]),
+    ...mapState("user", ["isAuthenticated", "user"]),
+    ...mapState("userDataDb", ["favoriteAuto"]),
+  },
+  mounted() {
+    this.LOAD_ADD_FAVORITE_AUTO
+    this.isFavoriteAuto()
   },
   methods: {
     ShortName(text) {
@@ -101,7 +106,10 @@ export default {
     },
     addFavAuto() {
       this.favorite = true;
-      this.ADD_FAVORITE_AUTO
+      this.ADD_FAVORITE_AUTO;
+    },
+    isFavoriteAuto() {
+      if (this.favoriteAuto.name.includes(this.auto.name)) this.favorite = true;
     }
   }
 };

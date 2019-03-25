@@ -62,11 +62,18 @@ export default {
         }
         commit("SET_favoriteAuto", data)
       })
+    },
+    async LOAD_ADD_FAVORITE_AUTO({ commit }, payload) {
+      await firebase.firestore().collection("userData").doc(payload.user.email).get().then(querySnapshot => {
+        if (querySnapshot.exists) {
+          commit("SET_favoriteAuto", querySnapshot.data())
+        }
+      })
     }
   },
   getters: {
     dataDb: state => {
       return state.dataDb
-    },
+    }
   }
 }
