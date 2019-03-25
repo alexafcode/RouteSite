@@ -12,7 +12,8 @@ export default {
   },
   actions: {
     async ADD_EVENT({ commit, dispatch }, payload) {
-      await firebase.firestore().collection(payload.user.email).doc(payload.storage.id).set(payload.storage).then(function() {
+      // await firebase.firestore().collection(payload.user.email).doc(payload.storage.id).collection("2").doc(payload.storage.id).set(payload.storage).then(function() {
+        await firebase.firestore().collection(payload.user.email).doc(payload.storage.id).set(payload.storage).then(function() {
         // eslint-disable-next-line
         console.log("Successfully written! - return Update Store");
         dispatch("GET_EVENT", payload)

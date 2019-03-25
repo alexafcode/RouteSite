@@ -28,6 +28,14 @@
           <!-- <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified != null && user.emailVerified != false">Delete</v-btn> -->
           <v-btn flat color="orange" to="/autoCard">To List</v-btn>
           <v-spacer></v-spacer>
+          <span>Favorite</span>
+          <v-btn icon flat fab v-if="!favorite" >
+            <v-icon @click="favorite = true">favorite_border</v-icon>
+          </v-btn>
+          <v-btn color="teal" flat fab v-if="favorite">
+            <v-icon>favorite</v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
           <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified">Delete</v-btn>
         </v-card-actions>
       </v-card>
@@ -67,7 +75,8 @@ export default {
   data() {
     return {
       dialog: false,
-      comment: ""
+      comment: "",
+      favorite: false
     };
   },
   computed: {
