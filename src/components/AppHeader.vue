@@ -92,6 +92,7 @@ export default {
   methods: {
     signOut() {
       this.USER_SIGNOUT;
+      this.RESET_FAVORITE_AUTO;
       this.dialog = false;
       this.$router.push("/");
     },
@@ -107,6 +108,7 @@ export default {
   computed: {
     ...mapState("user", ["isAuthenticated"]),
     ...mapActions("user", ["USER_SIGNOUT", "USER_JOIN_WithGoogle"]),
+    ...mapActions("userDataDb", ["RESET_FAVORITE_AUTO"]),
     menuItems() {
       return this.isAuthenticated
         ? [

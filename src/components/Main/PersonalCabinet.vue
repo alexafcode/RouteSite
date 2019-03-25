@@ -4,18 +4,19 @@
     <v-layout row v-show="!load">
       <!-- <img :src="photoUrl ? photoUrl : defaultPhoto" height="150"> -->
       <v-layout column>
-      <img :src="getPhoto" height="200">
-      <v-text-field
-        label="Select Image"
-        @click="pickFile"
-        prepend-icon="attach_file"
-        v-if="!changeData"
-      ></v-text-field>
+        <img :src="getPhoto" height="200">
+        <v-text-field
+          label="Select Image"
+          @click="pickFile"
+          prepend-icon="attach_file"
+          v-if="!changeData"
+        ></v-text-field>
       </v-layout>
       <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
       <v-flex xs12 sm6 offset-sm3>
         <div class="display-0 text-xs-center" v-if="!user.emailVerified">
-          <p>Для использования всех возможностей сайта, укажите Отображаемое имя и подтвердите ваш
+          <p>
+            Для использования всех возможностей сайта, укажите Отображаемое имя и подтвердите ваш
             <b>email</b>
           </p>
         </div>
@@ -36,6 +37,25 @@
         </v-form>
       </v-flex>
     </v-layout>
+    <div v-if="favoriteAuto">
+      <v-flex xs12 sm2 offset-sm10>
+        <v-list>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <b>Favorites Auto:</b>
+            </v-list-tile-title>
+            <v-list-tile-action v-for="(item, index) in favoriteAuto.auto" :key="index">
+              <v-list-tile-sub-title>
+                <router-link :to="{name: 'cardItem', params: {id: item.id}}">
+                {{ item.name }}
+                </router-link>
+                <v-icon color="yellow darken-2">star</v-icon>
+              </v-list-tile-sub-title>
+            </v-list-tile-action>
+          </v-list-tile-content>
+        </v-list>
+      </v-flex>
+    </div>
   </v-container>
 </template>
 
@@ -72,15 +92,18 @@ export default {
       imageFile: null,
       blobImage: null,
       changePhoto: false
-      // phoneNumber: null
     };
   },
   mounted() {
     this.getUserData();
+    this.LOAD_ADD_FAVORITE_AUTO;
   },
   computed: {
     ...mapActions("user", ["GET_USER_DATA", "UPDATE_USER_PROFILE"]),
     ...mapState("user", ["user"]),
+    ...mapActions("userDataDb", ["LOAD_ADD_FAVORITE_AUTO"]),
+    ...mapState("userDataDb", ["favoriteAuto"]),
+
     getPhoto() {
       if (this.photoUrl) {
         return this.photoUrl;
@@ -95,7 +118,6 @@ export default {
         this.name = user.name;
         this.email = user.email;
         this.photoUrl = user.photoUrl;
-        // this.phoneNumber = user.phoneNumber;
       });
       this.load = false;
     },
@@ -123,8 +145,6 @@ export default {
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
           this.photoUrl = fr.result;
-          // this.imageFile = files[0];
-          // this.blobImage = new Blob([files[0]], { type: "image/jpeg" });
           this.changePhoto = true;
         });
         const config = {

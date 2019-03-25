@@ -46,16 +46,25 @@ export default {
       await firebase.firestore().collection("userData").doc(payload.user.email).get().then(querySnapshot => {
         if (querySnapshot.exists) {
           data = querySnapshot.data();
-          data.name.push(payload.auto.name);
+          let locdata = {
+            name: payload.auto.name,
+            id: payload.auto.id
+          }
+          data.auto.push(locdata);
           firebase.firestore().collection("userData").doc(payload.user.email).set({
-            name: data.name
+            auto: data.auto
           })
             .then(function() {
             })
         } else {
-          data = [payload.auto.name]
+          data = [
+            {
+              name: payload.auto.name,
+              id: payload.auto.id
+            }
+          ]
           firebase.firestore().collection("userData").doc(payload.user.email).set({
-            name: data
+            auto: data
           })
             .then(function() {
             })
@@ -69,6 +78,9 @@ export default {
           commit("SET_favoriteAuto", querySnapshot.data())
         }
       })
+    },
+    RESET_FAVORITE_AUTO({ commit }) {
+      commit("SET_favoriteAuto", null)
     }
   },
   getters: {

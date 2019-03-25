@@ -29,7 +29,7 @@
           <v-btn flat color="orange" to="/autoCard">To List</v-btn>
           <v-spacer></v-spacer>
           <span>Favorite</span>
-          <v-btn icon flat fab v-if="!favorite" >
+          <v-btn icon flat fab v-if="!favorite">
             <v-icon @click="addFavAuto">favorite_border</v-icon>
           </v-btn>
           <v-btn color="teal" flat fab v-if="favorite">
@@ -81,13 +81,16 @@ export default {
   },
   computed: {
     ...mapActions("autoStore", ["DELETE", "ADD_COMMENT"]),
-    ...mapActions("userDataDb", ["ADD_FAVORITE_AUTO", "LOAD_ADD_FAVORITE_AUTO"]),
+    ...mapActions("userDataDb", [
+      "ADD_FAVORITE_AUTO",
+      "LOAD_ADD_FAVORITE_AUTO"
+    ]),
     ...mapState("user", ["isAuthenticated", "user"]),
-    ...mapState("userDataDb", ["favoriteAuto"]),
+    ...mapState("userDataDb", ["favoriteAuto"])
   },
   mounted() {
-    this.LOAD_ADD_FAVORITE_AUTO
-    this.isFavoriteAuto()
+    this.LOAD_ADD_FAVORITE_AUTO;
+    this.isFavoriteAuto();
   },
   methods: {
     ShortName(text) {
@@ -109,7 +112,12 @@ export default {
       this.ADD_FAVORITE_AUTO;
     },
     isFavoriteAuto() {
-      if (this.favoriteAuto.name.includes(this.auto.name)) this.favorite = true;
+      if (this.favoriteAuto)
+        this.favoriteAuto.auto.forEach(auto => {
+          if (auto.name.includes(this.auto.name)) {
+            this.favorite = true;
+          }
+        });
     }
   }
 };
