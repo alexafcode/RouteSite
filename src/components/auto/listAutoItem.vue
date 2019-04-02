@@ -26,7 +26,7 @@
         <v-card-actions>
           <!-- <v-btn flat color="grey" @click="openDialog" v-show="isAuthenticated">Delete</v-btn> -->
           <!-- <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified != null && user.emailVerified != false">Delete</v-btn> -->
-          <v-btn flat color="orange" to="/autoCard">To List</v-btn>
+          <v-btn flat color="orange" to="/autoCard">To List Cars</v-btn>
           <v-spacer></v-spacer>
           <span class="favorite_text">Favorite</span>
           <v-btn icon flat fab v-if="!favorite">

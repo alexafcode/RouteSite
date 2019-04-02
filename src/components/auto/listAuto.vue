@@ -2,13 +2,15 @@
   <v-container>
     <v-flex xs12 sm8 offset-sm2>
       <v-card>
-        <v-img
-          :src="srcImage"
-          :alt="auto.imageName"
-          max-height="400px"
-          max-width="750px"
-          aspect-ratio="2.75"
-        ></v-img>
+        <router-link :to="{name: 'cardItem', params: {id: auto.id}}">
+          <v-img
+            :src="srcImage"
+            :alt="auto.imageName"
+            max-height="400px"
+            max-width="750px"
+            aspect-ratio="2.75"
+          ></v-img>
+        </router-link>
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{ auto.name }}</h3>

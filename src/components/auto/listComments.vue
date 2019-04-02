@@ -9,7 +9,7 @@
       <v-flex xs10 md8>
         <v-textarea
           name="input"
-          label="Add Commentt"
+          label="Add Comment"
           v-model="comment"
           hint="Введите текст"
         >{{ comment }}</v-textarea>
