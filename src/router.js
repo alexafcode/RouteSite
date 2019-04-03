@@ -25,6 +25,9 @@ const router = new Router({
       path: '/autoCard',
       name: 'autoCard',
       component: () => import(/* webpackChunkName: "autoCard" */ './components/auto/autoCard.vue'),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/cardItem/:id',
@@ -76,6 +79,10 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '*',
+      redirect: "/"
     },
     // {
     //   path: '/about',
