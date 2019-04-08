@@ -8,12 +8,14 @@
       <search-event :days="days" @goToEventData="goToEventData"></search-event>
       <datapicker-component @changeData="changeData" :year="year" :month="month"></datapicker-component>
     </div>
+    <transition name="bounce">
     <save-event
       :item="item"
       v-show="eventAdd"
       @cancelAddEvent="Cancel"
       @fromStorageEvent="FromStorage"
     ></save-event>
+    </transition>
     <div class="calendar">
       <div
         class="day"
@@ -352,6 +354,23 @@ export default {
     .notMonth {
       color: #a9a9a9;
     }
+  }
+}
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 @media screen and (max-width: 760px) {

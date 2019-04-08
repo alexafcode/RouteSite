@@ -11,6 +11,7 @@
       >
         <v-icon>date_range</v-icon>
       </v-btn>
+      <transition name="fade">
       <v-date-picker
         v-if="datapicker"
         class="date_input"
@@ -20,6 +21,7 @@
         :first-day-of-week="1"
         color="brown darken-4"
       ></v-date-picker>
+      </transition>
     </div>
     <div class="date_title">{{ NameMonth }} - {{ year }}</div>
   </div>
@@ -95,6 +97,12 @@ export default {
       position: absolute;
     }
   }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 @media screen and (max-width: 760px) {
   .date_title {
