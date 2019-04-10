@@ -39,10 +39,10 @@
     </v-layout>
     <div v-if="favoriteAuto">
       <v-flex xs12 sm2 offset-sm10>
-        <v-list>
+        <v-list class="favauto">
           <v-list-tile-content>
             <v-list-tile-title>
-              <b>Favorites Auto:</b>
+              <h3>Your Favorites Auto:</h3>
             </v-list-tile-title>
             <v-list-tile-action v-for="(item, index) in favoriteAuto.auto" :key="index">
               <v-list-tile-sub-title>
@@ -162,6 +162,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.favauto {
+  background: #fafafa;
+}
 @media screen and (max-width: 980px) {
   .layout {
     flex-wrap: wrap;
