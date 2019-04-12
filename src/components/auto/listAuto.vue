@@ -110,6 +110,9 @@ export default {
 </script>
 
 <style>
+.autolist_desc {
+  height: 100px;
+}
 @media screen and (max-width: 760px) {
   .autolist_desc {
     height: 15vh;
