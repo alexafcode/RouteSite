@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.LOAD_AUTO.then(r => {
+    this.LOAD_AUTO.then(() => {
       this.dataReady = true;
     });
   },

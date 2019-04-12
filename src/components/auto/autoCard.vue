@@ -1,20 +1,20 @@
 <template>
   <v-container>
-    <v-layout>
-      <v-flex xs12 sm6 offset-sm3>
-        <v-container fluid>
-          <v-layout row>
+    <v-layout class="card_search">
+      <v-flex xs10 offset-sm1>
+          <v-layout>
             <v-text-field label="Search" v-model="searchText"></v-text-field>
             <v-btn fab dark color="brown darken-4" v-show="isAuthenticated" to="/list">
               <v-icon dark>add</v-icon>
             </v-btn>
           </v-layout>
-        </v-container>
       </v-flex>
     </v-layout>
-    <div id="card_list" v-for="(auto, index) in filterAuto" :key="index">
+    <v-layout row wrap justify-space-between>
+    <div class="card_list" v-for="(auto, index) in filterAuto" :key="index">
       <listauto :auto="auto" @updateState="initState"></listauto>
     </div>
+    </v-layout>
   </v-container>
 </template>
 
@@ -58,6 +58,20 @@ export default {
   }
 };
 </script>
-
-<style>
+<style lang="scss">
+.card_list {
+  width: 50%;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; */
+}
+@media screen and (max-width: 760px) {
+  .card_search {
+    padding-left: 10vW;
+  }
+  .card_list {
+    width: 100%;
+  }
+}
 </style>
+

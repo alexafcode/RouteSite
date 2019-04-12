@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-flex xs12 sm8 offset-sm2>
+    <v-flex xs12 md12>
       <v-card>
         <router-link :to="{name: 'cardItem', params: {id: auto.id}}">
           <v-img
@@ -14,7 +14,7 @@
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{ auto.name }}</h3>
-            <div>{{ ShortName(auto.descriptions) }}</div>
+            <div class="autolist_desc">{{ ShortDesc(auto.descriptions) }}</div>
           </div>
         </v-card-title>
         <v-card-actions>
@@ -90,9 +90,9 @@ export default {
     this.observer.disconnect();
   },
   methods: {
-    ShortName(text) {
+    ShortDesc(text) {
       if (text.length > 185) {
-        return text.substr(0, 270) + "...";
+        return text.substr(0, 260) + "...";
       } else return text;
     },
     openDialog() {
@@ -110,4 +110,10 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 760px) {
+  .autolist_desc {
+    height: 15vh;
+    overflow: hidden;
+  }
+}
 </style>
