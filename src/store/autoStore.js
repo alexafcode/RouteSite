@@ -28,7 +28,8 @@ export default {
               descriptions: data.descriptions,
               imageUrl: data.imageUrl,
               rating: data.rating,
-              comment: data.comment
+              comment: data.comment,
+              manufacturer: data.manufacturer
             }
             tempDB.push(auto)
           })
@@ -43,6 +44,7 @@ export default {
         name: payload.text,
         descriptions: payload.desc,
         rating: payload.rating,
+        manufacturer: payload.manufacturer.trim(),
         imageUrl: ""
       }
       const imageName = payload.imageName

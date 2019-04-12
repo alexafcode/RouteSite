@@ -10,6 +10,9 @@
     <v-container style="background-color: #d8d4d4">
       <v-layout column>
         <v-flex xs12 sm8 md6>
+          <v-text-field label="Manufacturer" v-model="manufacturer" @change="validFields"></v-text-field>
+        </v-flex>
+        <v-flex xs12 sm8 md6>
           <v-text-field label="Name" v-model="text" @change="validFields"></v-text-field>
         </v-flex>
         <v-flex xs12 sm8 md6>
@@ -77,7 +80,8 @@ export default {
       text: "",
       valid: false,
       load: false,
-      rating: 0
+      rating: 0,
+      manufacturer: ""
 
       //
     };
@@ -139,7 +143,7 @@ export default {
     //   this.$router.push("autoCard");
     // },
     validFields() {
-      if (this.text != "" && this.desc != "") {
+      if (this.text != "" && this.desc != "" && this.manufacturer != "") {
         this.valid = true;
       }
     },

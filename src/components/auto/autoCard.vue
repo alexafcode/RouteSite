@@ -10,21 +10,36 @@
         </v-layout>
       </v-flex>
     </v-layout>
-    <v-layout row wrap justify-space-between>
-      <!-- <div class="card_list" v-for="(auto, index) in filterAuto" :key="index"> -->
+    <v-container>
+      <v-layout column class="card_filter">
+        <v-flex xs1 offset-sm0 v-for="(factory, index) in manufacturers" :key="index">
+          <v-checkbox v-model="checkedFactory" :value="factory" :label="`${factory.toString()}`"></v-checkbox>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap justify-space-between>
+        <!-- <div class="card_list" v-for="(auto, index) in filterAuto" :key="index"> -->
         <div class="card_list" v-for="(auto, index) in pagination" :key="index">
-        <listauto :auto="auto" @updateState="initState"></listauto>
-      </div>
-    </v-layout>
+          <listauto :auto="auto" @updateState="initState"></listauto>
+        </div>
+      </v-layout>
+    </v-container>
     <v-layout row justify-center>
-      <v-btn fab small dark color="brown darken-4" @click="prevPage" :disabled="pageCount > pageNumber">
+      <v-btn fab small dark color="brown darken-4" @click="prevPage" :disabled="pageNumber == 1">
         <v-icon dark>skip_previous</v-icon>
       </v-btn>
-      <div class="display-1 text-xs-center">
-        <p>{{ pageNumber }}</p>
+      <div class="display-1 text-xs-center" v-for="(page, index) in pages" :key="index">
+        <p class="pages" @click="goToPage(page)" :class="{ active: isPageActive(page) }">{{ page }}</p>
+        <!-- <p>{{ pageNumber }}</p> -->
         <!-- :class="{ active: isPageActive(page.name) } -->
       </div>
-      <v-btn fab small dark color="brown darken-4" @click="nextPage" :disabled="pageCount <= pageNumber">
+      <v-btn
+        fab
+        small
+        dark
+        color="brown darken-4"
+        @click="nextPage"
+        :disabled="pageCount <= pageNumber"
+      >
         <v-icon dark>skip_next</v-icon>
       </v-btn>
     </v-layout>
@@ -37,7 +52,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import listauto from "./listAuto.vue";
-// import firebase from "firebase/app";
 
 export default {
   name: "autoCard",
@@ -48,40 +62,72 @@ export default {
     return {
       searchText: null,
       pageNumber: 1,
-      size: 4
+      size: 4,
+      checkedFactory: []
     };
   },
-  mounted() {
+  created() {
     this.LOAD_AUTO;
   },
+  mounted() {},
   computed: {
     ...mapState("autoStore", ["autos"]),
     ...mapState("user", ["isAuthenticated"]),
     ...mapActions("autoStore", ["LOAD_AUTO"]),
+    // filterAuto() {
+    //   let autos = this.autos;
+    //   if (this.searchText)
+    //     autos = autos.filter(
+    //       a => a.name.toLowerCase().includes(this.searchText.toLowerCase())
+    //       // || a.descriptions.toLowerCase().includes(this.searchText.toLowerCase())
+    //     );
+    //   return autos;
+    // },
     filterAuto() {
       let autos = this.autos;
-      if (this.searchText)
-        autos = autos.filter(
-          a => a.name.toLowerCase().includes(this.searchText.toLowerCase())
-          // || a.descriptions.toLowerCase().includes(this.searchText.toLowerCase())
-        );
-      return autos;
-      // const a = this.autos || []
-      // return a.slice((this.pageNumber - 1), this.size);
+      let filterAuto = [];
+      if (this.checkedFactory.length > 0) {
+        this.checkedFactory.forEach(r => {
+          autos.forEach(a => {
+            if (a.manufacturer == r) {
+              filterAuto.push(a);
+            }
+          });
+        });
+        return filterAuto;
+      } else {
+        return autos;
+      }
     },
     pagination() {
       // const autos = this.autos || []
-      const autos = this.filterAuto
+      const autos = this.filterAuto;
       const pageNumber = this.pageNumber;
       const size = this.size;
-      const from = (pageNumber * size) - size; // (1*4) -4 // (2*4) - 4
-      const to = (pageNumber * size); // 1*4
-      return  autos.slice(from, to);
+      const from = pageNumber * size - size; // (1*4) -4 // (2*4) - 4
+      const to = pageNumber * size; // 1*4
+      return autos.slice(from, to);
     },
     pageCount() {
       let l = this.filterAuto.length;
       let s = this.size;
       return Math.ceil(l / s);
+    },
+    manufacturers() {
+      let setAuto = new Set();
+      this.autos.forEach(a => {
+        setAuto.add(a.manufacturer);
+      });
+      let arrSet = Array.from(setAuto);
+      return arrSet;
+    },
+    //ToDO
+    pages() {
+      let pages = [];
+      pages.push(this.pageNumber > 1 ? this.pageNumber - 1 : "");
+      pages.push(this.pageNumber);
+      pages.push(this.pageNumber < this.pageCount ? this.pageNumber + 1 : "");
+      return pages;
     }
   },
 
@@ -90,8 +136,7 @@ export default {
       this.LOAD_AUTO;
     },
     nextPage() {
-      if (this.pageCount > this.pageNumber)
-      this.pageNumber++;
+      if (this.pageCount > this.pageNumber) this.pageNumber++;
     },
     prevPage() {
       if (this.pageNumber > 1) {
@@ -99,11 +144,21 @@ export default {
       }
     },
     goToPage(page) {
+      this.pageNumber = page;
+    },
+    isPageActive(page) {
+      if (page == this.pageNumber) return true;
     }
   }
 };
 </script>
 <style lang="scss">
+.pages {
+  cursor: pointer;
+}
+.active {
+  text-decoration: underline;
+}
 .card_list {
   width: 50%;
 }
