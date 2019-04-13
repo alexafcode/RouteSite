@@ -69,12 +69,14 @@ export default {
     ...mapActions("autoStore", ["DELETE"]),
     ...mapState("user", ["isAuthenticated"]),
     srcImage() {
+      let image = this.auto.imageUrlPrev ? this.auto.imageUrlPrev : this.auto.imageUrl;
       if ("IntersectionObserver" in window) {
-        return this.intersected ? this.auto.imageUrl : "";
+        return this.intersected ? image : "";
       } else {
-        return this.auto.imageUrl;
+        return image;
       }
     }
+    // :src="auto.imageUrlPrev ? auto.imageUrlPrev : auto.imageUrl"
   },
   mounted() {
     this.observer = new IntersectionObserver(entries => {

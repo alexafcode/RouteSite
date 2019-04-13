@@ -27,6 +27,7 @@ export default {
               name: data.name,
               descriptions: data.descriptions,
               imageUrl: data.imageUrl,
+              imageUrlPrev: data.imageUrlPrev,
               rating: data.rating,
               comment: data.comment,
               manufacturer: data.manufacturer
@@ -40,38 +41,47 @@ export default {
     // eslint-disable-next-line
     async UPLOAD({ commit }, payload) {
       let data = {
-        id: payload.text.replace(/\s/g,''),
+        id: payload.text.replace(/\s/g, ''),
         name: payload.text,
         descriptions: payload.desc,
         rating: payload.rating,
         manufacturer: payload.manufacturer.trim(),
-        imageUrl: ""
+        imageUrl: "",
+        imageUrlPrev: ""
       }
       const imageName = payload.imageName
+      const imageNamePrev = "Prev" + payload.imageName
       const blobImage = payload.blobImage
+      const blobImagePreview = payload.blobImagePreview
       let storage = firebase.storage()
       let storageRef = storage.ref();
       let imagesRef = storageRef.child('AutoImage');
       let spaceRef = imagesRef.child(imageName);
-      await spaceRef.put(blobImage).then( async function() {
-        await spaceRef.getDownloadURL().then( async function(url) {
+      let spaceRefPrev = imagesRef.child(imageNamePrev);
+      await spaceRef.put(blobImage).then(async function() {
+        await spaceRef.getDownloadURL().then(async function(url) {
           data.imageUrl = url;
-          await firebase.firestore().collection('autoDb').doc(data.id).set(data).then(function() {
-            // eslint-disable-next-line
-            console.log("Document successfully written!");
+          await spaceRefPrev.put(blobImagePreview).then(async function() {
+            await spaceRefPrev.getDownloadURL().then(async function(urlPrev) {
+              data.imageUrlPrev = urlPrev
+              await firebase.firestore().collection('autoDb').doc(data.id).set(data).then(function() {
+                // eslint-disable-next-line
+                console.log("Document successfully written!");
+              })
+              // autogenerate doc ID
+              // let autoRef = firebase.firestore().collection('autoDb').doc()
+              // autoRef.set(data).then(function() {
+              //   console.log("Document successfully written!");
+              // })
+            })
           })
-          // autogenerate doc ID
-          // let autoRef = firebase.firestore().collection('autoDb').doc()
-          // autoRef.set(data).then(function() {
-          //   console.log("Document successfully written!");
-          // })
         })
       })
       return "Success"
     },
     // eslint-disable-next-line
-    async ADD_COMMENT({commit}, payload) {
-      const change =  await firebase.firestore().collection('autoDb').doc(payload.id)
+    async ADD_COMMENT({ commit }, payload) {
+      const change = await firebase.firestore().collection('autoDb').doc(payload.id)
       await change.update({
         comment: payload.comments
       }).then(() => {
@@ -83,14 +93,14 @@ export default {
       })
     },
     // eslint-disable-next-line
-    async DELETE ({coomit}, payload) {
+    async DELETE({ coomit }, payload) {
       await autoDb.autoDb.doc(payload.auto.id).delete().then(() => {
         // console.log("Document successfully deleted!");
         return "Document successfully deleted!"
-    }).catch(function(error) {
-      /* eslint-disable */
+      }).catch(function(error) {
+        /* eslint-disable */
         console.error("Error removing document: ", error);
-    });
+      });
     }
   },
   getters: {

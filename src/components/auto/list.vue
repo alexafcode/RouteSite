@@ -122,9 +122,15 @@ export default {
         });
         const config = {
           file: files[0],
-          maxSize: 500
+          maxSize: 600
+        };
+        const configPreview = {
+          file: files[0],
+          maxSize: 400
         };
         this.blobImage = await helper(config);
+        this.blobImagePreview = await helper(configPreview);
+
       } else {
         this.imageName = "";
         this.imageFile = "";
