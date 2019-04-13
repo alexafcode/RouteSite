@@ -24,14 +24,18 @@
       </v-layout>
     </v-container>
     <v-layout row justify-center>
+      <div class="display-1 text-xs-center">
+        <p class="pages" @click="pageNumber = 1">Первая</p>
+      </div>
       <v-btn fab small dark color="brown darken-4" @click="prevPage" :disabled="pageNumber == 1">
         <v-icon dark>skip_previous</v-icon>
       </v-btn>
       <div class="display-1 text-xs-center" v-for="(page, index) in pages" :key="index">
         <p class="pages" @click="goToPage(page)" :class="{ active: isPageActive(page) }">{{ page }}</p>
-        <!-- <p>{{ pageNumber }}</p> -->
+        <!--  -->
         <!-- :class="{ active: isPageActive(page.name) } -->
       </div>
+      <!-- <p>{{ pageNumber }}</p> -->
       <v-btn
         fab
         small
@@ -42,6 +46,9 @@
       >
         <v-icon dark>skip_next</v-icon>
       </v-btn>
+      <div class="display-1 text-xs-center">
+        <p class="pages" @click="pageNumber = pageCount">Последняя</p>
+      </div>
     </v-layout>
     <div class="display-1 text-xs-center">
       <p>Всего страниц: {{ pageCount }}</p>
@@ -87,6 +94,7 @@ export default {
       let autos = this.autos;
       let filterAuto = [];
       if (this.checkedFactory.length > 0) {
+        this.goToFirstPage()
         this.checkedFactory.forEach(r => {
           autos.forEach(a => {
             if (a.manufacturer == r) {
@@ -148,6 +156,9 @@ export default {
     },
     isPageActive(page) {
       if (page == this.pageNumber) return true;
+    },
+    goToFirstPage() {
+      this.pageNumber = 1;
     }
   }
 };
