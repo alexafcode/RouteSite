@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="list_auto">
     <v-flex xs12 md12>
       <v-card>
         <router-link :to="{name: 'cardItem', params: {id: auto.id}}">
@@ -115,7 +115,10 @@ export default {
 .autolist_desc {
   height: 100px;
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 1024px) {
+  .list_auto {
+    width: 125%;
+  }
   .autolist_desc {
     height: 15vh;
     overflow: hidden;

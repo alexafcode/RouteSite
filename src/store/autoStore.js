@@ -83,7 +83,7 @@ export default {
     async ADD_COMMENT({ commit }, payload) {
       const change = await firebase.firestore().collection('autoDb').doc(payload.id)
       await change.update({
-        comment: payload.comments
+        comment: payload.commentLocal
       }).then(() => {
         // eslint-disable-next-line
         console.log("Document successfully updated!")

@@ -17,7 +17,6 @@
       </v-layout>
       <v-container>
         <v-layout row wrap justify-space-between>
-          <!-- <div class="card_list" v-for="(auto, index) in filterAuto" :key="index"> -->
           <div class="card_list" v-for="(auto, index) in pagination" :key="index">
             <listauto :auto="auto" @updateState="initState"></listauto>
           </div>
