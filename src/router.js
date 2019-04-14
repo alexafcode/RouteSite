@@ -81,6 +81,14 @@ const router = new Router({
       }
     },
     {
+      path: '/converter',
+      name: 'converter',
+      component: () => import(/* webpackChunkName: "calendar" */ './components/Converter/converter.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '*',
       redirect: "/"
     },
