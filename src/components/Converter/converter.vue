@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-show="show">
     <v-layout wrap align-center>
-      <v-flex xs12 sm2 offset-sm1>
+      <v-flex xs12 sm3 offset-sm1>
         <v-select
           :items="dataArr"
           v-model="currencyRate"
@@ -12,21 +12,27 @@
         ></v-select>
       </v-flex>
     </v-layout>
-    <div v-show="show">
-      <v-flex xs8 sm2 offset-sm1>
-        <!-- <p>Rate: {{ currencyRate.name }}</p> -->
+    <div v-show="currencyRate.name">
+      <v-flex xs8 sm3 offset-sm1>
         <v-layout row>
-        <img src="@/./assets/icons_amount.png" alt="Amount" style="vertical-align: middle">
-        <v-text-field label="Amount" v-model="amount" ></v-text-field>
+          <img src="@/./assets/icons_amount.png" alt="Amount" style="vertical-align: middle">
+          <v-text-field label="Amount" v-model="amount"></v-text-field>
         </v-layout>
-        <p>Rate за единицу: {{ unitPrice }}</p>
-        <p>Rate Общей: {{ rate }}</p>
+        <p>
+          Цена единицу "{{ currencyRate.name}}":
+          <b>{{ unitPrice }} рублей</b>
+        </p>
+        <p>
+          Цена за {{ amount }} единицу:
+          <b>{{ rate }} рублей</b>
+        </p>
+        <p> На Дату: {{ time }}</p>
       </v-flex>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "converter",
@@ -38,9 +44,12 @@ export default {
       nominal: null
     },
     amount: 1,
-    show: false
+    show: false,
+    time: null
   }),
   computed: {
+    ...mapActions("currencyStore", ["INIT_STATE"]),
+    ...mapState("currencyStore", ["currency", "timeStamp"]),
     unitPrice() {
       return this.currencyRate.nominal
         ? this.currencyRate.value / this.currencyRate.nominal
@@ -53,35 +62,17 @@ export default {
       }
       let val = (value / 1).toFixed(2).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-      // return (this.amount * this.unitPrice)
     }
   },
   created() {
-    this.createConverter();
+    this.INIT_STATE.then(() => {
+      this.show = true;
+      this.dataArr = this.currency;
+      this.time = this.timeStamp;
+    });
   },
   mounted() {},
-  methods: {
-    createConverter() {
-      // let val = (value/1).toFixed(2).replace('.', ',')
-      //   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-      let url = "https://www.cbr-xml-daily.ru/daily_json.js";
-      axios.get(url).then(response => {
-        let val = response.data.Valute;
-        let obj = {};
-        let arr = [];
-        Object.keys(val).forEach(key => {
-          let e = val[key];
-          obj = {
-            name: e.Name,
-            value: e.Value,
-            nominal: e.Nominal
-          };
-          arr.push(obj);
-        });
-        this.dataArr = arr;
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 <style lang="scss" scoped>
