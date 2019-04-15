@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-layout wrap align-center>
-      <v-flex xs12 sm4 d-flex>
-        <v-select :items="items" label="Выбор валюты из"></v-select>
+      <v-flex xs12 sm4 offset-sm1>
+        <v-select :items="dataArr" v-model="currencyRate" item-text="name" label="Выбор валюты из" @change="test"></v-select>
       </v-flex>
     </v-layout>
+    <p>Rate: {{ currencyRate }}</p>
   </div>
 </template>
 <script>
@@ -14,7 +15,7 @@ export default {
   name: "converter",
   data: () => ({
     dataArr: [],
-    items: []
+    currencyRate: null,
   }),
 
   created() {
@@ -25,6 +26,8 @@ export default {
   },
   methods: {
     createConverter() {
+      // let val = (value/1).toFixed(2).replace('.', ',')
+      //   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
       let url = "https://www.cbr-xml-daily.ru/daily_json.js";
       axios.get(url).then(response => {
         let val = response.data.Valute;
@@ -37,12 +40,14 @@ export default {
             value: e.Value,
             nominal: e.Nominal
           };
-          this.items.push(e.Name)
           arr.push(obj);
         });
         console.log(arr);
         this.dataArr = arr;
       });
+    },
+    test() {
+      console.log(this.currencyRate)
     }
   }
 };
