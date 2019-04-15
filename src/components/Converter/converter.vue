@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout wrap align-center>
-      <v-flex xs12 sm4 offset-sm1>
+      <v-flex xs12 sm2 offset-sm1>
         <v-select
           :items="dataArr"
           v-model="currencyRate"
@@ -12,12 +12,17 @@
         ></v-select>
       </v-flex>
     </v-layout>
-    <p>Rate: {{ currencyRate.name }}</p>
-        <v-flex xs12 sm4 offset-sm1>
-    <v-text-field label="Amount" solo v-model="amount"></v-text-field>
-    </v-flex>
-    <p>Rate за единицу: {{ unitPrice }}</p>
-    <p>Rate Общей: {{ rate }}</p>
+    <div v-show="show">
+      <v-flex xs8 sm2 offset-sm1>
+        <!-- <p>Rate: {{ currencyRate.name }}</p> -->
+        <v-layout row>
+        <img src="@/./assets/icons_amount.png" alt="Amount" style="vertical-align: middle">
+        <v-text-field label="Amount" v-model="amount" ></v-text-field>
+        </v-layout>
+        <p>Rate за единицу: {{ unitPrice }}</p>
+        <p>Rate Общей: {{ rate }}</p>
+      </v-flex>
+    </div>
   </div>
 </template>
 <script>
@@ -28,25 +33,33 @@ export default {
   data: () => ({
     dataArr: [],
     currencyRate: {
-      name: "Валюта",
+      name: null,
       value: "",
-      nominal: ""
+      nominal: null
     },
-    amount: 1
+    amount: 1,
+    show: false
   }),
   computed: {
     unitPrice() {
-      return this.currencyRate.value / this.currencyRate.nominal
+      return this.currencyRate.nominal
+        ? this.currencyRate.value / this.currencyRate.nominal
+        : "";
     },
     rate() {
-      return (this.amount * this.unitPrice)
+      let value = this.amount * this.unitPrice;
+      if (this.currencyRate.name != null) {
+        this.show = true;
+      }
+      let val = (value / 1).toFixed(2).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      // return (this.amount * this.unitPrice)
     }
   },
   created() {
     this.createConverter();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     createConverter() {
       // let val = (value/1).toFixed(2).replace('.', ',')
@@ -67,7 +80,7 @@ export default {
         });
         this.dataArr = arr;
       });
-    },
+    }
   }
 };
 </script>
