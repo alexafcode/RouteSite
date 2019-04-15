@@ -2,10 +2,22 @@
   <div>
     <v-layout wrap align-center>
       <v-flex xs12 sm4 offset-sm1>
-        <v-select :items="dataArr" v-model="currencyRate" item-text="name" label="Выбор валюты из" @change="test"></v-select>
+        <v-select
+          :items="dataArr"
+          v-model="currencyRate"
+          item-text="name"
+          label="Выбор валюты из"
+          @change="amount = 1 "
+          return-object
+        ></v-select>
       </v-flex>
     </v-layout>
-    <p>Rate: {{ currencyRate }}</p>
+    <p>Rate: {{ currencyRate.name }}</p>
+        <v-flex xs12 sm4 offset-sm1>
+    <v-text-field label="Amount" solo v-model="amount"></v-text-field>
+    </v-flex>
+    <p>Rate за единицу: {{ unitPrice }}</p>
+    <p>Rate Общей: {{ rate }}</p>
   </div>
 </template>
 <script>
@@ -15,14 +27,25 @@ export default {
   name: "converter",
   data: () => ({
     dataArr: [],
-    currencyRate: null,
+    currencyRate: {
+      name: "Валюта",
+      value: "",
+      nominal: ""
+    },
+    amount: 1
   }),
-
+  computed: {
+    unitPrice() {
+      return this.currencyRate.value / this.currencyRate.nominal
+    },
+    rate() {
+      return (this.amount * this.unitPrice)
+    }
+  },
   created() {
     this.createConverter();
   },
   mounted() {
-    // this.createConverter();
   },
   methods: {
     createConverter() {
@@ -42,13 +65,9 @@ export default {
           };
           arr.push(obj);
         });
-        console.log(arr);
         this.dataArr = arr;
       });
     },
-    test() {
-      console.log(this.currencyRate)
-    }
   }
 };
 </script>
