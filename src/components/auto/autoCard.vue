@@ -33,8 +33,8 @@
           <p class="pages" @click="pageNumber = pageCount">End</p>
         </div>
       </v-layout>
-      <div class="display-1 text-xs-center">
-        <p>Всего страниц: {{ pageCount }}</p>
+      <div class="text-xs-center">
+        <p>Всего страниц: <b>{{ pageCount }}</b></p>
       </div>
     </v-container>
   </v-container>

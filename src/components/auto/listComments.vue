@@ -1,10 +1,10 @@
 <template>
   <v-layout column>
     <div class="mt-2" v-for="(item, index) in commentLocal" :key="index">
+      <v-list-tile-sub-title class="listcomment_user">{{ item.name }}</v-list-tile-sub-title>
       <v-list-tile>
-        <v-list-tile-sub-title class="text--primary">{{ item.comment }}</v-list-tile-sub-title>
+        <v-list-tile-sub-title class="text--primary listcomment_comment">{{ item.comment }}</v-list-tile-sub-title>
       </v-list-tile>
-      <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
       <v-divider/>
     </div>
     <v-layout row>
@@ -44,18 +44,18 @@ export default {
   },
   computed: {
     ...mapActions("autoStore", ["ADD_COMMENT"]),
-    ...mapState("user", ["user"]),
+    ...mapState("user", ["user"])
   },
   methods: {
     addComment() {
       if (this.comment !== "") {
         if (this.commentLocal === undefined) {
-          this.commentLocal  = [];
+          this.commentLocal = [];
         }
         let obj = {
           name: this.user.displayName ? this.user.displayName : this.user.email,
           comment: this.comment
-        }
+        };
         this.commentLocal.push(obj);
         this.ADD_COMMENT;
         this.comment = "";
@@ -64,3 +64,10 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.listcomment_user {
+  font-size: 12px;
+  color: #c5c5c5;
+}
+</style>
+
