@@ -23,16 +23,17 @@
           <b>{{ unitPrice }} рублей</b>
         </p>
         <p>
-          Цена за {{ amount }} единицу:
+          Цена за <b>{{ amount }}</b> единиц:
           <b>{{ rate }} рублей</b>
         </p>
-        <p> На Дату: {{ time }}</p>
+        <p> Данные на дату: <b>{{ time }}</b></p>
       </v-flex>
     </div>
   </div>
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
+import names from "../Calendar/constNames.js";
 
 export default {
   name: "converter",
@@ -68,7 +69,8 @@ export default {
     this.INIT_STATE.then(() => {
       this.show = true;
       this.dataArr = this.currency;
-      this.time = this.timeStamp;
+      let date = new Date(Date.parse(this.timeStamp));
+      this.time = `${date.getDate()} ${names.monthNameS[date.getMonth()]} ${date.getFullYear()};`
     });
   },
   mounted() {},
