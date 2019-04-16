@@ -88,7 +88,6 @@ export default {
       }`;
       axios.get(url).then(response => {
         let data = response.data.results;
-        console.log(response)
         let obj = {};
         let arr = [];
         Object.keys(data).forEach(key => {
@@ -128,7 +127,8 @@ export default {
 </script>
 <style lang="scss" scoped>
   .exchange {
-    background-color: #e1e1e1;
+    width: 100%;
+    height: 100%;
     .exchange_result {
       margin-top: 1%;
     }
