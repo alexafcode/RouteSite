@@ -1,8 +1,9 @@
 <template>
-  <div v-show="show">
+  <div class="converter" v-show="show">
     <v-layout wrap align-center>
-      <v-flex xs12 sm3 offset-sm1>
+      <v-flex xs10 md4 sm10 offset-sm1>
         <v-select
+          class="converter_select"
           :items="dataArr"
           v-model="currencyRate"
           item-text="name"
@@ -12,21 +13,25 @@
         ></v-select>
       </v-flex>
     </v-layout>
-    <div v-show="currencyRate.name">
-      <v-flex xs8 sm3 offset-sm1>
+    <div v-show="currencyRate.name" class="converter_value">
+      <v-flex xs10 md4 sm10 offset-sm1>
         <v-layout row>
           <img src="@/./assets/icons_amount.png" alt="Amount" style="vertical-align: middle">
-          <v-text-field label="Amount" v-model="amount"></v-text-field>
+          <v-text-field type="number" label="Amount" v-model="amount"></v-text-field>
         </v-layout>
         <p>
           Цена единицу "{{ currencyRate.name}}":
           <b>{{ unitPrice }} рублей</b>
         </p>
         <p>
-          Цена за <b>{{ amount }}</b> единиц:
+          Цена за
+          <b>{{ amount }}</b> единиц:
           <b>{{ rate }} рублей</b>
         </p>
-        <p> Данные на дату: <b>{{ time }}</b></p>
+        <p>
+          Данные на дату:
+          <b>{{ time }}</b>
+        </p>
       </v-flex>
     </div>
   </div>
@@ -70,7 +75,9 @@ export default {
       this.show = true;
       this.dataArr = this.currency;
       let date = new Date(Date.parse(this.timeStamp));
-      this.time = `${date.getDate()} ${names.monthNameS[date.getMonth()]} ${date.getFullYear()};`
+      this.time = `${date.getDate()} ${
+        names.monthNameS[date.getMonth()]
+      } ${date.getFullYear()}`;
     });
   },
   mounted() {},
@@ -78,4 +85,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@media screen and (max-width: 1024px) {
+  .converter {
+    text-align: center;
+    .converter_select {
+      margin-left: 2vW;
+      font-size: 22px;
+    }
+    .converter_value {
+      font-size: 22px;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .converter {
+    .converter_select {
+      font-size: 18px;
+    }
+    .converter_value {
+      font-size: 18px;
+    }
+  }
+}
 </style>
