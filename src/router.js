@@ -89,6 +89,14 @@ const router = new Router({
       }
     },
     {
+      path: '/currencyExchange',
+      name: 'currencyExchange',
+      component: () => import(/* webpackChunkName: "calendar" */ './components/Converter/currency-exchange.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '*',
       redirect: "/"
     },
