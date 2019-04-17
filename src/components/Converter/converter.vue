@@ -63,9 +63,6 @@ export default {
     },
     rate() {
       let value = this.amount * this.unitPrice;
-      if (this.currencyRate.name != null) {
-        this.show = true;
-      }
       let val = (value / 1).toFixed(2).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }

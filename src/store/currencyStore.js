@@ -18,7 +18,8 @@ export default {
   actions: {
     async INIT_STATE({ commit }) {
       let url = "https://www.cbr-xml-daily.ru/daily_json.js";
-      const results  = await axios.get(url).then(response => {
+      const results  = await axios.get(url)
+      .then(response => {
         commit('setDataTime', response.data.Timestamp)
         let val = response.data.Valute;
         let obj = {};
@@ -33,7 +34,9 @@ export default {
           arr.push(obj);
         });
        commit('setCurrency', arr);
-      });
+      })
+      // eslint-disable-next-line
+      .catch(error => console.error(error))
       return results
     }
   },

@@ -47,12 +47,7 @@
       >
         <img src="../assets/Google_2015_logo.png" alt="Google" style="vertical-align: middle">
       </v-btn>
-      <v-btn
-        color="brown lighten-1"
-        v-show="isAuthenticated"
-        class="hidden-sm-and-down"
-        to="/pc"
-      >ЛК</v-btn>
+      <v-btn color="brown lighten-1" v-show="isAuthenticated" class="hidden-sm-and-down" to="/pc">ЛК</v-btn>
       <v-btn
         color="brown lighten-1"
         v-show="isAuthenticated"
@@ -129,9 +124,9 @@ export default {
             },
             {
               title: "Валюта",
-              route: "/currency",
+              route: "/mainConverter",
               icon: "trending_up"
-            },
+            }
           ]
         : [
             {

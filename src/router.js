@@ -46,14 +46,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/currency',
-      name: 'currency',
-      component: () => import(/* webpackChunkName: "currency" */ './components/currency/currency.vue'),
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/currency',
+    //   name: 'currency',
+    //   component: () => import(/* webpackChunkName: "currency" */ './components/currency/currency.vue'),
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: '/signin',
       name: 'signin',
@@ -81,17 +81,25 @@ const router = new Router({
       }
     },
     {
-      path: '/converter',
+      path: '/mainConverter',
+      name: 'mainConverter',
+      component: () => import(/* webpackChunkName: "converter" */ './components/Converter/main-converter.vue'),
+      meta: {
+        requiresAuth: true
+      },
+    },
+    {
+      path: '/mainConverter/converter',
       name: 'converter',
-      component: () => import(/* webpackChunkName: "calendar" */ './components/Converter/converter.vue'),
+      component: () => import(/* webpackChunkName: "converter" */ './components/Converter/converter.vue'),
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/currencyExchange',
+      path: '/mainConverter/currencyExchange',
       name: 'currencyExchange',
-      component: () => import(/* webpackChunkName: "calendar" */ './components/Converter/currency-exchange.vue'),
+      component: () => import(/* webpackChunkName: "converter" */ './components/Converter/currency-exchange.vue'),
       meta: {
         requiresAuth: true
       }

@@ -46,10 +46,13 @@
     </v-layout>
     <v-flex  xs4 md4 sm4 offset-sm1>
     <v-btn color="orange" @click="convert" v-show="currencyTo">Конвертировать</v-btn>
+    <v-alert :value="errorMess" color="error" icon="warning" outline>{{  errorText }}.</v-alert>
     </v-flex>
     <v-flex xs4 md4 sm4 offset-sm1 v-if="show" class="exchange_result">
-    <p>{{ ` 1 ${currencyFrom.symbol} =  ${convertValue.val} ${currencyTo.symbol}` }}</p>
-    <p>{{ `${amount} ${currencyFrom.symbol} = ${converted} ${currencyTo.symbol}` }}</p>
+    <p class="display-1 font-weight-black text-xs-center">
+      {{ ` 1 ${currencyFrom.symbol} =  ${convertValue.val} ${currencyTo.symbol}` }}</p>
+    <p class="display-1 font-weight-black text-xs-center">
+      {{ `${amount} ${currencyFrom.symbol} = ${converted} ${currencyTo.symbol}` }}</p>
     </v-flex>
   </div>
 </template>
@@ -67,7 +70,9 @@ export default {
     convertValue: {},
     amount: 1,
     searchInput: "",
-    show: false
+    show: false,
+    errorMess: false,
+    errorText: null
   }),
   computed: {
     converted() {
@@ -86,7 +91,8 @@ export default {
       let url = `https://free.currencyconverterapi.com/api/v6/currencies?apiKey=${
         this.apiKey
       }`;
-      axios.get(url).then(response => {
+      axios.get(url)
+        .then(response => {
         let data = response.data.results;
         let obj = {};
         let arr = [];
@@ -100,13 +106,20 @@ export default {
           arr.push(obj);
         });
         this.dataCurrency = arr;
-      });
+      })
+      .catch(error => {
+        this.errorMess = true,
+        this.errorText = error.message,
+        // eslint-disable-next-line
+        console.error(error)
+      })
     },
     convert() {
       let url = `https://free.currencyconverterapi.com/api/v6/convert?apiKey=${
         this.apiKey
       }&q=${this.currencyFrom.id}_${this.currencyTo.id}`;
-      axios.get(url).then(response => {
+      axios.get(url)
+      .then(response => {
         let obj = {};
         let data = response.data.results;
         Object.keys(data).forEach(key => {
@@ -120,7 +133,13 @@ export default {
           this.convertValue = obj;
           this.show = true;
         });
-      });
+      })
+      .catch(error => {
+        this.errorMess = true,
+        this.errorText = error.message,
+        // eslint-disable-next-line
+        console.error(error)
+      })
     }
   }
 };
