@@ -11,6 +11,7 @@
           item-value="name"
           return-object
           required
+          @change="amount = 1"
         ></v-autocomplete>
       </v-flex>
       <v-flex xs10 md4 sm10 offset-sm1 v-show="currencyFrom != null" class="exchange__from">
@@ -23,6 +24,7 @@
           item-value="name"
           return-object
           required
+          @change="amount = 1"
         ></v-autocomplete>
       </v-flex>
     </v-layout>
@@ -48,10 +50,10 @@
     <v-btn color="orange" @click="convert" v-show="currencyTo">Конвертировать</v-btn>
     <v-alert :value="errorMess" color="error" icon="warning" outline>{{  errorText }}.</v-alert>
     </v-flex>
-    <v-flex xs4 md4 sm4 offset-sm1 v-if="show" class="exchange_result">
-    <p class="display-1 font-weight-black text-xs-center">
+    <v-flex  v-if="show" class="exchange_result">
+    <p class="text-xs-center">
       {{ ` 1 ${currencyFrom.symbol} =  ${convertValue.val} ${currencyTo.symbol}` }}</p>
-    <p class="display-1 font-weight-black text-xs-center">
+    <p class="text-xs-center">
       {{ `${amount} ${currencyFrom.symbol} = ${converted} ${currencyTo.symbol}` }}</p>
     </v-flex>
   </div>
@@ -151,11 +153,19 @@ export default {
     height: 100%;
     .exchange_result {
       margin-top: 1%;
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 40px;
     }
   }
 @media screen and (max-width: 1000px) {
   .exchange {
     margin-left: 3vW;
+    .exchange_result {
+      margin-top: 5vH;
+      font-size: 22px;
+      line-height: 30px;
+    }
   }
 }
 </style>
