@@ -156,7 +156,7 @@ export default {
             },
             {
               title: "currency",
-              route: "/currency",
+              route: "/mainConverter",
               icon: "trending_up"
             },
             {
