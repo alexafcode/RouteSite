@@ -105,6 +105,7 @@ export default {
           };
           arr.push(obj);
         });
+        arr.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
         this.dataCurrency = arr;
       })
       .catch(error => {
