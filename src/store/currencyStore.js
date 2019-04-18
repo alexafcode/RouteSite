@@ -42,7 +42,7 @@ export default {
     }
   },
   getters: {
-    user: state => {
+    currencyState: state => {
       return state.currency
     }
   }

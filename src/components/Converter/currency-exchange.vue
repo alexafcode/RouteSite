@@ -86,16 +86,16 @@ export default {
       // return (this.amount * this.convertValue.val).toFixed(2)
     }
   },
-  created() {
-    this.init();
+  async created() {
+    await this.init();
   },
   mounted() {},
   methods: {
-    init() {
+    async init() {
       let url = `https://free.currencyconverterapi.com/api/v6/currencies?apiKey=${
         this.apiKey
       }`;
-      axios
+      const result = await axios
         .get(url)
         .then(response => {
           let data = response.data.results;
