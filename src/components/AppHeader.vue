@@ -155,7 +155,7 @@ export default {
               icon: "done"
             },
             {
-              title: "currency",
+              title: "Валюта",
               route: "/mainConverter",
               icon: "trending_up"
             },

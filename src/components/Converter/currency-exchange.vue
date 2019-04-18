@@ -1,7 +1,7 @@
 <template>
   <div class="exchange">
     <v-layout wrap align-center>
-      <v-flex xs10 md4 sm10 offset-sm1 class="exchange__to">
+      <v-flex xs11 md4 sm10 offset-sm1 class="exchange__to">
         <v-autocomplete
           v-model="currencyFrom"
           :items="dataCurrency"
@@ -14,7 +14,7 @@
           @change="convert"
         ></v-autocomplete>
       </v-flex>
-      <v-flex xs10 md4 sm10 offset-sm1 v-show="currencyFrom != null" class="exchange__from">
+      <v-flex xs11 md4 sm10 offset-sm1 v-show="currencyFrom != null" class="exchange__from">
         <v-autocomplete
           v-model="currencyTo"
           :items="dataCurrency"
@@ -29,7 +29,7 @@
       </v-flex>
     </v-layout>
     <v-layout wrap align-center>
-      <v-flex xs4 md4 sm4 offset-sm1 v-show="currencyTo != null" class="exchange__amound">
+      <v-flex xs5 md4 sm4 offset-sm1 v-show="currencyTo != null" class="exchange__amound">
         <v-text-field
           :suffix='`${currencyFrom ? currencyFrom.symbol : ""}`'
           type="number"
@@ -37,7 +37,7 @@
           v-model="amount"
         ></v-text-field>
       </v-flex>
-      <v-flex xs4 md4 sm4 offset-sm1 v-show="show" class="exchange__amound_converted">
+      <v-flex xs5 md4 sm4 offset-sm1 v-show="show" class="exchange__amound_converted">
         <v-text-field
           :suffix='`${currencyTo ? currencyTo.symbol : ""}`'
           label="Amount Converted"
@@ -168,6 +168,9 @@ export default {
 @media screen and (max-width: 1000px) {
   .exchange {
     margin-left: 3vw;
+    .exchange__amound_converted {
+      margin-left: 5vh;
+    }
     .exchange_result {
       margin-top: 5vh;
       font-size: 22px;
