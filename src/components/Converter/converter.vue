@@ -13,6 +13,7 @@
         ></v-select>
       </v-flex>
     </v-layout>
+
     <div v-show="currencyRate.name" class="converter_value">
       <v-flex xs10 md4 sm10 offset-sm1>
         <v-layout row>
@@ -32,6 +33,7 @@
           Данные на дату:
           <b>{{ time }}</b>
         </p>
+         <current-price v-if="currencyRate.name" :currencyList="dataArr"></current-price>
       </v-flex>
     </div>
   </div>
@@ -39,9 +41,13 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import names from "../Calendar/constNames.js";
+import currentPrice from  "./components-converter/current-price-modal.vue"
 
 export default {
   name: "converter",
+  components: {
+    currentPrice
+  },
   data: () => ({
     dataArr: [],
     currencyRate: {
