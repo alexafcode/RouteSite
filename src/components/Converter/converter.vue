@@ -2,7 +2,7 @@
   <div class="converter" v-show="show">
     <v-layout wrap align-center>
       <v-flex xs10 md4 sm10 offset-sm1>
-        <v-select
+        <v-autocomplete
           class="converter_select"
           :items="dataArr"
           v-model="currencyRate"
@@ -10,10 +10,9 @@
           label="Выбор валюты из"
           @change="amount = 1 "
           return-object
-        ></v-select>
+        ></v-autocomplete>
       </v-flex>
     </v-layout>
-
     <div v-show="currencyRate.name" class="converter_value">
       <v-flex xs10 md4 sm10 offset-sm1>
         <v-layout row>
@@ -33,7 +32,7 @@
           Данные на дату:
           <b>{{ time }}</b>
         </p>
-         <current-price v-if="currencyRate.name" :currencyList="dataArr"></current-price>
+        <current-price v-if="currencyRate.name" :currencyList="dataArr"></current-price>
       </v-flex>
     </div>
   </div>
@@ -41,7 +40,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import names from "../Calendar/constNames.js";
-import currentPrice from  "./components-converter/current-price-modal.vue"
+import currentPrice from "./components-converter/current-price-modal.vue";
 
 export default {
   name: "converter",
@@ -92,7 +91,7 @@ export default {
   .converter {
     text-align: center;
     .converter_select {
-      margin-left: 2vW;
+      margin-left: 2vw;
       font-size: 22px;
     }
     .converter_value {
