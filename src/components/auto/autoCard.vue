@@ -162,11 +162,12 @@ export default {
   }
 
   .card_list {
-    width: 80%;
-    // margin-top: 12vh;
+    width: 90%;
   }
   .card_pagination {
-    width: 90%;
+    .pages {
+      display: none;
+    }
   }
 }
 </style>

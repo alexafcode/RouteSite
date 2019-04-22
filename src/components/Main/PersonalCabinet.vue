@@ -42,7 +42,7 @@
         <v-list class="favauto">
           <v-list-tile-content>
             <v-list-tile-title>
-              <h3>Your Favorites Auto:</h3>
+              <h3>Your Favorites Cars:</h3>
             </v-list-tile-title>
             <v-list-tile-action v-for="(item, index) in favoriteAuto.auto" :key="index">
               <v-list-tile-sub-title>
