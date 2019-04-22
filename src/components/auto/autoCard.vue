@@ -32,7 +32,7 @@
               <v-btn flat class="pages" @click="pageNumber = 1">Start</v-btn>
             </div>
             <div class="text-xs-center">
-              <v-pagination v-model="pageNumber" :length="3" :total-visible="5" circle></v-pagination>
+              <v-pagination @input="scrollTop" v-model="pageNumber" :length="3" :total-visible="5" circle></v-pagination>
             </div>
             <div class="text-xs-center">
               <v-btn flat class="pages" @click="pageNumber = pageCount">End</v-btn>
@@ -138,6 +138,12 @@ export default {
     },
     resetFilter() {
       this.checkedFactory = [];
+    },
+    scrollTop() {
+      window.scrollTo({
+        top: 0,
+        // behavior: "smooth"
+      });
     }
   }
 };
