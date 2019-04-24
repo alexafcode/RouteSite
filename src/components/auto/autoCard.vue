@@ -17,6 +17,12 @@
             <v-btn round color="primary" dark @click.prevent="resetFilter">Сбросить</v-btn>
           </div>
         </v-layout>
+        <div class="card_select">
+          <p>Показывать по:</p>
+          <div class="card_select_input">
+            <v-select v-model="size" :items="select" label="Select" return-object single-line></v-select>
+          </div>
+        </div>
       </v-flex>
       <div v-show="show">
         <v-flex xs11>
@@ -32,7 +38,13 @@
               <v-btn flat class="pages" @click="pageNumber = 1">Start</v-btn>
             </div>
             <div class="text-xs-center">
-              <v-pagination @input="scrollTop" v-model="pageNumber" :length="3" :total-visible="5" circle></v-pagination>
+              <v-pagination
+                @input="scrollTop"
+                v-model="pageNumber"
+                :length="3"
+                :total-visible="5"
+                circle
+              ></v-pagination>
             </div>
             <div class="text-xs-center">
               <v-btn flat class="pages" @click="pageNumber = pageCount">End</v-btn>
@@ -67,7 +79,8 @@ export default {
       pageNumber: 1,
       size: 4,
       checkedFactory: [],
-      show: false
+      show: false,
+      select: [4, 6, 8]
     };
   },
   created() {
@@ -141,7 +154,7 @@ export default {
     },
     scrollTop() {
       window.scrollTo({
-        top: 0,
+        top: 0
         // behavior: "smooth"
       });
     }
@@ -152,6 +165,13 @@ export default {
 .card_filter {
   flex-direction: column;
 }
+.card_select {
+  margin-top: 10%;
+  .card_select_input {
+    width: 30%;
+  }
+}
+
 .pages {
   font-size: 18px; //em
   font-weight: 600;
