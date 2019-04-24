@@ -46,10 +46,8 @@
             </v-list-tile-title>
             <v-list-tile-action v-for="(item, index) in favoriteAuto.auto" :key="index">
               <v-list-tile-sub-title>
-                <router-link :to="{name: 'cardItem', params: {id: item.id}}">
-                {{ item.name }}
-                </router-link>
                 <v-icon color="yellow darken-2">star</v-icon>
+                <router-link :to="{name: 'cardItem', params: {id: item.id}}">{{ item.name }}</router-link>
               </v-list-tile-sub-title>
             </v-list-tile-action>
           </v-list-tile-content>
