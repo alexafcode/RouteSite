@@ -41,7 +41,7 @@
               <v-pagination
                 @input="scrollTop"
                 v-model="pageNumber"
-                :length="3"
+                :length="pageCount"
                 :total-visible="5"
                 circle
               ></v-pagination>
@@ -154,8 +154,8 @@ export default {
     },
     scrollTop() {
       window.scrollTo({
-        top: 0
-        // behavior: "smooth"
+        top: 0,
+        behavior: "smooth"
       });
     }
   }
