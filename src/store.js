@@ -4,6 +4,7 @@ import autoStore from './store/autoStore'
 import user from './store/user'
 import userDataDb from './store/userDataDb'
 import currencyStore from './store/currencyStore'
+import weatherStore from './store/weatherStore'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ modules: {
   autoStore: autoStore,
   user: user,
   userDataDb: userDataDb,
-  currencyStore: currencyStore
+  currencyStore: currencyStore,
+  weatherStore: weatherStore
 }
 })

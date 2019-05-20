@@ -105,6 +105,14 @@ const router = new Router({
       }
     },
     {
+      path: '/weather',
+      name: 'weather',
+      component: () => import(/* webpackChunkName: "converter" */ './components/Weather/weather.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '*',
       redirect: "/"
     },
