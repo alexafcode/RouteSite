@@ -8,7 +8,10 @@
         <p class="card__center_temp">{{city.temp}}</p>
       </v-flex>
       <v-flex xs6>
-        <div class="card__center_icon"></div>
+        <div
+          class="card__center_icon"
+          :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${city.WeatherIcon}.png`)})`}"
+        ></div>
       </v-flex>
       <v-flex xs3 class="card__center_wind">
         <p>Направление ветра:</p>
@@ -34,7 +37,9 @@ export default {
       required: true
     }
   },
-  data: () => ({}),
+  data: () => ({
+    url: "~@/assets/weather-icons/01.png"
+  }),
   computed: {},
   created() {},
   mounted() {},
@@ -47,7 +52,6 @@ export default {
   height: 45vh;
   background: grey;
   margin-bottom: 5vh;
-  z-index: 1;
   border-radius: 1em;
   .card__title {
     margin-left: auto;
@@ -59,9 +63,10 @@ export default {
     .card__center_temp {
     }
     .card__center_icon {
-      width: 15vw;
+      width: 13vw;
       height: 25vh;
-      background: red;
+      background-size: contain;
+      background-position: top;
     }
     .card__center_wind {
     }

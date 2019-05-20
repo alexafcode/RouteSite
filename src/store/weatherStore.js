@@ -47,6 +47,7 @@ export default {
         }?apikey=${key.weather}&language=ru-ru&details=true`;
       await axios.get(url)
         .then(result => {
+          let res = result.data[0];
           city = {
             city: data.AdministrativeArea
               ? data.AdministrativeArea.LocalizedName
@@ -54,15 +55,16 @@ export default {
             country: data.Country
               ? data.Country.LocalizedName
               : data.selectCity.country,
-            temp: `${result.data[0].Temperature.Metric.Value}  ${
-              result.data[0].Temperature.Metric.Unit
+            temp: `${res.Temperature.Metric.Value}  ${
+              res.Temperature.Metric.Unit
               }`,
-            windDirect: result.data[0].Wind.Direction.Localized,
-            windSpeed: `${result.data[0].Wind.Speed.Metric.Value}  ${
-              result.data[0].Wind.Speed.Metric.Unit
+            windDirect: res.Wind.Direction.Localized,
+            windSpeed: `${res.Wind.Speed.Metric.Value}  ${
+              res.Wind.Speed.Metric.Unit
               }`,
-            weatherText: result.data[0].WeatherText,
-            key: result.data[0].Key
+            weatherText: res.WeatherText,
+            key: res.Key,
+            WeatherIcon: res.WeatherIcon
           };
         });
       commit('SET_CITY', city)

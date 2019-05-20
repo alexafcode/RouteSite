@@ -9,7 +9,7 @@
           <v-expand-transition>
             <v-list v-if="selectCityShow" class="lighten-3 weather__searchList">
               <v-list-tile v-for="(item, i) in items" :key="i">
-                <v-list-tile-content @click="getWeatherByCity(item)">
+                <v-list-tile-content @click="getWeatherByCity(item)" class="weather__searchList_item">
                   <v-list-tile-title v-text="item.city"></v-list-tile-title>
                   <v-list-tile-sub-title v-text="item.country"></v-list-tile-sub-title>
                   <v-divider inset></v-divider>
@@ -48,7 +48,24 @@ export default {
     searchText: "",
     selectCityShow: false,
     // isLoading: false,
-    selectCity: {}
+    selectCity: {},
+    // items: [
+    //   {
+    //     country: "Россия",
+    //     city: "Москва"
+    //   },
+    //   {
+    //     country: "Россия",
+    //     city: "Москва"
+    //   },
+    //   {
+    //     country: "Россия",
+    //     city: "Москва"
+    //   }
+    // ],
+    // cities: {
+    //   city: "Пермь"
+    // }
   }),
   computed: {
     ...mapActions("weatherStore", [
@@ -78,12 +95,17 @@ export default {
 <style lang="scss" scoped>
 .weather {
   .weather__search {
-    position: relative;
     .weather__searchList {
       cursor: pointer;
-      height: 55vh;
+      max-height: 55vh;
       overflow: auto;
       z-index: 1;
+      position: relative;
+      &:after {
+        position: absolute;
+      }
+      .weather__searchList_item {
+      }
     }
   }
 }
