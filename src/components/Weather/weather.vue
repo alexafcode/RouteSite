@@ -88,6 +88,7 @@ export default {
       this.selectCity = data;
       this.GET_WEATHER_CITY;
       this.selectCityShow = false;
+      this.searchText = "";
     }
   }
 };

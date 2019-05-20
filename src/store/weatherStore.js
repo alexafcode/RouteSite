@@ -48,6 +48,7 @@ export default {
       await axios.get(url)
         .then(result => {
           let res = result.data[0];
+          // console.log(res)
           city = {
             city: data.AdministrativeArea
               ? data.AdministrativeArea.LocalizedName
@@ -64,7 +65,8 @@ export default {
               }`,
             weatherText: res.WeatherText,
             key: res.Key,
-            WeatherIcon: res.WeatherIcon
+            WeatherIcon: res.WeatherIcon,
+            IsDayTime: res.IsDayTime
           };
         });
       commit('SET_CITY', city)

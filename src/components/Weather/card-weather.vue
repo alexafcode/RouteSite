@@ -1,19 +1,24 @@
 <template>
-  <v-layout column class="card">
+  <v-layout
+    column
+    class="card"
+    :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
+  >
     <v-layout row class="card__title">
-      <p>{{city.country ? city.country : "Текущее местоположение"}} {{city.city ? city.city : ""}}</p>
+      <p>{{city.country}}, {{city.city}}</p>
     </v-layout>
-    <v-layout row class="card__center">
+    <v-layout row class="card__center" align-center>
       <v-flex xs3>
         <p class="card__center_temp">{{city.temp}}</p>
       </v-flex>
       <v-flex xs6>
         <div
+          v-show="city.WeatherIcon"
           class="card__center_icon"
           :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${city.WeatherIcon}.png`)})`}"
         ></div>
       </v-flex>
-      <v-flex xs3 class="card__center_wind">
+      <v-flex xs4 class="card__center_wind">
         <p>Направление ветра:</p>
         <p class="text-md-center">{{city.windDirect}}</p>
         <p>Скорость ветра:</p>
@@ -33,14 +38,18 @@ export default {
   components: {},
   props: {
     city: {
-      // type: String,
+      type: Object,
       required: true
     }
   },
   data: () => ({
     url: "~@/assets/weather-icons/01.png"
   }),
-  computed: {},
+  computed: {
+    dayTime() {
+      return this.city.IsDayTime ? "day" : "night";
+    }
+  },
   created() {},
   mounted() {},
   methods: {}
@@ -48,23 +57,28 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card {
-  width: 35vw;
-  height: 45vh;
-  background: grey;
+  width: 500px;
+  height: 250px;
   margin-bottom: 5vh;
   border-radius: 1em;
+  padding: 20px;
   .card__title {
     margin-left: auto;
     margin-right: auto;
-    height: 4em;
-    padding-top: 0.5em;
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
   }
   .card__center {
     .card__center_temp {
+      font-size: 34px;
+      line-height: 48px;
+      font-weight: 400;
+      color: white;
     }
     .card__center_icon {
-      width: 13vw;
-      height: 25vh;
+      width: 190px;
+      height: 135px;
       background-size: contain;
       background-position: top;
     }
