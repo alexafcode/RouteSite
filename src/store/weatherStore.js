@@ -1,5 +1,6 @@
 import axios from "axios"
 import key from "./keys.js";
+import moment from "moment";
 
 export default {
   namespaced: true,
@@ -48,7 +49,8 @@ export default {
       await axios.get(url)
         .then(result => {
           let res = result.data[0];
-          // console.log(res)
+          console.log(res)
+          let time = moment(res.LocalObservationDateTime).format("hh:mm")
           city = {
             city: data.AdministrativeArea
               ? data.AdministrativeArea.LocalizedName
@@ -65,8 +67,11 @@ export default {
               }`,
             weatherText: res.WeatherText,
             key: res.Key,
+            realFeelTemperature: `${res.RealFeelTemperature.Metric.Value} ${res.RealFeelTemperature.Metric.Unit}`, //ощущается как
+            visibility: `${res.Visibility.Metric.Value} ${res.Visibility.Metric.Unit}`,
             WeatherIcon: res.WeatherIcon,
-            IsDayTime: res.IsDayTime
+            IsDayTime: res.IsDayTime,
+            time: time
           };
         });
       commit('SET_CITY', city)

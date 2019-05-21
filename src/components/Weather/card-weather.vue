@@ -4,12 +4,15 @@
     class="card"
     :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
   >
-    <v-layout row class="card__title">
-      <p>{{city.country}}, {{city.city}}</p>
+    <v-layout column class="card__title">
+      <div class="card__title_time">Сейчас {{city.time}}</div>
+      <div>{{city.country}}, {{city.city}}</div>
     </v-layout>
     <v-layout row class="card__center" align-center>
       <v-flex xs3>
         <p class="card__center_temp">{{city.temp}}</p>
+        <div>Ощущается как:</div>
+        <div class="card__center_tempreal">{{city.realFeelTemperature}}</div>
       </v-flex>
       <v-flex xs6>
         <div
@@ -19,15 +22,15 @@
         ></div>
       </v-flex>
       <v-flex xs4 class="card__center_wind">
-        <p>Направление ветра:</p>
-        <p class="text-md-center">{{city.windDirect}}</p>
-        <p>Скорость ветра:</p>
-        <p class="text-md-center">{{city.windSpeed}}</p>
+        <div>Направление ветра:</div>
+        <div class="text-md-center">{{city.windDirect}}</div>
+        <div>Скорость ветра:</div>
+        <div class="text-md-center">{{city.windSpeed}}</div>
       </v-flex>
     </v-layout>
     <v-layout row class="card__footer">
       <v-flex xs3 offset-sm5 class="card__center_wind">
-        <p>{{city.weatherText}}</p>
+        <div>{{city.weatherText}}, {{city.visibility}}</div>
       </v-flex>
     </v-layout>
   </v-layout>
@@ -63,16 +66,26 @@ export default {
   border-radius: 1em;
   padding: 20px;
   .card__title {
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
     font-weight: 400;
     font-size: 16px;
     color: white;
+    .card__title_time {
+      font-weight: 200;
+      font-size: 14px;
+      color: wheat;
+    }
   }
   .card__center {
     .card__center_temp {
-      font-size: 34px;
-      line-height: 48px;
+      font-size: 30px;
+      line-height: 30px;
+      font-weight: 400;
+      color: whitesmoke;
+    }
+    .card__center_tempreal {
+      font-size: 20px;
+      line-height: 28px;
       font-weight: 400;
       color: white;
     }

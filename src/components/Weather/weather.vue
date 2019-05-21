@@ -1,9 +1,9 @@
 <template>
   <v-layout column class="weather">
-    <!-- <loading v-show="isLoading"></loading> -->
-    <v-flex xs6 offset-sm3>
-      <!-- <v-layout v-show="!isLoading" class="weather__search"> -->
-      <v-layout class="weather__search">
+    <loading v-show="isLoading"></loading>
+    <v-flex xs5 offset-sm3>
+      <v-layout v-show="!isLoading" class="weather__search">
+      <!-- <v-layout class="weather__search"> -->
         <v-layout column>
           <v-text-field label="Search" clearable v-model="searchText"></v-text-field>
           <v-expand-transition>
@@ -47,7 +47,7 @@ export default {
     longitude: null,
     searchText: "",
     selectCityShow: false,
-    // isLoading: false,
+    isLoading: true,
     selectCity: {},
     // items: [
     //   {
@@ -77,6 +77,7 @@ export default {
   },
   created() {
     this.INIT_STATE;
+    this.isLoading = false;
   },
   mounted() {},
   methods: {
@@ -85,10 +86,12 @@ export default {
       this.selectCityShow = true;
     },
     getWeatherByCity(data) {
+      this.isLoading = true;
       this.selectCity = data;
       this.GET_WEATHER_CITY;
       this.selectCityShow = false;
       this.searchText = "";
+      this.isLoading = false;
     }
   }
 };
