@@ -1,15 +1,18 @@
 <template>
   <v-layout column class="weather">
     <loading v-show="isLoading"></loading>
-    <v-flex xs5 offset-sm3>
+    <v-flex xs3 offset-sm3 v-click-outside>
       <v-layout v-show="!isLoading" class="weather__search">
-      <!-- <v-layout class="weather__search"> -->
+        <!-- <v-layout class="weather__search"> -->
         <v-layout column>
           <v-text-field label="Search" clearable v-model="searchText"></v-text-field>
           <v-expand-transition>
             <v-list v-if="selectCityShow" class="lighten-3 weather__searchList">
               <v-list-tile v-for="(item, i) in items" :key="i">
-                <v-list-tile-content @click="getWeatherByCity(item)" class="weather__searchList_item">
+                <v-list-tile-content
+                  @click="getWeatherByCity(item)"
+                  class="weather__searchList_item"
+                >
                   <v-list-tile-title v-text="item.city"></v-list-tile-title>
                   <v-list-tile-sub-title v-text="item.country"></v-list-tile-sub-title>
                   <v-divider inset></v-divider>
@@ -34,7 +37,7 @@
 <script>
 import loading from "../../views/loading.vue";
 import card from "./card-weather.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "whether",
@@ -47,8 +50,7 @@ export default {
     longitude: null,
     searchText: "",
     selectCityShow: false,
-    isLoading: true,
-    selectCity: {},
+    selectCity: {}
     // items: [
     //   {
     //     country: "Россия",
@@ -73,11 +75,11 @@ export default {
       "SEARCH_CITY",
       "GET_WEATHER_CITY"
     ]),
-    ...mapState("weatherStore", ["cities", "items"])
+    ...mapState("weatherStore", ["cities", "items", "isLoading"]),
+    // ...mapGetters("weatherStore", ["citiesGetter"])
   },
   created() {
     this.INIT_STATE;
-    this.isLoading = false;
   },
   mounted() {},
   methods: {
@@ -92,6 +94,25 @@ export default {
       this.selectCityShow = false;
       this.searchText = "";
       this.isLoading = false;
+    },
+    hideDiv() {
+      this.selectCityShow = false;
+      this.searchText = "";
+    }
+  },
+  directives: {
+    ClickOutside: {
+      bind(el, binding, vnode) {
+        el.clickOutsideEvent = event => {
+          if (!(el == event.target || el.contains(event.target))) {
+            vnode.context.hideDiv();
+          }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unbind(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      }
     }
   }
 };
