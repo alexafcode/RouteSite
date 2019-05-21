@@ -1,6 +1,6 @@
 const key = {
   news: "",
   currency: "",
-  weather: "eMnxDj2GF4ffTteDsanTrmQEaP2mgUIAp"
+  weather: ""
   }
   export default key

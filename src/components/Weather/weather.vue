@@ -46,8 +46,6 @@ export default {
     card
   },
   data: () => ({
-    latitude: null,
-    longitude: null,
     searchText: "",
     selectCityShow: false,
     selectCity: {}
@@ -75,7 +73,7 @@ export default {
       "SEARCH_CITY",
       "GET_WEATHER_CITY"
     ]),
-    ...mapState("weatherStore", ["cities", "items", "isLoading"]),
+    ...mapState("weatherStore", ["cities", "items", "isLoading"])
     // ...mapGetters("weatherStore", ["citiesGetter"])
   },
   created() {
@@ -88,12 +86,10 @@ export default {
       this.selectCityShow = true;
     },
     getWeatherByCity(data) {
-      this.isLoading = true;
       this.selectCity = data;
       this.GET_WEATHER_CITY;
       this.selectCityShow = false;
       this.searchText = "";
-      this.isLoading = false;
     },
     hideDiv() {
       this.selectCityShow = false;

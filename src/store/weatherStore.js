@@ -26,12 +26,7 @@ export default {
     INIT_STATE({ dispatch, commit, state }) {
       // if (localStorage.getItem())
       // commit("UNSET_CITY")
-      // let t = "2019-05-21T08:51:00+05:00"
-      // YYYY-MM-DD[T]HH:mm:ss
-      // let time = moment(t)
-      // console.log(time.format("HH:mm"))
-      // console.log(time.utc().format("HH:mm"))
-      //
+      state.isLoading = true;
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(position => {
           let latitude = position.coords.latitude;
@@ -57,11 +52,7 @@ export default {
       await axios.get(url)
         .then(result => {
           let res = result.data[0];
-          console.log(res)
-          let time = moment(res.LocalObservationDateTime)///.format("HH:mm")
-          console.log(res.LocalObservationDateTime) // ???
-          console.log(time.format("HH:mm"))
-          console.log(moment().utcOffset(res.LocalObservationDateTime).utc().format("HH:mm"))
+          let time = moment(res.LocalObservationDateTime).format("HH:mm")
           city = {
             city: data.AdministrativeArea
               ? data.AdministrativeArea.LocalizedName
@@ -69,7 +60,7 @@ export default {
             country: data.Country
               ? data.Country.LocalizedName
               : data.selectCity.country,
-            temp: `${res.Temperature.Metric.Value}  ${
+            temp: `${(res.Temperature.Metric.Value).toFixed()}°  ${
               res.Temperature.Metric.Unit
               }`,
             windDirect: res.Wind.Direction.Localized,
@@ -78,11 +69,12 @@ export default {
               }`,
             weatherText: res.WeatherText,
             key: res.Key,
-            realFeelTemperature: `${res.RealFeelTemperature.Metric.Value} ${res.RealFeelTemperature.Metric.Unit}`, //ощущается как
-            visibility: `${res.Visibility.Metric.Value} ${res.Visibility.Metric.Unit}`,
+            realFeelTemperature: `${(res.RealFeelTemperature.Metric.Value).toFixed()}° ${res.RealFeelTemperature.Metric.Unit}`, //ощущается как
+            visibility: `${(res.Visibility.Metric.Value)} ${res.Visibility.Metric.Unit}`,
             WeatherIcon: res.WeatherIcon,
             IsDayTime: res.IsDayTime,
-            time: time
+            time: time,
+            pressure: `${res.Pressure.Metric.Value} мм рт. ст.`
           };
         });
       commit('SET_CITY', city)
@@ -97,7 +89,7 @@ export default {
         response.data.forEach(el => {
           cities = {
             country: el.Country.LocalizedName,
-            city: el.AdministrativeArea.LocalizedName,
+            city: el.LocalizedName,
             Key: el.Key
           };
           items.push(cities);

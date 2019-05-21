@@ -5,16 +5,19 @@
     :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
   >
     <v-layout column class="card__title">
-      <div class="card__title_time">Сейчас {{city.time}}</div>
-      <div>{{city.country}}, {{city.city}}</div>
+      <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
+      <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
     </v-layout>
     <v-layout row class="card__center" align-center>
-      <v-flex xs3>
-        <p class="card__center_temp">{{city.temp}}</p>
-        <div>Ощущается как:</div>
-        <div class="card__center_tempreal">{{city.realFeelTemperature}}</div>
+      <v-flex xs4>
+        <p class="card__center_temp text-md-center">{{city.temp}}</p>
+        <div class="text-md-center card__center_tempreal_text">
+          Ощущается как:
+          <span class="card__center_tempreal">{{city.realFeelTemperature}}</span>
+        </div>
+        <div class="card__center_pressure text-md-center">{{city.pressure}}</div>
       </v-flex>
-      <v-flex xs6>
+      <v-flex xs4>
         <div
           v-show="city.WeatherIcon"
           class="card__center_icon"
@@ -22,15 +25,13 @@
         ></div>
       </v-flex>
       <v-flex xs4 class="card__center_wind">
-        <div>Направление ветра:</div>
-        <div class="text-md-center">{{city.windDirect}}</div>
-        <div>Скорость ветра:</div>
-        <div class="text-md-center">{{city.windSpeed}}</div>
+        <div class="text-md-center">Направление ветра: {{city.windDirect}}</div>
+        <div class="text-md-center">Скорость ветра: {{city.windSpeed}}</div>
       </v-flex>
     </v-layout>
     <v-layout row class="card__footer">
-      <v-flex xs3 offset-sm5 class="card__center_wind">
-        <div>{{city.weatherText}}, {{city.visibility}}</div>
+      <v-flex xs6 offset-sm4>
+        <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
       </v-flex>
     </v-layout>
   </v-layout>
@@ -45,9 +46,7 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    url: "~@/assets/weather-icons/01.png"
-  }),
+  data: () => ({}),
   computed: {
     dayTime() {
       return this.city.IsDayTime ? "day" : "night";
@@ -60,6 +59,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card {
+  position: relative;
   width: 500px;
   height: 250px;
   margin-bottom: 5vh;
@@ -75,30 +75,41 @@ export default {
       font-size: 14px;
       color: wheat;
     }
+    .card__title_location {
+    }
   }
   .card__center {
     .card__center_temp {
-      font-size: 30px;
+      font-size: 32px;
       line-height: 30px;
       font-weight: 400;
       color: whitesmoke;
     }
-    .card__center_tempreal {
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: 400;
-      color: white;
+    .card__center_tempreal_text {
+      color: lightgray;
+      .card__center_tempreal {
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 400;
+        color: white;
+      }
+    }
+    .card__center_pressure {
+      color: lightgray;
     }
     .card__center_icon {
       width: 190px;
       height: 135px;
       background-size: contain;
       background-position: top;
+      background-repeat: no-repeat;
     }
     .card__center_wind {
+      color: lightgray;
     }
-    .card__footer {
-    }
+  }
+  .card__footer {
+    color: lightgray;
   }
 }
 
