@@ -24,9 +24,15 @@ export default {
   },
   actions: {
     INIT_STATE({ dispatch, commit, state }) {
-      // if (localStorage.getItem())
-      // commit("UNSET_CITY")
       state.isLoading = true;
+      let arr = [];
+      if (localStorage.getItem("city") != null) {
+        arr = JSON.parse(localStorage.getItem("city"));
+      }
+      arr.forEach(el => {
+        dispatch('GET_WEATHER_CITY', el)
+      })
+      // commit("UNSET_CITY")
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(position => {
           let latitude = position.coords.latitude;
@@ -35,6 +41,7 @@ export default {
             key.weather
             }&q=${latitude},${longitude}&language=ru-ru`;
           axios.get(url).then(response => {
+            //  ToDO compare key in localStorage
             dispatch('GET_WEATHER_CITY', response.data)
           });
         });
@@ -54,6 +61,7 @@ export default {
           let res = result.data[0];
           let time = moment(res.LocalObservationDateTime).format("HH:mm")
           city = {
+            key: queryKey,
             city: data.AdministrativeArea
               ? data.AdministrativeArea.LocalizedName
               : data.selectCity.city,
@@ -68,7 +76,6 @@ export default {
               res.Wind.Speed.Metric.Unit
               }`,
             weatherText: res.WeatherText,
-            key: res.Key,
             realFeelTemperature: `${(res.RealFeelTemperature.Metric.Value).toFixed()}° ${res.RealFeelTemperature.Metric.Unit}`, //ощущается как
             visibility: `${(res.Visibility.Metric.Value)} ${res.Visibility.Metric.Unit}`,
             WeatherIcon: res.WeatherIcon,

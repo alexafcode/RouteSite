@@ -25,14 +25,21 @@
         ></div>
       </v-flex>
       <v-flex xs4 class="card__center_wind">
-        <div class="text-md-center">Направление ветра: {{city.windDirect}}</div>
-        <div class="text-md-center">Скорость ветра: {{city.windSpeed}}</div>
+        <div class="text-md-center">
+          Направление ветра:
+          <span class="card__center_wind_direct">{{city.windDirect}}</span>
+        </div>
+        <div class="text-md-center">
+          Скорость ветра:
+          <span class="card__center_wind_speed">{{city.windSpeed}}</span>
+        </div>
       </v-flex>
     </v-layout>
     <v-layout row class="card__footer">
       <v-flex xs6 offset-sm4>
         <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
       </v-flex>
+      <v-btn flat small color="brown darken-4" @click="saveToLS">Сохранить</v-btn>
     </v-layout>
   </v-layout>
 </template>
@@ -54,7 +61,34 @@ export default {
   },
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    saveToLS() {
+      let arr = [];
+      let city = {};
+      city = {
+        Key: this.city.key,
+        selectCity: {
+          city: this.city.city,
+          country: this.city.country
+        }
+      };
+      if (localStorage.getItem("city") != null) {
+        arr = JSON.parse(localStorage.getItem("city"));
+      }
+      let exist = false;
+      arr.forEach(el => {
+        if (el.Key === this.city.key) {
+          exist = true;
+        }
+      });
+      if (!exist) {
+        arr.push(city);
+        localStorage.setItem("city", JSON.stringify(arr));
+      } else {
+        console.log("Содержит");
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -106,6 +140,10 @@ export default {
     }
     .card__center_wind {
       color: lightgray;
+      .card__center_wind_speed,
+      .card__center_wind_direct {
+        color: white;
+      }
     }
   }
   .card__footer {
