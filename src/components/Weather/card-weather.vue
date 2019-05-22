@@ -4,12 +4,7 @@
     class="card"
     :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
   >
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="timeout"
-      :top="'top'"
-      :color= "'info'"
-    >{{ text }}</v-snackbar>
+    <v-snackbar v-model="snackbar" :timeout="timeout" :top="'top'" :color="'info'">{{ text }}</v-snackbar>
     <v-layout column class="card__title">
       <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
       <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
@@ -45,7 +40,7 @@
       <v-flex xs6 offset-sm4>
         <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
       </v-flex>
-      <v-btn flat small color="brown darken-4" @click="saveToLS">Сохранить</v-btn>
+      <v-btn flat small color="white" @click="saveToLS">Сохранить</v-btn>
     </v-layout>
   </v-layout>
 </template>
@@ -122,8 +117,8 @@ export default {
       font-size: 14px;
       color: wheat;
     }
-    .card__title_location {
-    }
+    // .card__title_location {
+    // }
   }
   .card__center {
     .card__center_temp {
@@ -165,6 +160,16 @@ export default {
 }
 
 @media screen and (max-width: 1024px) {
+  .card {
+    width: 95vw;
+    .card__center {
+      font-size: 12px;
+      .card__center_icon {
+        width: 25vw;
+        height: 25vh;
+      }
+    }
+  }
 }
 @media screen and (max-width: 600px) {
 }

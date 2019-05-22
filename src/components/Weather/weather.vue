@@ -1,7 +1,7 @@
 <template>
   <v-layout column class="weather">
     <loading v-show="isLoading"></loading>
-    <v-flex xs3 offset-sm3 v-click-outside>
+    <div v-click-outside>
       <v-layout v-show="!isLoading" class="weather__search">
         <v-layout column>
           <v-text-field label="Search" clearable v-model="searchText"></v-text-field>
@@ -12,7 +12,7 @@
         </v-btn>
         <v-divider></v-divider>
       </v-layout>
-    </v-flex>
+    </div>
     <v-flex xs8 offset-sm3 v-show="!isLoading">
       <div v-for="(city, index) in cities" :key="index">
         <card :city="city"></card>
@@ -37,23 +37,6 @@ export default {
     searchText: "",
     selectCityShow: false,
     selectCity: {}
-    // items: [
-    //   {
-    //     country: "Россия",
-    //     city: "Москва"
-    //   },
-    //   {
-    //     country: "Россия",
-    //     city: "Москва"
-    //   },
-    //   {
-    //     country: "Россия",
-    //     city: "Москва"
-    //   }
-    // ],
-    // cities: {
-    //   city: "Пермь"
-    // }
   }),
   computed: {
     ...mapActions("weatherStore", [
@@ -103,8 +86,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .weather {
+  position: relative;
+  .weather__search {
+    margin-left: 25%;
+    width: 750px;
+  }
 }
 @media screen and (max-width: 1024px) {
+  .weather {
+    .weather__search {
+      width: 70%;
+    }
+  }
 }
 @media screen and (max-width: 600px) {
 }

@@ -37,9 +37,15 @@ export default {
   cursor: pointer;
   position: absolute;
   max-height: 55vh;
-  margin-top: 8vh;
+  margin-top: 55px;
   overflow: auto;
-  width: 40%;
+  width: 30%;
   z-index: 1;
+}
+@media screen and (max-width: 1024px) {
+  .weather__searchList {
+    width: 55%;
+  }
+
 }
 </style>

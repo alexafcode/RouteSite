@@ -23,7 +23,7 @@ export default {
     },
   },
   actions: {
-    INIT_STATE({ dispatch, commit, state }) {
+    INIT_STATE({ dispatch, state }) {
       state.isLoading = true;
       let arr = [];
       if (localStorage.getItem("city") != null) {
@@ -56,6 +56,7 @@ export default {
       } else {
         /* eslint-disable */
         console.error("геолокация НЕдоступна");
+        alert("Геолокация Не доступна")
       }
     },
     async GET_WEATHER_CITY({ commit }, data) {
@@ -101,14 +102,21 @@ export default {
       let items = []
       let cities = {};
       axios.get(url).then(response => {
-        response.data.forEach(el => {
+        if (response.data.length > 0) {
+          response.data.forEach(el => {
+            cities = {
+              country: el.Country.LocalizedName,
+              city: el.LocalizedName,
+              Key: el.Key
+            };
+            items.push(cities);
+          });
+        } else {
           cities = {
-            country: el.Country.LocalizedName,
-            city: el.LocalizedName,
-            Key: el.Key
+            city: "Ничего не найдено",
           };
-          items.push(cities);
-        });
+          items.push(cities)
+        }
       });
       commit('SET_ITEM_CITY', items)
     },

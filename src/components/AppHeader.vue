@@ -126,6 +126,11 @@ export default {
               title: "Валюта",
               route: "/mainConverter",
               icon: "trending_up"
+            },
+            {
+              title: "Погода",
+              route: "/weather",
+              icon: "trending_up"
             }
           ]
         : [
@@ -157,6 +162,11 @@ export default {
             {
               title: "Валюта",
               route: "/mainConverter",
+              icon: "trending_up"
+            },
+            {
+              title: "Погода",
+              route: "/weather",
               icon: "trending_up"
             },
             {
