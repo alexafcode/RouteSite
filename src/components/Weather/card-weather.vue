@@ -4,6 +4,12 @@
     class="card"
     :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
   >
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      :top="'top'"
+      :color= "'info'"
+    >{{ text }}</v-snackbar>
     <v-layout column class="card__title">
       <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
       <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
@@ -53,7 +59,11 @@ export default {
       required: true
     }
   },
-  data: () => ({}),
+  data: () => ({
+    snackbar: false,
+    timeout: 4000,
+    text: ""
+  }),
   computed: {
     dayTime() {
       return this.city.IsDayTime ? "day" : "night";
@@ -84,8 +94,11 @@ export default {
       if (!exist) {
         arr.push(city);
         localStorage.setItem("city", JSON.stringify(arr));
+        this.text = "Сохранено";
+        this.snackbar = true;
       } else {
-        console.log("Содержит");
+        this.text = "Уже Сохранено";
+        this.snackbar = true;
       }
     }
   }

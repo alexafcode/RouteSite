@@ -41,8 +41,16 @@ export default {
             key.weather
             }&q=${latitude},${longitude}&language=ru-ru`;
           axios.get(url).then(response => {
-            //  ToDO compare key in localStorage
-            dispatch('GET_WEATHER_CITY', response.data)
+            // compare key in localStorage
+            let exist = false
+            arr.forEach(el => {
+              if (el.Key === response.data.Key) {
+                exist = true
+              }
+            })
+            if (!exist) {
+              dispatch('GET_WEATHER_CITY', response.data)
+            }
           });
         });
       } else {
@@ -76,7 +84,7 @@ export default {
               res.Wind.Speed.Metric.Unit
               }`,
             weatherText: res.WeatherText,
-            realFeelTemperature: `${(res.RealFeelTemperature.Metric.Value).toFixed()}° ${res.RealFeelTemperature.Metric.Unit}`, //ощущается как
+            realFeelTemperature: `${(res.RealFeelTemperature.Metric.Value).toFixed()}° ${res.RealFeelTemperature.Metric.Unit}`,
             visibility: `${(res.Visibility.Metric.Value)} ${res.Visibility.Metric.Unit}`,
             WeatherIcon: res.WeatherIcon,
             IsDayTime: res.IsDayTime,

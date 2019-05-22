@@ -3,23 +3,9 @@
     <loading v-show="isLoading"></loading>
     <v-flex xs3 offset-sm3 v-click-outside>
       <v-layout v-show="!isLoading" class="weather__search">
-        <!-- <v-layout class="weather__search"> -->
         <v-layout column>
           <v-text-field label="Search" clearable v-model="searchText"></v-text-field>
-          <v-expand-transition>
-            <v-list v-if="selectCityShow" class="lighten-3 weather__searchList">
-              <v-list-tile v-for="(item, i) in items" :key="i">
-                <v-list-tile-content
-                  @click="getWeatherByCity(item)"
-                  class="weather__searchList_item"
-                >
-                  <v-list-tile-title v-text="item.city"></v-list-tile-title>
-                  <v-list-tile-sub-title v-text="item.country"></v-list-tile-sub-title>
-                  <v-divider inset></v-divider>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </v-expand-transition>
+          <search-list v-if="selectCityShow" :items="items" @selectItem="getWeatherByCity"></search-list>
         </v-layout>
         <v-btn fab dark color="brown darken-4" small @click="searchCity">
           <v-icon dark>search</v-icon>
@@ -27,7 +13,7 @@
         <v-divider></v-divider>
       </v-layout>
     </v-flex>
-    <v-flex xs8 offset-sm3>
+    <v-flex xs8 offset-sm3 v-show="!isLoading">
       <div v-for="(city, index) in cities" :key="index">
         <card :city="city"></card>
       </div>
@@ -37,13 +23,15 @@
 <script>
 import loading from "../../views/loading.vue";
 import card from "./card-weather.vue";
+import searchList from "./search-list.vue";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "whether",
   components: {
     loading,
-    card
+    card,
+    searchList
   },
   data: () => ({
     searchText: "",
@@ -115,20 +103,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .weather {
-  .weather__search {
-    .weather__searchList {
-      cursor: pointer;
-      max-height: 55vh;
-      overflow: auto;
-      z-index: 1;
-      position: relative;
-      &:after {
-        position: absolute;
-      }
-      .weather__searchList_item {
-      }
-    }
-  }
 }
 @media screen and (max-width: 1024px) {
 }
