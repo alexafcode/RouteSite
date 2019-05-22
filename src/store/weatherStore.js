@@ -37,7 +37,7 @@ export default {
         navigator.geolocation.getCurrentPosition(position => {
           let latitude = position.coords.latitude;
           let longitude = position.coords.longitude;
-          let url = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${
+          let url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${
             key.weather
             }&q=${latitude},${longitude}&language=ru-ru`;
           axios.get(url).then(response => {
@@ -62,7 +62,7 @@ export default {
     async GET_WEATHER_CITY({ commit }, data) {
       let queryKey = data.Key ? data.Key : data.selectCity.Key;
       let city = {};
-      let url = `http://dataservice.accuweather.com/currentconditions/v1/${
+      let url = `https://dataservice.accuweather.com/currentconditions/v1/${
         queryKey
         }?apikey=${key.weather}&language=ru-ru&details=true`;
       await axios.get(url)
@@ -96,7 +96,7 @@ export default {
       commit('SET_CITY', city)
     },
     SEARCH_CITY({ commit }, payload) {
-      let url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${
+      let url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${
         key.weather
         }&q=${payload.searchText}&language=ru-ru`;
       let items = []
