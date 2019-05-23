@@ -4,7 +4,10 @@
     class="card"
     :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
   >
-    <v-snackbar v-model="snackbar" :timeout="timeout" :top="'top'" :color="'info'">{{ text }}</v-snackbar>
+    <v-snackbar v-model="snackbar" :timeout="timeout" :top="'top'" :color="'info'">
+      {{ text }}
+      <v-btn color="yellow" flat @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
     <v-layout column class="card__title">
       <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
       <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>

@@ -7,7 +7,8 @@ export default {
   state: {
     cities: [],
     items: [],
-    isLoading: true
+    isLoading: true,
+    time: null
   },
   mutations: {
     SET_CITY(state, payload) {
@@ -21,12 +22,26 @@ export default {
       state.cities = [];
       state.items = [];
     },
+    SET_TIME(state, payload) {
+      state.time = payload
+    }
   },
   actions: {
-    INIT_STATE({ dispatch, state }) {
+    INIT_STATE({ dispatch, commit,  state }) {
       state.isLoading = true;
-      // ToDo compare time
-      if (state.cities.length === 0) {
+      let watchTime = false;
+      // Compare time
+      let now = moment()
+      if (state.time != null) {
+        let stateTime = moment(state.time).add(1, 'hour')
+        // Update through 1 hour
+        if ( now > stateTime) {
+          watchTime = true;
+          commit("UNSET_CITY")
+        }
+      }
+      if (state.cities.length === 0 || watchTime) {
+        commit('SET_TIME', now)
         let arr = [];
         if (localStorage.getItem("city") != null) {
           arr = JSON.parse(localStorage.getItem("city"));
@@ -34,7 +49,6 @@ export default {
         arr.forEach(el => {
           dispatch('GET_WEATHER_CITY', el)
         })
-        // commit("UNSET_CITY")
         if ("geolocation" in navigator) {
           navigator.geolocation.getCurrentPosition(position => {
             let latitude = position.coords.latitude;
