@@ -25,38 +25,43 @@ export default {
   actions: {
     INIT_STATE({ dispatch, state }) {
       state.isLoading = true;
-      let arr = [];
-      if (localStorage.getItem("city") != null) {
-        arr = JSON.parse(localStorage.getItem("city"));
-      }
-      arr.forEach(el => {
-        dispatch('GET_WEATHER_CITY', el)
-      })
-      // commit("UNSET_CITY")
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(position => {
-          let latitude = position.coords.latitude;
-          let longitude = position.coords.longitude;
-          let url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${
-            key.weather
-            }&q=${latitude},${longitude}&language=ru-ru`;
-          axios.get(url).then(response => {
-            // compare key in localStorage
-            let exist = false
-            arr.forEach(el => {
-              if (el.Key === response.data.Key) {
-                exist = true
+      // ToDo compare time
+      if (state.cities.length === 0) {
+        let arr = [];
+        if (localStorage.getItem("city") != null) {
+          arr = JSON.parse(localStorage.getItem("city"));
+        }
+        arr.forEach(el => {
+          dispatch('GET_WEATHER_CITY', el)
+        })
+        // commit("UNSET_CITY")
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(position => {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+            let url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${
+              key.weather
+              }&q=${latitude},${longitude}&language=ru-ru`;
+            axios.get(url).then(response => {
+              // compare key in localStorage
+              let exist = false
+              arr.forEach(el => {
+                if (el.Key === response.data.Key) {
+                  exist = true
+                }
+              })
+              if (!exist) {
+                dispatch('GET_WEATHER_CITY', response.data)
               }
-            })
-            if (!exist) {
-              dispatch('GET_WEATHER_CITY', response.data)
-            }
+            });
           });
-        });
+        } else {
+          /* eslint-disable */
+          console.error("геолокация НЕдоступна");
+          alert("Геолокация Не доступна")
+        }
       } else {
-        /* eslint-disable */
-        console.error("геолокация НЕдоступна");
-        alert("Геолокация Не доступна")
+        state.isLoading = false;
       }
     },
     async GET_WEATHER_CITY({ commit }, data) {
