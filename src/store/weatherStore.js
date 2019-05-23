@@ -139,45 +139,30 @@ export default {
       });
       commit('SET_ITEM_CITY', items)
     },
-    // async
+
     GET_WEATHER_FORECAST({ commit }, payload) {
-      // payload.key
-      // `http://dataservice.accuweather.com/forecasts/v1/daily/5day/294922?apikey=${key.weather}&language=ru-ru&details=false&metric=true`
-      let more = [
-        {
-          date: "24 июня",
-          dayIcon: 6, // Day.Icon
-          dayIconText: "Преимущественно облачно", // Day.IconPhrase
-          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-          nightIcon: 35, // Night.Icon
-          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-        },
-        {
-          date: "24 июня",
-          dayIcon: 6, // Day.Icon
-          dayIconText: "Преимущественно облачно", // Day.IconPhrase
-          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-          nightIcon: 35, // Night.Icon
-          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-        },
-        {
-          date: "24 июня",
-          dayIcon: 6, // Day.Icon
-          dayIconText: "Преимущественно облачно", // Day.IconPhrase
-          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-          nightIcon: 35, // Night.Icon
-          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-        },
-        {
-          date: "24 июня",
-          dayIcon: 6, // Day.Icon
-          dayIconText: "Преимущественно облачно", // Day.IconPhrase
-          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-          nightIcon: 35, // Night.Icon
-          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-        }
-      ]
-      return more
+      moment.locale('ru');
+      let arr = [];
+      let url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"
+      url = url + `${payload.city.key}?apikey=${key.weather}&language=ru-ru&metric=true`
+      axios.get(url)
+        .then(result => {
+          let obj = {}
+          let res = result.data.DailyForecasts;
+          res.forEach(el => {
+            obj = {
+              date: moment(el.Date).format("LL"),
+              date: moment(el.Date).format("DD MMMM"),
+              dayIcon: el.Day.Icon,
+              dayIconText: el.Day.IconPhrase,
+              tempDay: `${el.Temperature.Maximum.Value.toFixed()} ° C`,
+              nightIcon: el.Night.Icon,
+              tempNight: `${el.Temperature.Minimum.Value.toFixed()} ° C`,
+            }
+            arr.push(obj)
+          })
+        })
+      return arr
     }
   },
   getters: {

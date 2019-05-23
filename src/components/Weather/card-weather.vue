@@ -45,14 +45,16 @@
         <v-flex xs8 offset-sm1>
           <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
         </v-flex>
-        <v-btn flat small color="white" @click="weatherForecast(city)">На 5 дней</v-btn>
+        <v-btn flat small color="white" @click="GetWeatherForecast(city)">На 5 дней</v-btn>
       </v-layout>
     </v-layout>
-    <v-layout row class="card__datails" v-if="showMore">
-      <div v-for="(item, index) in cityForecastItems" :key="index">
-        <card-datail :cityItem="item" :dayTime="dayTime"></card-datail>
-      </div>
-    </v-layout>
+    <transition name="fade" mode="out-in">
+      <v-layout row class="card__datails" v-if="showMore" :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}">
+        <div v-for="(item, index) in cityForecastItems" :key="index">
+          <card-datail :cityItem="item" :dayTime="dayTime"></card-datail>
+        </div>
+      </v-layout>
+    </transition>
   </div>
 </template>
 <script>
@@ -115,15 +117,14 @@ export default {
         this.snackbar = true;
       }
     },
-    weatherForecast(city) {
+    GetWeatherForecast(city) {
       if (!this.showMore) {
         this.GET_WEATHER_FORECAST.then(result => {
-          console.log(result);
           this.cityForecastItems = result;
           this.showMore = true;
         });
       } else {
-        this.showMore = false
+        this.showMore = false;
       }
     }
   }
@@ -134,7 +135,7 @@ export default {
   position: relative;
   width: 500px;
   height: 250px;
-  margin-bottom: 5vh;
+  margin-bottom: 2vh;
   border-radius: 1em;
   padding: 20px;
   .card__title {
@@ -191,10 +192,20 @@ export default {
 .card__datails {
   position: relative;
   width: 500px;
-  height: 170px;
+  height: 260px;
   margin-bottom: 1vh;
   border-radius: 1em;
   background-color: lightgray;
+}
+.fade-enter-active {
+  transition: all .5s ease;
+}
+.fade-leave-active {
+  transition: all .5s ease;
+}
+.fade-enter, .fade-leave-to {
+  transform: translateY(50px);
+  opacity: 0;
 }
 
 @media screen and (max-width: 1024px) {

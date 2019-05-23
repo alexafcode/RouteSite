@@ -2,8 +2,12 @@
   <v-layout
     column
     class="detail"
-    :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
   >
+    <!-- <v-layout
+    column
+    class="detail"
+    :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
+  > -->
     <div class="detail__date">{{ cityItem.date }}</div>
     <div
       class="detail__day_icon"
@@ -11,12 +15,18 @@
     ></div>
     <div class="detail__day_temp">
       Днём:
-      <span class="detail__day_temp_value">{{ cityItem.tempDay }}</span>
+      <!-- <span class="detail__day_temp_value">{{ cityItem.tempDay }}</span> -->
     </div>
+    <div class="detail__day_temp_value">{{ cityItem.tempDay }}</div>
+    <div
+      class="detail__night_icon"
+      :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${cityItem.nightIcon}.png`)})`}"
+    ></div>
     <div class="detail__night_temp">
       Ночью:
-      <span class="detail__night_temp_value">{{ cityItem.tempNight }}</span>
+      <!-- <span class="detail__night_temp_value">{{ cityItem.tempNight }}</span> -->
     </div>
+    <div class="detail__night_temp_value">{{ cityItem.tempNight }}</div>
     <div class="detail__day_text">{{ cityItem.dayIconText }}</div>
   </v-layout>
 </template>
@@ -30,19 +40,10 @@ export default {
       required: true
     },
     dayTime: {
-      required: false
+      required: true
     }
   },
-  data: () => ({
-    // cityItem: {
-    //   date: "24 июня",
-    //   dayIcon: 6, // Day.Icon
-    //   dayIconText: "Преимущественно облачно", // Day.IconPhrase
-    //   tempDay: "8° C", // Temperature.Maximum.Value.toFixed(),
-    //   nightIcon: 35, // Night.Icon
-    //   tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-    // }
-  }),
+  data: () => ({}),
   computed: {},
   created() {},
   mounted() {},
@@ -51,38 +52,56 @@ export default {
 </script>
 <style lang="scss" scoped>
 .detail {
-  width: 115px;
+  width: 90px;
+  height: 250px;
+  min-height: 240px;
   margin: 5px;
   border-radius: 1em;
   text-align: center;
+  &:hover {
+    transform: scale(1.05);
+  }
   .detail__date {
+    color: white;
   }
   .detail__day_icon {
-    width: 120px;
-    height: 55px;
+    width: 80px;
+    height: 50px;
+    min-height: 50px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
   }
   .detail__day_temp {
     color: lightgray;
-    .detail__day_temp_value {
-      font-weight: 400;
-      font-size: 20px;
-      color: white;
-    }
+  }
+  .detail__day_temp_value {
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+  }
+  .detail__night_icon {
+    width: 80px;
+    height: 50px;
+    min-height: 50px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .detail__night_temp {
     color: lightgray;
-    .detail__night_temp_value {
-      font-weight: 400;
-      font-size: 16px;
-      color: white;
-    }
+  }
+  .detail__night_temp_value {
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
   }
   .detail__day_text {
     font-size: 10px;
-    overflow-wrap: break-word;
+    // overflow-wrap: break-word;
+    word-break: normal;
+    white-space: normal;
+    color: lightgray;
   }
 }
 @media screen and (max-width: 1024px) {
