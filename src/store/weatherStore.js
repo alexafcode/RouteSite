@@ -139,12 +139,12 @@ export default {
       });
       commit('SET_ITEM_CITY', items)
     },
-
     GET_WEATHER_FORECAST({ commit }, payload) {
       moment.locale('ru');
       let arr = [];
-      let url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"
-      url = url + `${payload.city.key}?apikey=${key.weather}&language=ru-ru&metric=true`
+      let url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${
+        payload.city.key}?apikey=${key.weather
+        }&language=ru-ru&metric=true`
       axios.get(url)
         .then(result => {
           let obj = {}
@@ -162,6 +162,48 @@ export default {
             arr.push(obj)
           })
         })
+      // let arr = [
+      //   {
+      //     date: "24 июня",
+      //     dayIcon: 6, // Day.Icon
+      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
+      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+      //     nightIcon: 35, // Night.Icon
+      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+      //   },
+      //   {
+      //     date: "24 июня",
+      //     dayIcon: 6, // Day.Icon
+      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
+      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+      //     nightIcon: 35, // Night.Icon
+      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+      //   },
+      //   {
+      //     date: "24 июня",
+      //     dayIcon: 6, // Day.Icon
+      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
+      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+      //     nightIcon: 35, // Night.Icon
+      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+      //   },
+      //   {
+      //     date: "24 июня",
+      //     dayIcon: 6, // Day.Icon
+      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
+      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+      //     nightIcon: 35, // Night.Icon
+      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+      //   },
+      //   {
+      //     date: "24 июня",
+      //     dayIcon: 6, // Day.Icon
+      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
+      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+      //     nightIcon: 35, // Night.Icon
+      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+      //   }
+      // ]
       return arr
     }
   },

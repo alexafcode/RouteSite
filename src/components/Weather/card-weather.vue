@@ -42,14 +42,26 @@
       </v-layout>
       <v-layout row class="card__footer">
         <v-btn flat small color="white" @click="saveToLS">Сохранить</v-btn>
-        <v-flex xs8 offset-sm1>
-          <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
+        <v-flex xs12 offset-sm1 class="card__footer_text">
+          <div>{{city.weatherText}}</div>
+          <div>Видимость {{city.visibility}}</div>
         </v-flex>
-        <v-btn flat small color="white" @click="GetWeatherForecast(city)">На 5 дней</v-btn>
+        <v-btn
+          flat
+          small
+          color="white"
+          class="card__footer_more"
+          @click="GetWeatherForecast(city)"
+        >На 5 дней</v-btn>
       </v-layout>
     </v-layout>
     <transition name="fade" mode="out-in">
-      <v-layout row class="card__datails" v-if="showMore" :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}">
+      <v-layout
+        row
+        class="card__datails"
+        v-if="showMore"
+        :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
+      >
         <div v-for="(item, index) in cityForecastItems" :key="index">
           <card-datail :cityItem="item" :dayTime="dayTime"></card-datail>
         </div>
@@ -187,6 +199,9 @@ export default {
   }
   .card__footer {
     color: lightgray;
+    .card__footer_text {
+      text-align: center;
+    }
   }
 }
 .card__datails {
@@ -198,12 +213,13 @@ export default {
   background-color: lightgray;
 }
 .fade-enter-active {
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 .fade-leave-active {
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   transform: translateY(50px);
   opacity: 0;
 }
@@ -211,11 +227,25 @@ export default {
 @media screen and (max-width: 1024px) {
   .card {
     width: 95vw;
+    margin: auto;
     .card__center {
       font-size: 12px;
       .card__center_icon {
         width: 25vw;
         height: 25vh;
+      }
+    }
+    .card__footer {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      .card__footer_text {
+        font-size: 12px;
+        text-align: center;
+        width: 80;
+      }
+      .card__footer_more {
+        display: none;
       }
     }
   }
