@@ -142,7 +142,7 @@ export default {
     GET_WEATHER_FORECAST({ commit }, payload) {
       moment.locale('ru');
       let arr = [];
-      let url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${
+      let url = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${
         payload.city.key}?apikey=${key.weather
         }&language=ru-ru&metric=true`
       axios.get(url)
