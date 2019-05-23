@@ -27,7 +27,7 @@ export default {
     }
   },
   actions: {
-    INIT_STATE({ dispatch, commit,  state }) {
+    INIT_STATE({ dispatch, commit, state }) {
       state.isLoading = true;
       let watchTime = false;
       // Compare time
@@ -35,7 +35,7 @@ export default {
       if (state.time != null) {
         let stateTime = moment(state.time).add(1, 'hour')
         // Update through 1 hour
-        if ( now > stateTime) {
+        if (now > stateTime) {
           watchTime = true;
           commit("UNSET_CITY")
         }
@@ -139,6 +139,46 @@ export default {
       });
       commit('SET_ITEM_CITY', items)
     },
+    // async
+    GET_WEATHER_FORECAST({ commit }, payload) {
+      // payload.key
+      // `http://dataservice.accuweather.com/forecasts/v1/daily/5day/294922?apikey=${key.weather}&language=ru-ru&details=false&metric=true`
+      let more = [
+        {
+          date: "24 июня",
+          dayIcon: 6, // Day.Icon
+          dayIconText: "Преимущественно облачно", // Day.IconPhrase
+          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+          nightIcon: 35, // Night.Icon
+          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+        },
+        {
+          date: "24 июня",
+          dayIcon: 6, // Day.Icon
+          dayIconText: "Преимущественно облачно", // Day.IconPhrase
+          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+          nightIcon: 35, // Night.Icon
+          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+        },
+        {
+          date: "24 июня",
+          dayIcon: 6, // Day.Icon
+          dayIconText: "Преимущественно облачно", // Day.IconPhrase
+          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+          nightIcon: 35, // Night.Icon
+          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+        },
+        {
+          date: "24 июня",
+          dayIcon: 6, // Day.Icon
+          dayIconText: "Преимущественно облачно", // Day.IconPhrase
+          tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
+          nightIcon: 35, // Night.Icon
+          tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
+        }
+      ]
+      return more
+    }
   },
   getters: {
     citiesGetter: state => {

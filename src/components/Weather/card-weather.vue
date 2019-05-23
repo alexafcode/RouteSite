@@ -1,56 +1,69 @@
 <template>
-  <v-layout
-    column
-    class="card"
-    :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
-  >
-    <v-snackbar v-model="snackbar" :timeout="timeout" :top="'top'" :color="'info'">
-      {{ text }}
-      <v-btn color="yellow" flat @click="snackbar = false">Close</v-btn>
-    </v-snackbar>
-    <v-layout column class="card__title">
-      <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
-      <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
+  <div>
+    <v-layout
+      column
+      class="card"
+      :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
+    >
+      <v-snackbar v-model="snackbar" :timeout="timeout" :top="'top'" :color="'info'">
+        {{ text }}
+        <v-btn color="yellow" flat @click="snackbar = false">Close</v-btn>
+      </v-snackbar>
+      <v-layout column class="card__title">
+        <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
+        <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
+      </v-layout>
+      <v-layout row class="card__center" align-center>
+        <v-flex xs4>
+          <p class="card__center_temp text-md-center">{{city.temp}}</p>
+          <div class="text-md-center card__center_tempreal_text">
+            Ощущается как:
+            <span class="card__center_tempreal">{{city.realFeelTemperature}}</span>
+          </div>
+          <div class="card__center_pressure text-md-center">{{city.pressure}}</div>
+        </v-flex>
+        <v-flex xs4>
+          <div
+            v-show="city.WeatherIcon"
+            class="card__center_icon"
+            :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${city.WeatherIcon}.png`)})`}"
+          ></div>
+        </v-flex>
+        <v-flex xs4 class="card__center_wind">
+          <div class="text-md-center">
+            Направление ветра:
+            <span class="card__center_wind_direct">{{city.windDirect}}</span>
+          </div>
+          <div class="text-md-center">
+            Скорость ветра:
+            <span class="card__center_wind_speed">{{city.windSpeed}}</span>
+          </div>
+        </v-flex>
+      </v-layout>
+      <v-layout row class="card__footer">
+        <v-btn flat small color="white" @click="saveToLS">Сохранить</v-btn>
+        <v-flex xs8 offset-sm1>
+          <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
+        </v-flex>
+        <v-btn flat small color="white" @click="weatherForecast(city)">На 5 дней</v-btn>
+      </v-layout>
     </v-layout>
-    <v-layout row class="card__center" align-center>
-      <v-flex xs4>
-        <p class="card__center_temp text-md-center">{{city.temp}}</p>
-        <div class="text-md-center card__center_tempreal_text">
-          Ощущается как:
-          <span class="card__center_tempreal">{{city.realFeelTemperature}}</span>
-        </div>
-        <div class="card__center_pressure text-md-center">{{city.pressure}}</div>
-      </v-flex>
-      <v-flex xs4>
-        <div
-          v-show="city.WeatherIcon"
-          class="card__center_icon"
-          :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${city.WeatherIcon}.png`)})`}"
-        ></div>
-      </v-flex>
-      <v-flex xs4 class="card__center_wind">
-        <div class="text-md-center">
-          Направление ветра:
-          <span class="card__center_wind_direct">{{city.windDirect}}</span>
-        </div>
-        <div class="text-md-center">
-          Скорость ветра:
-          <span class="card__center_wind_speed">{{city.windSpeed}}</span>
-        </div>
-      </v-flex>
+    <v-layout row class="card__datails" v-if="showMore">
+      <div v-for="(item, index) in cityForecastItems" :key="index">
+        <card-datail :cityItem="item" :dayTime="dayTime"></card-datail>
+      </div>
     </v-layout>
-    <v-layout row class="card__footer">
-      <v-flex xs6 offset-sm4>
-        <div>{{city.weatherText}}, Видимость {{city.visibility}}</div>
-      </v-flex>
-      <v-btn flat small color="white" @click="saveToLS">Сохранить</v-btn>
-    </v-layout>
-  </v-layout>
+  </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+import cardDatail from "./card-detail.vue";
+
 export default {
   name: "card-weather",
-  components: {},
+  components: {
+    cardDatail
+  },
   props: {
     city: {
       type: Object,
@@ -60,12 +73,15 @@ export default {
   data: () => ({
     snackbar: false,
     timeout: 4000,
-    text: ""
+    text: "",
+    cityForecastItems: null,
+    showMore: false
   }),
   computed: {
     dayTime() {
       return this.city.IsDayTime ? "day" : "night";
-    }
+    },
+    ...mapActions("weatherStore", ["GET_WEATHER_FORECAST"])
   },
   created() {},
   mounted() {},
@@ -97,6 +113,17 @@ export default {
       } else {
         this.text = "Уже Сохранено";
         this.snackbar = true;
+      }
+    },
+    weatherForecast(city) {
+      if (!this.showMore) {
+        this.GET_WEATHER_FORECAST.then(result => {
+          console.log(result);
+          this.cityForecastItems = result;
+          this.showMore = true;
+        });
+      } else {
+        this.showMore = false
       }
     }
   }
@@ -160,6 +187,14 @@ export default {
   .card__footer {
     color: lightgray;
   }
+}
+.card__datails {
+  position: relative;
+  width: 500px;
+  height: 170px;
+  margin-bottom: 1vh;
+  border-radius: 1em;
+  background-color: lightgray;
 }
 
 @media screen and (max-width: 1024px) {
