@@ -52,7 +52,7 @@
           color="white"
           class="card__footer_more"
           @click="GetWeatherForecast(city)"
-        >На 5 дней</v-btn>
+        >5 дней</v-btn>
       </v-layout>
     </v-layout>
     <transition name="fade" mode="out-in">
@@ -224,9 +224,10 @@ export default {
   opacity: 0;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 840px) {
   .card {
     width: 95vw;
+    height: 40%;
     margin: auto;
     .card__center {
       font-size: 12px;
@@ -238,16 +239,20 @@ export default {
     .card__footer {
       display: flex;
       justify-content: space-around;
-      align-items: flex-end;
+      // align-items: flex-end;
+      align-items: center;
       .card__footer_text {
         font-size: 12px;
         text-align: center;
-        width: 80;
       }
       .card__footer_more {
-        display: none;
+        // display: none;
       }
     }
+  }
+  .card__datails {
+    margin: auto;
+    width: 95vw;
   }
 }
 @media screen and (max-width: 600px) {

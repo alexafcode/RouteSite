@@ -151,7 +151,6 @@ export default {
           let res = result.data.DailyForecasts;
           res.forEach(el => {
             obj = {
-              date: moment(el.Date).format("LL"),
               date: moment(el.Date).format("DD MMMM"),
               dayIcon: el.Day.Icon,
               dayIconText: el.Day.IconPhrase,
@@ -196,7 +195,7 @@ export default {
       //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
       //   },
       //   {
-      //     date: "24 июня",
+      //     date: "25 июня",
       //     dayIcon: 6, // Day.Icon
       //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
       //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),

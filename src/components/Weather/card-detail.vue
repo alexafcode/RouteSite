@@ -1,31 +1,17 @@
 <template>
-  <v-layout
-    column
-    class="detail"
-  >
-    <!-- <v-layout
-    column
-    class="detail"
-    :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
-  > -->
+  <v-layout column class="detail">
     <div class="detail__date">{{ cityItem.date }}</div>
     <div
       class="detail__day_icon"
       :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${cityItem.dayIcon}.png`)})`}"
     ></div>
-    <div class="detail__day_temp">
-      Днём:
-      <!-- <span class="detail__day_temp_value">{{ cityItem.tempDay }}</span> -->
-    </div>
+    <div class="detail__day_temp">Днём:</div>
     <div class="detail__day_temp_value">{{ cityItem.tempDay }}</div>
     <div
       class="detail__night_icon"
       :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${cityItem.nightIcon}.png`)})`}"
     ></div>
-    <div class="detail__night_temp">
-      Ночью:
-      <!-- <span class="detail__night_temp_value">{{ cityItem.tempNight }}</span> -->
-    </div>
+    <div class="detail__night_temp">Ночью:</div>
     <div class="detail__night_temp_value">{{ cityItem.tempNight }}</div>
     <div class="detail__day_text">{{ cityItem.dayIconText }}</div>
   </v-layout>
@@ -104,7 +90,21 @@ export default {
     color: lightgray;
   }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 840px) {
+  .detail {
+    width: 16vw;
+    .detail__day_icon {
+      width: 15vw;
+    }
+    .detail__night_icon {
+      width: 15vw;
+      display: none;
+    }
+    .detail__day_text {
+      // font-size: 0.5rem;
+      word-break: break-word;
+    }
+  }
 }
 @media screen and (max-width: 600px) {
 }
