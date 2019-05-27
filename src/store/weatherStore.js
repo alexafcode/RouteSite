@@ -67,7 +67,8 @@ export default {
               if (!exist) {
                 dispatch('GET_WEATHER_CITY', response.data)
               }
-            });
+            })
+            .catch(error => console.error(error))
           });
         } else {
           /* eslint-disable */
@@ -111,7 +112,8 @@ export default {
             time: time,
             pressure: `${res.Pressure.Metric.Value} мм рт. ст.`
           };
-        });
+        })
+        .catch(error => console.error(error))
       commit('SET_CITY', city)
     },
     SEARCH_CITY({ commit }, payload) {
@@ -161,6 +163,7 @@ export default {
             arr.push(obj)
           })
         })
+        .catch(error => console.error(error))
       // let arr = [
       //   {
       //     date: "24 июня",

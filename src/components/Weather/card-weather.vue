@@ -147,36 +147,36 @@ export default {
   position: relative;
   width: 500px;
   height: 250px;
-  margin-bottom: 2vh;
+  padding: 1.25rem;
   border-radius: 1em;
-  padding: 20px;
+  margin-bottom: 1rem;
   .card__title {
-    text-align: center;
-    font-weight: 400;
-    font-size: 16px;
     color: white;
+    font-weight: 400;
+    text-align: center;
+    font-size: 1.125rem;
     .card__title_time {
-      font-weight: 200;
-      font-size: 14px;
       color: wheat;
+      font-size: 1rem;
+      font-weight: 200;
     }
     // .card__title_location {
     // }
   }
   .card__center {
     .card__center_temp {
-      font-size: 32px;
-      line-height: 30px;
       font-weight: 400;
+      line-height: 2rem;
+      font-size: 2.125rem;
       color: whitesmoke;
     }
     .card__center_tempreal_text {
       color: lightgray;
       .card__center_tempreal {
-        font-size: 18px;
-        line-height: 20px;
-        font-weight: 400;
         color: white;
+        font-weight: 400;
+        font-size: 1.125rem;
+        line-height: 1.5rem;
       }
     }
     .card__center_pressure {
@@ -208,8 +208,8 @@ export default {
   position: relative;
   width: 500px;
   height: 260px;
-  margin-bottom: 1vh;
   border-radius: 1em;
+  margin-bottom: 1rem;
   background-color: lightgray;
 }
 .fade-enter-active {
@@ -230,7 +230,7 @@ export default {
     height: 40%;
     margin: auto;
     .card__center {
-      font-size: 12px;
+      font-size: .75rem;
       .card__center_icon {
         width: 25vw;
         height: 25vh;
@@ -239,20 +239,19 @@ export default {
     .card__footer {
       display: flex;
       justify-content: space-around;
-      // align-items: flex-end;
       align-items: center;
       .card__footer_text {
-        font-size: 12px;
+        font-size: 0.75rem;
         text-align: center;
       }
       .card__footer_more {
-        // display: none;
       }
     }
   }
   .card__datails {
     margin: auto;
     width: 95vw;
+    height: 43vh;
   }
 }
 @media screen and (max-width: 600px) {

@@ -37,7 +37,7 @@ export default {
   cursor: pointer;
   position: absolute;
   max-height: 55vh;
-  margin-top: 55px;
+  margin-top: 3.5rem;
   overflow: auto;
   width: 30%;
   z-index: 1;

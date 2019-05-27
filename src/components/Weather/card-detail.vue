@@ -63,7 +63,7 @@ export default {
   }
   .detail__day_temp_value {
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.5rem;
     color: white;
   }
   .detail__night_icon {
@@ -79,11 +79,11 @@ export default {
   }
   .detail__night_temp_value {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     color: white;
   }
   .detail__day_text {
-    font-size: 10px;
+    font-size: .75rem;
     // overflow-wrap: break-word;
     word-break: normal;
     white-space: normal;
@@ -96,12 +96,17 @@ export default {
     .detail__day_icon {
       width: 15vw;
     }
+    .detail__day_temp {
+
+    }
+    .detail__day_temp_value {
+      font-size: 1.25rem;
+    }
     .detail__night_icon {
       width: 15vw;
       display: none;
     }
     .detail__day_text {
-      // font-size: 0.5rem;
       word-break: break-word;
     }
   }
