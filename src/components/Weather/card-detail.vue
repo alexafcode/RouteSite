@@ -83,21 +83,24 @@ export default {
     color: white;
   }
   .detail__day_text {
-    font-size: .75rem;
+    font-size: 0.75rem;
     // overflow-wrap: break-word;
     word-break: normal;
     white-space: normal;
     color: lightgray;
   }
 }
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 800px) {
   .detail {
     width: 16vw;
+    .detail__date {
+      color: white;
+      font-size: 3vw;
+    }
     .detail__day_icon {
       width: 15vw;
     }
     .detail__day_temp {
-
     }
     .detail__day_temp_value {
       font-size: 1.25rem;
@@ -107,10 +110,8 @@ export default {
       display: none;
     }
     .detail__day_text {
-      word-break: break-word;
+      word-break: break-all;
     }
   }
-}
-@media screen and (max-width: 600px) {
 }
 </style>

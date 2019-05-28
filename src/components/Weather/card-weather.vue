@@ -224,7 +224,7 @@ export default {
   opacity: 0;
 }
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 800px) {
   .card {
     width: 95vw;
     height: 40%;
@@ -244,16 +244,12 @@ export default {
         font-size: 0.75rem;
         text-align: center;
       }
-      .card__footer_more {
-      }
     }
   }
   .card__datails {
     margin: auto;
     width: 95vw;
-    height: 43vh;
+    height: 40vh;
   }
-}
-@media screen and (max-width: 600px) {
 }
 </style>

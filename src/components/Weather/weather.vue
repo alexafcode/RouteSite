@@ -94,13 +94,11 @@ export default {
     width: 750px;
   }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 800px) {
   .weather {
     .weather__search {
       width: 70%;
     }
   }
-}
-@media screen and (max-width: 600px) {
 }
 </style>
