@@ -51,7 +51,7 @@
           small
           color="white"
           class="card__footer_more"
-          @click="GetWeatherForecast(city)"
+          @click="GetWeatherForecast"
         >5 дней</v-btn>
       </v-layout>
     </v-layout>
@@ -129,7 +129,7 @@ export default {
         this.snackbar = true;
       }
     },
-    GetWeatherForecast(city) {
+    GetWeatherForecast() {
       if (!this.showMore) {
         this.GET_WEATHER_FORECAST.then(result => {
           this.cityForecastItems = result;

@@ -1,6 +1,7 @@
 <template>
   <v-layout column class="weather">
     <loading v-show="isLoading"></loading>
+    <loading-search v-show="searchLoading"></loading-search>
     <div v-click-outside>
       <v-layout v-show="!isLoading" class="weather__search">
         <v-layout column>
@@ -22,16 +23,18 @@
 </template>
 <script>
 import loading from "../../views/loading.vue";
+import loadingSearch from "../../views/search-loading.vue";
 import card from "./card-weather.vue";
 import searchList from "./search-list.vue";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "whether",
   components: {
     loading,
     card,
-    searchList
+    searchList,
+    loadingSearch
   },
   data: () => ({
     searchText: "",
@@ -44,8 +47,7 @@ export default {
       "SEARCH_CITY",
       "GET_WEATHER_CITY"
     ]),
-    ...mapState("weatherStore", ["cities", "items", "isLoading"])
-    // ...mapGetters("weatherStore", ["citiesGetter"])
+    ...mapState("weatherStore", ["cities", "items", "isLoading", "searchLoading"])
   },
   created() {
     this.INIT_STATE;

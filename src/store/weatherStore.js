@@ -8,6 +8,7 @@ export default {
     cities: [],
     items: [],
     isLoading: true,
+    searchLoading: false,
     time: null
   },
   mutations: {
@@ -17,6 +18,7 @@ export default {
     },
     SET_ITEM_CITY(state, payload) {
       state.items = payload;
+      state.searchLoading = false;
     },
     UNSET_CITY(state) {
       state.cities = [];
@@ -68,11 +70,10 @@ export default {
                 dispatch('GET_WEATHER_CITY', response.data)
               }
             })
-            .catch(error => console.error(error))
+              // eslint-disable-next-line
+              .catch(error => console.error(error.message))
           });
         } else {
-          /* eslint-disable */
-          console.error("геолокация НЕдоступна");
           alert("Геолокация Не доступна")
         }
       } else {
@@ -112,35 +113,41 @@ export default {
             time: time,
             pressure: `${res.Pressure.Metric.Value} мм рт. ст.`
           };
+          commit('SET_CITY', city)
         })
-        .catch(error => console.error(error))
-      commit('SET_CITY', city)
+        // eslint-disable-next-line
+        .catch(error => console.error(error.message))
     },
-    SEARCH_CITY({ commit }, payload) {
+    SEARCH_CITY({ commit, state }, payload) {
+      state.searchLoading = true;
       let url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${
         key.weather
         }&q=${payload.searchText}&language=ru-ru`;
       let items = []
       let cities = {};
-      axios.get(url).then(response => {
-        if (response.data.length > 0) {
-          response.data.forEach(el => {
+      axios.get(url)
+        .then(response => {
+          if (response.data.length > 0) {
+            response.data.forEach(el => {
+              cities = {
+                country: el.Country.LocalizedName,
+                city: el.LocalizedName,
+                Key: el.Key
+              };
+              items.push(cities);
+            });
+          } else {
             cities = {
-              country: el.Country.LocalizedName,
-              city: el.LocalizedName,
-              Key: el.Key
+              city: "Ничего не найдено",
             };
-            items.push(cities);
-          });
-        } else {
-          cities = {
-            city: "Ничего не найдено",
-          };
-          items.push(cities)
-        }
-      });
-      commit('SET_ITEM_CITY', items)
+            items.push(cities)
+          }
+          commit('SET_ITEM_CITY', items)
+        })
+        // eslint-disable-next-line
+        .catch(error => console.error(error.message))
     },
+    // eslint-disable-next-line
     GET_WEATHER_FORECAST({ commit }, payload) {
       moment.locale('ru');
       let arr = [];
@@ -163,49 +170,8 @@ export default {
             arr.push(obj)
           })
         })
-        .catch(error => console.error(error))
-      // let arr = [
-      //   {
-      //     date: "24 июня",
-      //     dayIcon: 6, // Day.Icon
-      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
-      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-      //     nightIcon: 35, // Night.Icon
-      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-      //   },
-      //   {
-      //     date: "24 июня",
-      //     dayIcon: 6, // Day.Icon
-      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
-      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-      //     nightIcon: 35, // Night.Icon
-      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-      //   },
-      //   {
-      //     date: "24 июня",
-      //     dayIcon: 6, // Day.Icon
-      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
-      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-      //     nightIcon: 35, // Night.Icon
-      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-      //   },
-      //   {
-      //     date: "24 июня",
-      //     dayIcon: 6, // Day.Icon
-      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
-      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-      //     nightIcon: 35, // Night.Icon
-      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-      //   },
-      //   {
-      //     date: "25 июня",
-      //     dayIcon: 6, // Day.Icon
-      //     dayIconText: "Преимущественно облачно", // Day.IconPhrase
-      //     tempDay: "8° C",// Temperature.Maximum.Value.toFixed(),
-      //     nightIcon: 35, // Night.Icon
-      //     tempNight: "0° C" // Temperature.Minimum.Value.toFixed(),
-      //   }
-      // ]
+        // eslint-disable-next-line
+        .catch(error => console.error(error.message))
       return arr
     }
   },
