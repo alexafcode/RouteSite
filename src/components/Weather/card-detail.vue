@@ -111,6 +111,7 @@ export default {
     }
     .detail__day_text {
       word-break: break-all;
+      font-size: 3vw;
     }
   }
 }

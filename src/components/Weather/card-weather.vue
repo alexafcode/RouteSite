@@ -232,8 +232,9 @@ export default {
     .card__center {
       font-size: .75rem;
       .card__center_icon {
-        width: 25vw;
-        height: 25vh;
+        width: 32vw;
+        height: 20vh;
+        background-position: center;
       }
     }
     .card__footer {
@@ -243,6 +244,7 @@ export default {
       .card__footer_text {
         font-size: 0.75rem;
         text-align: center;
+        background-size: cover;
       }
     }
   }
