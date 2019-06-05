@@ -6,44 +6,44 @@
       :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
     >
       <v-layout column class="card__title">
-        <div class="card__title_time text-md-center">{{city.time}}</div>
-        <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
+        <div class="title__time text-md-center">{{city.time}}</div>
+        <div class="title__location text-md-center">{{city.country}}, {{city.city}}</div>
       </v-layout>
       <v-layout row class="card__center" align-center>
         <v-flex xs4>
-          <p class="card__center_temp text-md-center">{{city.temp}}</p>
-          <div class="text-md-center card__center_tempreal_text">
+          <p class="center__temp text-md-center">{{city.temp}}</p>
+          <div class="center__tempreal-text text-md-center">
             Ощущается как:
-            <span class="card__center_tempreal">{{city.realFeelTemperature}}</span>
+            <span class="center__tempreal">{{city.realFeelTemperature}}</span>
           </div>
-          <div class="card__center_pressure text-md-center">{{city.pressure}}</div>
+          <div class="center__pressure text-md-center">{{city.pressure}}</div>
         </v-flex>
         <v-flex xs4>
           <div
             v-show="city.WeatherIcon"
-            class="card__center_icon"
+            class="center__icon"
             :style="{backgroundImage: `url(${require(`@/assets/weather-icons/${city.WeatherIcon}.png`)})`}"
           ></div>
         </v-flex>
-        <v-flex xs4 class="card__center_wind">
+        <v-flex xs4 class="center__wind">
           <div class="text-md-center">
             Направление ветра:
-            <span class="card__center_wind_direct">{{city.windDirect}}</span>
+            <span class="center__wind-direct">{{city.windDirect}}</span>
           </div>
           <div class="text-md-center">
             Скорость ветра:
-            <span class="card__center_wind_speed">{{city.windSpeed}}</span>
+            <span class="center__wind-speed">{{city.windSpeed}}</span>
           </div>
         </v-flex>
       </v-layout>
       <v-layout row class="card__footer">
         <v-btn flat small color="white" @click="saveToLS" v-if="!save">Сохранить</v-btn>
         <v-btn flat small color="white" @click="deleteToLS" v-if="save">Удалить</v-btn>
-        <v-flex xs12 offset-sm1 class="card__footer_text">
+        <v-flex xs12 offset-sm1 class="card__footer-text">
           <div>{{city.weatherText}}</div>
           <div>Видимость {{city.visibility}}</div>
         </v-flex>
-        <v-btn flat small color="white" class="card__footer_more" @click="GetWeatherForecast">5 дней</v-btn>
+        <v-btn flat small color="white" class="card__footer-more" @click="GetWeatherForecast">5 дней</v-btn>
       </v-layout>
     </v-layout>
     <transition name="fade" mode="out-in">
@@ -132,51 +132,49 @@ export default {
     font-weight: 400;
     text-align: center;
     font-size: 1.125rem;
-    .card__title_time {
+    .title__time {
       color: wheat;
       font-size: 1rem;
       font-weight: 200;
     }
-    // .card__title_location {
-    // }
   }
   .card__center {
-    .card__center_temp {
+    .center__temp {
       font-weight: 400;
       line-height: 2rem;
       font-size: 2.125rem;
       color: whitesmoke;
     }
-    .card__center_tempreal_text {
+    .center__tempreal-text {
       color: lightgray;
-      .card__center_tempreal {
+      .center_tempreal {
         color: white;
         font-weight: 400;
         font-size: 1.125rem;
         line-height: 1.5rem;
       }
     }
-    .card__center_pressure {
+    .center__pressure {
       color: lightgray;
     }
-    .card__center_icon {
+    .center__icon {
       width: 190px;
       height: 135px;
       background-size: contain;
       background-position: top;
       background-repeat: no-repeat;
     }
-    .card__center_wind {
+    .center__wind {
       color: lightgray;
-      .card__center_wind_speed,
-      .card__center_wind_direct {
+      .center__wind-speed,
+      .center__wind-direct {
         color: white;
       }
     }
   }
   .card__footer {
     color: lightgray;
-    .card__footer_text {
+    .card__footer-text {
       text-align: center;
     }
   }
@@ -208,7 +206,7 @@ export default {
     margin: auto;
     .card__center {
       font-size: 0.75rem;
-      .card__center_icon {
+      .center__icon {
         width: 32vw;
         height: 20vh;
         background-position: center;
@@ -218,7 +216,7 @@ export default {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      .card__footer_text {
+      .card__footer-text {
         font-size: 0.75rem;
         text-align: center;
         background-size: cover;
