@@ -13,14 +13,6 @@ export default {
   components: {
     currencyChart
   },
-  data() {
-    return {};
-  },
-  mounted() {},
-  created() {},
-  computed: {},
-  watch: {},
-  methods: {}
 };
 </script>
 

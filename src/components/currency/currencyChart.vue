@@ -73,9 +73,6 @@ export default {
   mounted() {
     this.getCurrency("USD_RUB");
   },
-  created() {},
-  computed: {},
-  watch: {},
   methods: {
     getCurrency(cur) {
       this.currentCur = cur;

@@ -82,8 +82,6 @@ export default {
       } ${date.getFullYear()}`;
     });
   },
-  mounted() {},
-  methods: {}
 };
 </script>
 <style lang="scss" scoped>

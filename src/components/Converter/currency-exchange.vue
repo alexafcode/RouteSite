@@ -1,7 +1,7 @@
 <template>
   <div class="exchange">
     <v-layout wrap align-center>
-      <v-flex xs11 md4 sm10 offset-sm1 class="exchange__to">
+      <v-flex xs11 md4 sm10 offset-sm1 class="exchange__from">
         <v-autocomplete
           v-model="currencyFrom"
           :items="dataCurrency"
@@ -14,7 +14,7 @@
           @change="convert"
         ></v-autocomplete>
       </v-flex>
-      <v-flex xs11 md4 sm10 offset-sm1 v-show="currencyFrom != null" class="exchange__from">
+      <v-flex xs11 md4 sm10 offset-sm1 v-show="currencyFrom != null" class="exchange__to">
         <v-autocomplete
           v-model="currencyTo"
           :items="dataCurrency"
@@ -37,7 +37,7 @@
           v-model="amount"
         ></v-text-field>
       </v-flex>
-      <v-flex xs5 md4 sm4 offset-sm1 v-show="show" class="exchange__amound_converted">
+      <v-flex xs5 md4 sm4 offset-sm1 v-show="show" class="exchange__amound-converted">
         <v-text-field
           :suffix='`${currencyTo ? currencyTo.symbol : ""}`'
           label="Amount Converted"
@@ -50,7 +50,7 @@
       <!-- <v-btn color="orange" @click="convert" v-show="currencyTo">Конвертировать</v-btn> -->
       <v-alert :value="errorMess" color="error" icon="warning" outline>{{ errorText }}.</v-alert>
     </v-flex>
-    <v-flex v-if="show" class="exchange_result">
+    <v-flex v-if="show" class="exchange__result">
       <p
         class="text-xs-center"
       >{{ ` 1 ${currencyFrom.symbol} = ${convertValue.val} ${currencyTo ? currencyTo.symbol : ""}` }}</p>
@@ -99,17 +99,14 @@ export default {
         .get(url)
         .then(response => {
           let data = response.data.results;
-          let obj = {};
-          let arr = [];
-          Object.keys(data).forEach(key => {
+          let arr = Object.keys(data).map(key => {
             let e = data[key];
-            obj = {
+            return {
               name: e.currencyName,
               symbol: e.currencySymbol ? e.currencySymbol : "",
               id: e.id
-            };
-            arr.push(obj);
-          });
+            }
+          })
           arr.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
           this.dataCurrency = arr;
         })
@@ -129,19 +126,17 @@ export default {
         axios
           .get(url)
           .then(response => {
-            let obj = {};
             let data = response.data.results;
-            Object.keys(data).forEach(key => {
-              let e = data[key];
-              obj = {
-                val: e.val,
-                from: e.fr,
-                to: e.to,
-                id: e.id
-              };
-              this.convertValue = obj;
+            let arr = Object.keys(data).map(key => {
+            let e = data[key];
+              this.convertValue = {
+                  val: e.val,
+                  from: e.fr,
+                  to: e.to,
+                  id: e.id
+              }
               this.show = true;
-            });
+            })
           })
           .catch(error => {
             (this.errorMess = true),
@@ -158,7 +153,7 @@ export default {
 .exchange {
   width: 100%;
   height: 100%;
-  .exchange_result {
+  .exchange__result {
     margin-top: 1%;
     font-size: 34px;
     font-weight: 600;
@@ -168,10 +163,10 @@ export default {
 @media screen and (max-width: 1000px) {
   .exchange {
     margin-left: 3vw;
-    .exchange__amound_converted {
+    .exchange__amound-converted {
       margin-left: 5vh;
     }
-    .exchange_result {
+    .exchange__result {
       margin-top: 5vh;
       font-size: 22px;
       line-height: 30px;
