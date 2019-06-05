@@ -19,9 +19,8 @@ export default {
       state.items = payload;
       state.searchLoading = false;
     },
-    UNSET_CITY(state) {
-      state.cities = [];
-      state.items = [];
+    UNSET_CITY(state, payload) {
+      state.cities = payload;
     },
     SET_LOADING(state, payload) {
       state.isLoading = payload;
@@ -48,7 +47,7 @@ export default {
               let longitude = position.coords.longitude;
               let url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${
                 key.weather
-              }&q=${latitude},${longitude}&language=ru-ru`;
+                }&q=${latitude},${longitude}&language=ru-ru`;
               axios
                 .get(url)
                 .then(response => {
@@ -78,12 +77,11 @@ export default {
       }
     },
     async GET_WEATHER_CITY({ commit }, data) {
-      console.log(data)
       let queryKey = data.Key ? data.Key : data.selectCity.Key;
       let city = {};
       let url = `https://dataservice.accuweather.com/currentconditions/v1/${queryKey}?apikey=${
         key.weather
-      }&language=ru-ru&details=true`;
+        }&language=ru-ru&details=true`;
       await axios
         .get(url)
         .then(result => {
@@ -108,18 +106,18 @@ export default {
               : data.selectCity.country,
             temp: `${res.Temperature.Metric.Value.toFixed()}°  ${
               res.Temperature.Metric.Unit
-            }`,
+              }`,
             windDirect: res.Wind.Direction.Localized,
             windSpeed: `${res.Wind.Speed.Metric.Value}  ${
               res.Wind.Speed.Metric.Unit
-            }`,
+              }`,
             weatherText: res.WeatherText,
             realFeelTemperature: `${res.RealFeelTemperature.Metric.Value.toFixed()}° ${
               res.RealFeelTemperature.Metric.Unit
-            }`,
+              }`,
             visibility: `${res.Visibility.Metric.Value} ${
               res.Visibility.Metric.Unit
-            }`,
+              }`,
             WeatherIcon: res.WeatherIcon,
             IsDayTime: res.IsDayTime,
             time: time,
@@ -134,7 +132,7 @@ export default {
       commit("SET_SEARCHLOADING", true);
       let url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${
         key.weather
-      }&q=${payload.searchText}&language=ru-ru`;
+        }&q=${payload.searchText}&language=ru-ru`;
       let items = [];
       let cities = {};
       axios
@@ -164,7 +162,7 @@ export default {
       let arr = [];
       let url = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${
         payload.city.key
-      }?apikey=${key.weather}&language=ru-ru&metric=true`;
+        }?apikey=${key.weather}&language=ru-ru&metric=true`;
       await axios
         .get(url)
         .then(result => {
@@ -187,7 +185,7 @@ export default {
         .catch(error => console.error(error.message));
       return arr;
     },
-    SAVE_TO_LS({ commit }, payload) {
+    SAVE_TO_LS({ commit, state }, payload) {
       let arr = [];
       let exist = false;
       let city = {};
@@ -195,6 +193,7 @@ export default {
         try {
           arr = JSON.parse(localStorage.getItem("city"));
         } catch (e) {
+          // eslint-disable-next-line
           return console.error(e);
         }
         if (arr.some(e => e.Key === payload.city.key)) {
@@ -212,6 +211,11 @@ export default {
         };
         arr.push(city);
         localStorage.setItem("city", JSON.stringify(arr));
+        // change state
+        let data = state.cities.map(el =>
+          el.key === payload.city.key ? { ...el, fromLS: true } : el
+        )
+        commit("UNSET_CITY", data);
       }
     },
     DELETE_TO_LS({ commit, state }, payload) {
@@ -220,12 +224,17 @@ export default {
         try {
           arr = JSON.parse(localStorage.getItem("city"));
         } catch (e) {
+          // eslint-disable-next-line
           return console.error(e);
         }
         let filteredArr = arr.filter(el => el.Key != payload.city.key);
         localStorage.setItem("city", JSON.stringify(filteredArr));
-        // let data = state.cities.filter(el => el.Key != payload.city.key);
-        // commit("SET_CITY", data);
+        // let data = state.cities.map(el =>
+        //   el.Key === payload.city.key ? el.fromLS = false : el
+        // )
+        // change state
+        let data = state.cities.filter(el => el.key != payload.city.key)
+        commit("UNSET_CITY", data);
       }
     }
   },
