@@ -5,12 +5,8 @@
       class="card"
       :style="{backgroundImage:`url(${require(`@/assets/weather-icons/${dayTime}.jpg`)})`}"
     >
-      <v-snackbar v-model="snackbar" :timeout="timeout" :top="'top'" :color="'info'">
-        {{ text }}
-        <v-btn color="yellow" flat @click="snackbar = false">Close</v-btn>
-      </v-snackbar>
       <v-layout column class="card__title">
-        <div class="card__title_time text-md-center">Обновлено {{city.time}}</div>
+        <div class="card__title_time text-md-center">{{city.time}}</div>
         <div class="card__title_location text-md-center">{{city.country}}, {{city.city}}</div>
       </v-layout>
       <v-layout row class="card__center" align-center>
@@ -41,18 +37,13 @@
         </v-flex>
       </v-layout>
       <v-layout row class="card__footer">
-        <v-btn flat small color="white" @click="saveToLS">Сохранить</v-btn>
+        <v-btn flat small color="white" @click="saveToLS" v-if="!save">Сохранить</v-btn>
+        <v-btn flat small color="white" @click="deleteToLS" v-if="save">Удалить</v-btn>
         <v-flex xs12 offset-sm1 class="card__footer_text">
           <div>{{city.weatherText}}</div>
           <div>Видимость {{city.visibility}}</div>
         </v-flex>
-        <v-btn
-          flat
-          small
-          color="white"
-          class="card__footer_more"
-          @click="GetWeatherForecast"
-        >5 дней</v-btn>
+        <v-btn flat small color="white" class="card__footer_more" @click="GetWeatherForecast">5 дней</v-btn>
       </v-layout>
     </v-layout>
     <transition name="fade" mode="out-in">
@@ -85,49 +76,35 @@ export default {
     }
   },
   data: () => ({
-    snackbar: false,
-    timeout: 4000,
-    text: "",
     cityForecastItems: null,
-    showMore: false
+    showMore: false,
+    save: null
   }),
   computed: {
     dayTime() {
       return this.city.IsDayTime ? "day" : "night";
     },
-    ...mapActions("weatherStore", ["GET_WEATHER_FORECAST"])
+    ...mapActions("weatherStore", [
+      "GET_WEATHER_FORECAST",
+      "SAVE_TO_LS",
+      "DELETE_TO_LS"
+    ])
   },
-  created() {},
-  mounted() {},
+  mounted() {
+    if (this.city.fromLS) {
+      this.save = true;
+    } else {
+      this.save = false;
+    }
+  },
   methods: {
     saveToLS() {
-      let arr = [];
-      let city = {};
-      city = {
-        Key: this.city.key,
-        selectCity: {
-          city: this.city.city,
-          country: this.city.country
-        }
-      };
-      if (localStorage.getItem("city") != null) {
-        arr = JSON.parse(localStorage.getItem("city"));
-      }
-      let exist = false;
-      arr.forEach(el => {
-        if (el.Key === this.city.key) {
-          exist = true;
-        }
-      });
-      if (!exist) {
-        arr.push(city);
-        localStorage.setItem("city", JSON.stringify(arr));
-        this.text = "Сохранено";
-        this.snackbar = true;
-      } else {
-        this.text = "Уже Сохранено";
-        this.snackbar = true;
-      }
+      this.SAVE_TO_LS;
+      this.save = true;
+    },
+    deleteToLS() {
+      this.DELETE_TO_LS;
+      this.save = false;
     },
     GetWeatherForecast() {
       if (!this.showMore) {
@@ -230,7 +207,7 @@ export default {
     height: 40%;
     margin: auto;
     .card__center {
-      font-size: .75rem;
+      font-size: 0.75rem;
       .card__center_icon {
         width: 32vw;
         height: 20vh;
