@@ -19,6 +19,9 @@ export default {
       state.items = payload;
       state.searchLoading = false;
     },
+    UNSET_ITEM_CITY(state) {
+      state.items = [];
+    },
     UNSET_CITY(state, payload) {
       state.cities = payload;
     },
@@ -130,6 +133,7 @@ export default {
     },
     SEARCH_CITY({ commit }, payload) {
       commit("SET_SEARCHLOADING", true);
+      commit("UNSET_ITEM_CITY");
       let url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${
         key.weather
         }&q=${payload.searchText}&language=ru-ru`;
