@@ -40,9 +40,5 @@ export default {
     //    return this.autos.find( a => a.id === this.id)
     //  },
   },
-  methods: {}
 };
 </script>
-
-<style>
-</style>

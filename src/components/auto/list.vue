@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <h1 @click.prevent="initState">List {{ autos[0].id}}</h1>
-    <h1 @click.prevent="addLS">{{ autos[0].name}}</h1>
-    <h1>ID {{ getID }}</h1>
-    <span v-for="(auto, index) in autos" :key="index">{{ auto.name }}</span>-->
     <v-flex xs12 sm8 offset-sm2>
       <!-- <loading v-show="load"></loading> -->
     </v-flex>
@@ -48,11 +44,9 @@
             @change="onFilePicked"
           >
         </v-flex>
-        <!-- <v-btn fab dark color="indigo" loading large :disabled="!valid" @click="upload"> -->
         <v-btn fab dark color="indigo" :loading="load" large @click="upload" :disabled="!valid">
           <v-icon dark>add</v-icon>
         </v-btn>
-        <!-- <v-btn color="indigo" @click="testData">Upload</v-btn> -->
       </v-layout>
     </v-container>
   </div>
@@ -61,7 +55,6 @@
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 import helper from "../Helpers/Helper.js";
-// import firebase from 'firebase/app';
 // import Loading from "@/views/loading.vue";
 
 export default {
@@ -94,7 +87,6 @@ export default {
       return this.getById(this.id);
     }
   },
-  watch: {},
   methods: {
     ...mapMutations("autoStore", ["ADD_LS", "INIT_STATE"]),
     addLS() {
@@ -137,17 +129,6 @@ export default {
         this.imageUrl = "";
       }
     },
-    // saveToLS() {
-    //   let ls = {
-    //     name: this.text,
-    //     descriptions: this.desc,
-    //     imageName: this.imageName,
-    //     imageFile: this.imageFile,
-    //     imageUrl: this.imageUrl
-    //   };
-    //   this.ADD_LS(ls);
-    //   this.$router.push("autoCard");
-    // },
     validFields() {
       if (this.text != "" && this.desc != "" && this.manufacturer != "") {
         this.valid = true;

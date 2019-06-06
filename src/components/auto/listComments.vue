@@ -1,9 +1,9 @@
 <template>
   <v-layout column>
     <div class="mt-2" v-for="(item, index) in commentLocal" :key="index">
-      <v-list-tile-sub-title class="listcomment_user">{{ item.name }}</v-list-tile-sub-title>
+      <v-list-tile-sub-title class="user">{{ item.name }}</v-list-tile-sub-title>
       <v-list-tile>
-        <v-list-tile-sub-title class="text--primary listcomment_comment">{{ item.comment }}</v-list-tile-sub-title>
+        <v-list-tile-sub-title class="text--primary comment">{{ item.comment }}</v-list-tile-sub-title>
       </v-list-tile>
       <v-divider/>
     </div>
@@ -35,7 +35,6 @@ export default {
       type: String
     }
   },
-  components: {},
   data() {
     return {
       comment: "",
@@ -65,7 +64,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.listcomment_user {
+.user {
   font-size: 12px;
   color: #c5c5c5;
 }

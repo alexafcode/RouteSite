@@ -28,7 +28,7 @@
           <!-- <v-btn flat color="grey" @click="openDialog" v-if="user.emailVerified != null && user.emailVerified != false">Delete</v-btn> -->
           <v-btn flat color="orange" to="/autoCard">To List Cars</v-btn>
           <v-spacer></v-spacer>
-          <span class="favorite_text">Favorite</span>
+          <span class="favorite__text">Favorite</span>
           <v-btn icon flat fab v-if="!favorite">
             <v-icon @click="addFavAuto">favorite_border</v-icon>
           </v-btn>
@@ -126,7 +126,7 @@ export default {
 
 <style lang="scss" scoped>
 @media screen and (max-width: 600px) {
-  .favorite_text {
+  .favorite__text {
     display: none;
   }
 }

@@ -95,7 +95,7 @@ export default {
       let url = `https://free.currencyconverterapi.com/api/v6/currencies?apiKey=${
         this.apiKey
       }`;
-      const result = await axios
+      await axios
         .get(url)
         .then(response => {
           let data = response.data.results;
@@ -120,14 +120,14 @@ export default {
     convert() {
       if (this.currencyTo != null && this.currencyFrom != null) {
         this.amount = 1;
-        let url = `https://free.currencyconverterapi.com/api/v6/convert?apiKey=${
+        const url = `https://free.currencyconverterapi.com/api/v6/convert?apiKey=${
           this.apiKey
         }&q=${this.currencyFrom.id}_${this.currencyTo.id}`;
         axios
           .get(url)
           .then(response => {
-            let data = response.data.results;
-            let arr = Object.keys(data).map(key => {
+            const data = response.data.results;
+            Object.keys(data).map(key => {
             let e = data[key];
               this.convertValue = {
                   val: e.val,

@@ -1,6 +1,3 @@
-// import autoDb from '../main.js'
-// import firebase from 'firebase';
-//import firebaseApp from '../main.js'
 import firebase from 'firebase/app';
 import '@firebase/auth';
 
@@ -94,7 +91,7 @@ export default {
       }).catch(error => console.log(error))
     },
     GET_USER_DATA() {
-      let user = firebase.auth().currentUser;
+      const user = firebase.auth().currentUser;
       let usr = {};
       if (user != null) {
         usr = {
@@ -107,13 +104,13 @@ export default {
       return usr
     },
     async UPDATE_USER_PROFILE({ commit }, payload) {
-      let user = firebase.auth().currentUser;
+      const user = firebase.auth().currentUser;
       let urlPath = null;
       if (payload.changePhoto) {
-        let storage = firebase.storage()
-        let storageRef = storage.ref();
-        let imagesRef = storageRef.child('UserImage');
-        let spaceRef = imagesRef.child(payload.email);
+        const storage = firebase.storage()
+        const storageRef = storage.ref();
+        const imagesRef = storageRef.child('UserImage');
+        const spaceRef = imagesRef.child(payload.email);
         await spaceRef.put(payload.blobImage)
           .then(async function() {
             await spaceRef.getDownloadURL().then((url => {

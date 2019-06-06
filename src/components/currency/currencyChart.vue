@@ -1,5 +1,5 @@
 <template>
-  <div id="app_chart">
+  <div class="app__chart">
     <loading v-show="loading"></loading>
     <currency-change></currency-change>
     <!-- <div class="text-xs-center" :style="{'padding-top': '1%'}"><h3>{{ currentCur }}</h3></div> -->
@@ -149,7 +149,7 @@ export default {
 </script>
 
  <style lang="scss" scoped>
-#app_chart {
+.app__chart {
   .app__datepicker {
     position: absolute;
     z-index: 3;
@@ -164,7 +164,7 @@ export default {
   }
 }
 @media screen and (max-width: 980px) {
-  #app_chart {
+  .app_chart {
     .app__datepicker {
       z-index: 2;
       position: absolute;

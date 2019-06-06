@@ -1,5 +1,5 @@
 <template>
-  <v-container class="list_auto">
+  <v-container class="list">
     <v-flex xs12 md12>
       <v-card>
         <router-link :to="{name: 'cardItem', params: {id: auto.id}}">
@@ -14,7 +14,7 @@
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{ auto.name }}</h3>
-            <div class="autolist_desc">{{ ShortDesc(auto.descriptions) }}</div>
+            <div class="list__desc">{{ ShortDesc(auto.descriptions) }}</div>
           </div>
         </v-card-title>
         <v-card-actions>
@@ -57,7 +57,6 @@ export default {
       required: true
     }
   },
-  components: {},
   data() {
     return {
       dialog: false,
@@ -76,7 +75,6 @@ export default {
         return image;
       }
     }
-    // :src="auto.imageUrlPrev ? auto.imageUrlPrev : auto.imageUrl"
   },
   mounted() {
     this.observer = new IntersectionObserver(entries => {
@@ -112,14 +110,14 @@ export default {
 </script>
 
 <style>
-.autolist_desc {
+.list__desc {
   height: 100px;
 }
 @media screen and (max-width: 1024px) {
-  .list_auto {
+  .list {
     width: 125%;
   }
-  .autolist_desc {
+  .list__desc {
     height: 15vh;
     overflow: hidden;
   }

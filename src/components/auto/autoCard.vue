@@ -2,14 +2,14 @@
   <v-container fluid>
     <loading v-show="!show"></loading>
     <v-layout row>
-      <v-flex xs2 v-show="show" class="card_menu">
-        <v-layout class="card_add">
+      <v-flex xs2 v-show="show" class="card__menu">
+        <v-layout class="card__add">
           <!-- <v-text-field label="Search" v-model="searchText"></v-text-field> -->
           <v-btn fab dark color="brown darken-4" v-show="isAuthenticated" to="/list">
             <v-icon dark>add</v-icon>
           </v-btn>
         </v-layout>
-        <v-layout class="card_filter">
+        <v-layout class="card__filter">
           <v-flex xs1 offset-sm0 v-for="(factory, index) in manufacturers" :key="index">
             <v-checkbox v-model="checkedFactory" :value="factory" :label="`${factory.toString()}`"></v-checkbox>
           </v-flex>
@@ -17,9 +17,9 @@
             <v-btn round color="primary" dark @click.prevent="resetFilter">Сбросить</v-btn>
           </div>
         </v-layout>
-        <div class="card_select">
+        <div class="card__select">
           <p>Показывать по:</p>
-          <div class="card_select_input">
+          <div class="card__select-input">
             <v-select v-model="size" :items="select" label="Select" return-object single-line></v-select>
           </div>
         </div>
@@ -27,12 +27,12 @@
       <div v-show="show">
         <v-flex xs11>
           <v-layout row wrap justify-space-between>
-            <div class="card_list" v-for="(auto, index) in pagination" :key="index">
+            <div class="card__list" v-for="(auto, index) in pagination" :key="index">
               <listauto :auto="auto" @updateState="initState"></listauto>
             </div>
           </v-layout>
         </v-flex>
-        <v-flex xs12 md12 class="card_pagination">
+        <v-flex xs12 md12 class="card__pagination">
           <v-layout row justify-center>
             <div class="text-xs-center">
               <v-btn flat class="pages" @click="pageNumber = 1">Start</v-btn>
@@ -162,12 +162,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.card_filter {
+.card__filter {
   flex-direction: column;
 }
-.card_select {
+.card__select {
   margin-top: 10%;
-  .card_select_input {
+  .card__select-input {
     width: 30%;
   }
 }
@@ -176,21 +176,21 @@ export default {
   font-size: 18px; //em
   font-weight: 600;
 }
-.card_list {
+.card__list {
   width: 50%;
 }
 @media screen and (max-width: 1024px) {
-  .card_menu {
+  .card__menu {
     display: none;
-    .card_filter {
+    .card__filter {
       flex-direction: row;
     }
   }
 
-  .card_list {
+  .card__list {
     width: 90%;
   }
-  .card_pagination {
+  .card__pagination {
     .pages {
       display: none;
     }

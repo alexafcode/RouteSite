@@ -1,5 +1,5 @@
 <template>
-  <div class="cur_items">
+  <div class="cur__items">
     <v-speed-dial
       v-model="fab"
       :top="top"
@@ -48,7 +48,7 @@ export default {
   }
 }
 @media screen and (max-width: 560px) {
-  .cur_items {
+  .cur__items {
     .v-speed-dial {
       .v-speed-dial__list {
         display: table-header-group;
