@@ -3,7 +3,7 @@
     <v-layout
       justify-center
       align-center
-      class="home_container"
+      class="home"
       :style="{ 'background-image': 'url(' + isMobile + ')' }"
     >
       <v-flex xs12>
@@ -29,13 +29,11 @@
 import { mapState } from "vuex";
 export default {
   name: "imageGrid",
-  components: {},
   data() {
     return {
       // image: "https://picsum.photos/700/300?random"
     };
   },
-  mounted() {},
   computed: {
     ...mapState("user", ["isAuthenticated"]),
     isMobile() {
@@ -67,7 +65,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.home_container {
+.home {
   background-size: cover;
   transition: 1s;
   &:hover {

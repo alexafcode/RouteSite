@@ -54,7 +54,6 @@ export default {
       ]
     };
   },
-  mounted() {},
   computed: {
     ...mapActions("user", ["USER_SIGNUP"])
   },
@@ -79,5 +78,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-</style>

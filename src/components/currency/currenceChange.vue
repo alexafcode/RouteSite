@@ -43,8 +43,6 @@ export default {
 <style lang="scss" >
 .cur_items {
   .v-speed-dial {
-    // padding-top: 3%;
-    // padding-left: .5%;
     position: absolute;
     z-index: 3;
   }
