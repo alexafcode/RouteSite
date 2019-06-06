@@ -3,7 +3,7 @@
     <v-layout wrap align-center>
       <v-flex xs10 md4 sm10 offset-sm1>
         <v-autocomplete
-          class="converter_select"
+          class="converter__select"
           :items="dataArr"
           v-model="currencyRate"
           item-text="name"
@@ -13,7 +13,7 @@
         ></v-autocomplete>
       </v-flex>
     </v-layout>
-    <div v-show="currencyRate.name" class="converter_value">
+    <div v-show="currencyRate.name" class="converter__value">
       <v-flex xs10 md4 sm10 offset-sm1>
         <v-layout row>
           <img src="@/./assets/icons_amount.png" alt="Amount" style="vertical-align: middle">
@@ -39,7 +39,6 @@
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
-import names from "../Calendar/constNames.js";
 import currentPrice from "./components-converter/current-price-modal.vue";
 
 export default {
@@ -76,33 +75,34 @@ export default {
     this.INIT_STATE.then(() => {
       this.show = true;
       this.dataArr = this.currency;
-      let date = new Date(Date.parse(this.timeStamp));
-      this.time = `${date.getDate()} ${
-        names.monthNameS[date.getMonth()]
-      } ${date.getFullYear()}`;
+      this.time = new Date(this.timeStamp).toLocaleString("ru", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
     });
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
 @media screen and (max-width: 1024px) {
   .converter {
     text-align: center;
-    .converter_select {
+    .converter__select {
       margin-left: 2vw;
       font-size: 22px;
     }
-    .converter_value {
+    .converter__value {
       font-size: 22px;
     }
   }
 }
 @media screen and (max-width: 600px) {
   .converter {
-    .converter_select {
+    .converter__select {
       font-size: 18px;
     }
-    .converter_value {
+    .converter__value {
       font-size: 18px;
     }
   }
