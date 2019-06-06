@@ -27,7 +27,6 @@
 <script>
 export default {
   name: "newsList",
-  // props: ["post"],
   props: {
     post: {
       type: Object,
@@ -66,10 +65,5 @@ export default {
   destroyed() {
     this.observer.disconnect();
   },
-  methods: {},
-  directives: {}
 };
 </script>
-
-<style>
-</style>

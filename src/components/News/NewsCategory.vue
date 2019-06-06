@@ -1,5 +1,5 @@
 <template>
-  <div class="nav_category">
+  <div class="category">
     <v-speed-dial
       v-model="fab"
       :top="top"
@@ -58,20 +58,19 @@ export default {
   }),
   methods: {
     changeCategory(category) {
-      // console.log(category);
       this.$emit("change_category", category);
     }
   }
 };
 </script>
 <style lang="scss" >
-.nav_category {
+.category {
   .v-speed-dial {
     position: absolute;
   }
 }
 @media screen and (max-width: 560px) {
-  .nav_category {
+  .category {
     .v-speed-dial {
       .v-speed-dial__list {
       display: table-header-group;

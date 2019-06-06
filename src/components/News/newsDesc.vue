@@ -13,12 +13,5 @@ export default {
       required: true
     }
   },
-  components: {},
-  data() {
-    return {};
-  }
 };
 </script>
-
-<style>
-</style>

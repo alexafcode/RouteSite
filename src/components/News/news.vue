@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <div id="news_container">
+    <div class="news">
       <news-category @change_category="getNews" v-show="!category_show"></news-category>
       <loading v-show="loading"></loading>
       <v-container grid-list-lg>
@@ -22,7 +21,6 @@
         </v-layout>
       </v-container>
     </div>
-  </div>
 </template>
 
 <script>
@@ -53,17 +51,14 @@ export default {
   created() {
     this.getNews("");
   },
-  computed: {},
-  watch: {},
   methods: {
     getNews(category) {
       this.news = [];
       this.loading = true;
-      let url = `https://newsapi.org/v2/top-headlines?country=ru&category=${category}&apiKey=`;
+      const url = `https://newsapi.org/v2/top-headlines?country=ru&category=${category}&apiKey=`;
       axios
         .get(`${url}${this.API_KEY}`)
         .then(response => {
-          // console.log(response.data.articles);
           this.news = response.data.articles;
           if (response) this.loading = false;
         })
@@ -88,7 +83,7 @@ export default {
   },
   directives: {
     inserted: function(el, binding) {
-      let f = function(evt) {
+      const f = function(evt) {
         if (binding.value(evt, el)) {
           window.removeEventListener("scroll", f);
         }
