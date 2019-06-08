@@ -14,7 +14,7 @@
       <transition name="fade">
       <v-date-picker
         v-if="datapicker"
-        class="date_input"
+        class="date__input"
         ref="date"
         v-model="picker"
         width="210"
@@ -23,11 +23,11 @@
       ></v-date-picker>
       </transition>
     </div>
-    <div class="date_title">{{ NameMonth }} - {{ year }}</div>
+    <div class="date__title">{{ NameMonth }} - {{ year }}</div>
   </div>
 </template>
 <script>
-import moment from "moment";
+
 import names from "./constNames";
 export default {
   name: "dataPicker",
@@ -47,7 +47,7 @@ export default {
     picker: {
       get() {
         let dateLocal = new Date(this.year, this.month);
-        return moment(dateLocal).format("YYYY-MM");
+        return `${dateLocal.getFullYear()}-${dateLocal.getMonth() + 1}`
       },
       set(val) {
         this.$emit("changeData", val);
@@ -86,14 +86,14 @@ export default {
   align-items: center;
   flex-direction: column;
 
-  &_title {
+  &__title {
     font-size: 20px;
     padding-top: 20px;
     color: darkcyan;
     font-family: cursive;
   }
   .datapicker {
-    .date_input {
+    .date__input {
       position: absolute;
     }
   }
@@ -105,7 +105,7 @@ export default {
   opacity: 0;
 }
 @media screen and (max-width: 760px) {
-  .date_title {
+  .date__title {
     display: none;
   }
 }

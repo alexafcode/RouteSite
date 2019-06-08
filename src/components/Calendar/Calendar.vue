@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <div class="container_calendar">
-      <div class="button_month">
+  <div class="app">
+    <div class="container">
+      <div class="button__month">
         <v-btn fab @click="monthPrev">{{ NamePrevMonth }}</v-btn>
         <v-btn fab @click="monthNext">{{ NameNextMonth }}</v-btn>
       </div>
@@ -26,20 +26,19 @@
         @click="addData(day.day, day.month, day.year)"
       >
         {{ day.dayName }} {{ day.day }}
-        <div class="day_event" v-for="(mes, index) in day.message" :key="index">{{ mes }}</div>
+        <div class="day__event" v-for="(mes, index) in day.message" :key="index">{{ mes }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import moment from "moment";
 import searchEvent from "./SearchEvent.vue";
 import saveEvent from "./SaveEvent.vue";
 import names from "./constNames.js";
 import datapickerComponent from "./dataPicker.vue";
 import { mapState, mapActions } from "vuex";
-let today = new Date();
+
 export default {
   name: "app",
   components: {
@@ -52,8 +51,9 @@ export default {
       dayName: names.dayName,
       monthName: names.monthName,
       days: [],
-      year: today.getFullYear(),
-      month: today.getMonth(),
+      today: new Date(),
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
       eventAdd: false,
       eventDay: "",
       datapicker: false,
@@ -120,7 +120,7 @@ export default {
       // Пишем пред. месяц
       if (this.getDayN(data) != 0) {
         while (lastdata.getMonth() == lastmonth) {
-          let ids = this.addID(
+          const ids = this.addID(
             lastdata.getDate(),
             lastdata.getMonth(),
             lastdata.getFullYear()
@@ -143,7 +143,7 @@ export default {
       if (s != 7) {
         while (s != 7) {
           s++;
-          let ids = this.addID(
+          const ids = this.addID(
             data.getDate(),
             data.getMonth(),
             data.getFullYear()
@@ -157,7 +157,7 @@ export default {
             year: data.getFullYear(),
             message: [],
             today:
-              data.toLocaleDateString("ru") == today.toLocaleDateString("ru")
+              data.toLocaleDateString("ru") == this.today.toLocaleDateString("ru")
                 ? true
                 : false,
             notMonth: data.getMonth() != this.month ? true : false
@@ -169,7 +169,7 @@ export default {
       //////
       while (s != 35) {
         s++;
-        let ids = this.addID(
+        const ids = this.addID(
           data.getDate(),
           data.getMonth(),
           data.getFullYear()
@@ -182,7 +182,7 @@ export default {
           year: data.getFullYear(),
           message: [],
           today:
-            data.toLocaleDateString("ru") == today.toLocaleDateString("ru")
+            data.toLocaleDateString("ru") == this.today.toLocaleDateString("ru")
               ? true
               : false,
           notMonth: data.getMonth() != this.month ? true : false
@@ -193,7 +193,7 @@ export default {
       // fix long month (lastweek "september 2019")
       if (data.getMonth() == this.month) {
         while (s != 42) {
-          let ids = this.addID(
+          const ids = this.addID(
             data.getDate(),
             data.getMonth(),
             data.getFullYear()
@@ -242,15 +242,15 @@ export default {
       }
     },
     addData(day, month, year) {
-      let dateNow = moment();
-      let dateEvent = new Date(year, month, day);
+      const dateNow = new Date();
+      const dateEvent = new Date(year, month, day);
       if (dateNow <= dateEvent) {
         this.eventAdd = true;
         this.item.day = day;
         this.item.month = month;
         this.item.year = year;
       } else {
-        alert("Дата уже прошла")
+        console.error("Дата уже прошла")
       }
     },
     Cancel() {
@@ -258,7 +258,7 @@ export default {
     },
     FromStorage() {
       this.eventAdd = false;
-      let array = this.dataDb // JSON.parse(localStorage.getItem("message"));
+      let array = this.dataDb
       if (array)
         this.days.forEach(el => {
           el.message = [];
@@ -270,8 +270,8 @@ export default {
         });
     },
     changeData(value) {
-      this.year = moment(value).year();
-      this.month = moment(value).month();
+      this.year = new Date(value).getFullYear();
+      this.month = new Date(value).getMonth();
     },
     goToEventData(month, year) {
       this.year = year
@@ -297,12 +297,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app {
-  .container_calendar {
+.app {
+  .container {
     width: 80%;
     display: flex;
     justify-content: space-evenly;
-    .button_month {
+    .button__month {
       button {
         margin: 20px 10px 20px;
         font-size: x-small;
@@ -336,7 +336,7 @@ export default {
         cursor: pointer;
         display: initial;
       }
-      .day_event {
+      .day__event {
         width: 140px;
         margin-left: 15px;
         display: list-item;
@@ -374,12 +374,12 @@ export default {
   }
 }
 @media screen and (max-width: 760px) {
-  #app {
-    .container_calendar {
+  .app {
+    .container {
       flex-direction: column;
       width: 100%;
     }
-    .button_month {
+    .button__month {
       margin: 0;
     }
     .date_title {

@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+
 import { mapState, mapActions } from "vuex";
 export default {
   name: "SaveCalendar",
@@ -32,35 +33,36 @@ export default {
   },
   methods: {
     SaveEventToCalendar() {
-      let eventMessage = this.text;
-      this.text = "";
       this.evt = false;
-      let storage = {
+      const storage = {
         id: `${this.item.day}-${this.item.month}-${this.item.year}`,
         day: this.item.day,
         month: this.item.month,
         year: this.item.year,
-        message: eventMessage
+        message: this.text
       };
+      this.text = "";
       this.storage = storage;
       this.ADD_EVENT
-      this.SaveToLocalStorage(storage); // ToDO Delete
-      // this.$emit("fromStorageEvent", data); // ToDo
+      // this.SaveToLocalStorage(storage); // ToDO Delete
     },
     Cancel() {
       this.text = "";
       this.$emit("cancelAddEvent");
     },
-    SaveToLocalStorage(data) {
-      // ToDo Delete
-      let arr = [];
-      if (localStorage.getItem("message") != null) {
-        arr = JSON.parse(localStorage.getItem("message"));
-      }
-      arr.push(data);
-      localStorage.setItem("message", JSON.stringify(arr));
-      this.$emit("fromStorageEvent", data);
-    }
+    // SaveToLocalStorage(data) {
+    //   // ToDo Delete
+    //   const arr = [];
+    //   if (localStorage.getItem("message") != null) {
+    //     try {
+    //       arr = JSON.parse(localStorage.getItem("message"));
+    //     }
+    //     catch{(e) => console.error(e);}
+    //   }
+    //   arr.push(data);
+    //   localStorage.setItem("message", JSON.stringify(arr));
+    //   this.$emit("fromStorageEvent", data);
+    // }
   }
 };
 </script>
@@ -78,10 +80,6 @@ export default {
   button {
     height: 30px;
     border-radius: 8px;
-  }
-  #event_text {
-    font-size: 16px;
-    background: #f6f6f6;
   }
 }
 @media screen and (max-width: 760px) {
