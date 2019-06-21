@@ -15,11 +15,6 @@
           <p>To continue</p>
           <p>you need to register</p>
         </div>
-        <!-- <div class="text-xs-center">
-          <v-btn round large color="brown darken-4" dark>
-            <h2>Начать</h2>
-          </v-btn>
-        </div>-->
       </v-flex>
     </v-layout>
   </v-container>

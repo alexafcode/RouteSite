@@ -30,4 +30,12 @@ export default {
     margin-top: 15%;
   }
 }
+@media screen and (max-width: 800px) {
+  .text-xs-center {
+    .circular {
+      margin-top: 20%;
+      margin-left: -12vw;
+    }
+  }
+}
 </style>

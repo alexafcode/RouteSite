@@ -203,9 +203,8 @@ export default {
   .card {
     width: 95vw;
     height: 40%;
-    margin: auto;
     .card__center {
-      font-size: 0.75rem;
+      font-size: 1rem;
       .center__icon {
         width: 32vw;
         height: 20vh;
@@ -226,7 +225,7 @@ export default {
   .card__datails {
     margin: auto;
     width: 95vw;
-    height: 40vh;
+    height: 42vh;
   }
 }
 </style>

@@ -5,7 +5,7 @@
     <div v-click-outside>
       <v-layout v-show="!isLoading" class="weather__search">
         <v-layout column>
-          <v-text-field label="Search" clearable v-model="searchText"></v-text-field>
+          <v-text-field class="weather__search-input" label="Search" clearable v-model="searchText"></v-text-field>
           <search-list v-if="selectCityShow" :items="items" @selectItem="getWeatherByCity"></search-list>
         </v-layout>
         <v-btn fab dark color="brown darken-4" small @click="searchCity">
@@ -14,7 +14,7 @@
         <v-divider></v-divider>
       </v-layout>
     </div>
-    <v-flex xs8 offset-sm3 v-show="!isLoading">
+    <v-flex class="weather__card" xs8 v-show="!isLoading">
       <div v-for="(city, index) in cities" :key="index">
         <card :city="city"></card>
       </div>
@@ -47,7 +47,12 @@ export default {
       "SEARCH_CITY",
       "GET_WEATHER_CITY"
     ]),
-    ...mapState("weatherStore", ["cities", "items", "isLoading", "searchLoading"])
+    ...mapState("weatherStore", [
+      "cities",
+      "items",
+      "isLoading",
+      "searchLoading"
+    ])
   },
   created() {
     this.INIT_STATE;
@@ -88,15 +93,25 @@ export default {
 <style lang="scss" scoped>
 .weather {
   position: relative;
+  .weather__card {
+    margin: auto;
+  }
   .weather__search {
-    margin-left: 25%;
-    width: 750px;
+    margin: auto;
+    width: 650px;
+    .weather__search-input {
+      font-size: 1.75rem;
+      width: 600px;
+    }
   }
 }
 @media screen and (max-width: 800px) {
   .weather {
     .weather__search {
-      width: 70%;
+      width: 85%;
+      .weather__search-input {
+        width: 100%;
+      }
     }
   }
 }
