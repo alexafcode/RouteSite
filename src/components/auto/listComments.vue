@@ -53,7 +53,8 @@ export default {
         }
         let obj = {
           name: this.user.displayName ? this.user.displayName : this.user.email,
-          comment: this.comment
+          comment: this.comment,
+          photoURL: this.user.photoURL ? this.user.photoURL : ""
         };
         this.commentLocal.push(obj);
         this.ADD_COMMENT;
