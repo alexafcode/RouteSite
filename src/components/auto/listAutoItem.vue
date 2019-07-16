@@ -5,9 +5,8 @@
         <v-img
           :src="auto.imageUrl ? auto.imageUrl : ''"
           :alt="auto.imageName"
-          max-height="400px"
-          max-width="750px"
-          aspect-ratio="2.75"
+          max-height="500px"
+          aspect-ratio="1"
         ></v-img>
         <v-card-title primary-title>
           <div>
