@@ -114,11 +114,11 @@ export default {
         });
         const config = {
           file: files[0],
-          maxSize: 600
+          maxSize: 700
         };
         const configPreview = {
           file: files[0],
-          maxSize: 400
+          maxSize: 500
         };
         this.blobImage = await helper(config);
         this.blobImagePreview = await helper(configPreview);
